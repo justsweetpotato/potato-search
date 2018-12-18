@@ -1,7 +1,7 @@
 # search-book-heroku
 土豆图书搜索引擎<br>
 使用谷歌自定义搜索, 返回图书的搜索结果<br>
-<a href="https://search-books.herokuapp.com/">土豆图书搜索Beta</a>
+<a href="https://search-books.herokuapp.com/">土豆图书搜索</a>
 
 
 ![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/makedown-img-store/master/search/10.png)
