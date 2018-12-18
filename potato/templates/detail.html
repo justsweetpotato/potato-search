@@ -20,8 +20,9 @@
             <a href="{{ y }}">{{ y }}</a>
             </li>
             <br>
+        {% empty %}
+            <li>很抱歉, 没有搜索到内容.</li>
         {% endfor %}
-
     </ul>
 </body>
 </html>
