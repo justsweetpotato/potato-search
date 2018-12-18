@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>土豆图书搜索</title>
+    <style type="text/css">
+        .search-logo{text-align:center;}
+        .gcse{width:55%}
+         a:link { text-decoration: none;color: blue}
+    </style>
+    <script>
+      (function() {
+        var cx = '007606540339251262492:fq_p2g_s5pa';
+        var gcse = document.createElement('script');
+        gcse.type = 'text/javascript';
+        gcse.async = true;
+        gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gcse, s);
+      })();
+    </script>
+</head>
+<body>
+    <div class="bg-search-img">
+        <div class="search-conent">
+            <br>
+            <br>
+            <br>
+            <div class="search-logo">
+                <img  style="height:20%; width:30%" src="/static/p.jpg" />
+            </div>
+            <br>
+            <div class="search-btn">
+                <center>
+                    <div class="gcse">
+                        <gcse:search></gcse:search>
+                    </div>
+                </center>
+            </div>
+        </div>
+        <br>
+        <br>
+        <center>{{ msg }}</center>
+        <br>
+        <br>
+        <br>
+        <center>
+            <small><a href="{% url 'potato:test' %}">测试版</a></small>
+            <br>
+            <small>Power by Django & ubisoft</small>
+        </center>
+    </div>
+</body>
+</html>
