@@ -1,9 +1,9 @@
 from django.shortcuts import render, HttpResponse
 import requests
-import json
 
 from .word import Word
 from .forms import BookForm
+from .data import handle_data
 
 
 # Create your views here.
@@ -26,7 +26,11 @@ def test(request):
             url = "https://www.googleapis.com/customsearch/v1?q={}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start=1&key=AIzaSyDti_06GjeOV6trMz0ixATpXC6pTuJhAt4".format(
                 c_msg)
             r = requests.get(url)
-            s_msg = r.content.decode("utf-8")
-            return HttpResponse(s_msg)
+            # s_msg = r.content.decode("utf-8")  返回 json
+            s_msg = r.json()  # 返回 python对象
+            content = handle_data(s_msg)
+            return render(request, 'detail.html', content)
+            # return HttpResponse(content)
         else:
             return render(request, 'index2.html', content)
+

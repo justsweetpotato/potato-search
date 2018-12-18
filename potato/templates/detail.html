@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>搜索结果</title>
+    <style>
+        a:link { text-decoration: none;color: blue}
+    </style>
+</head>
+<body>
+<a href="{% url 'potato:test' %}">返回首页</a>
+    <ul>
+        {% for x,y in content.items %}
+            <li>
+            {{ x }}
+            <br>
+            <a href="{{ y }}">{{ y }}</a>
+            </li>
+            <br>
+        {% endfor %}
+
+    </ul>
+</body>
+</html>

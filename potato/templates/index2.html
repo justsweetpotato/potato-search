@@ -14,6 +14,7 @@
          .search-sub{height:15%; width:10%;background-color:#38f; border:none; padding:1px; line-height:38px; color:white; font-size:16px;margin:0px;}
         .info {text-align:center;}
         .msg {text-align:center;}
+        a:link { text-decoration: none;color: blue}
     </style>
 </head>
 <body>
@@ -40,7 +41,9 @@
         <br>
         <br>
         <div class="info">
-            <small>Power by Django</small>
+{#            <small><a href="{% url 'potato:index' %}">旧版</a></small><br>#}
+            <small>Power by Django</small><br>
+            <small>作者: 青空锁云, sweetpotato</small>
         </div>
     </div>
 </body>
