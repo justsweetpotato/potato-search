@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 import requests
 
 from .word import Word
@@ -36,8 +36,11 @@ def test(request):
                 # return HttpResponse(s_msg)
             else:
                 r = requests.get(url2)
-                s_msg = r.json()  # 返回 python对象
-                content = handle_data(s_msg)
-                return render(request, 'detail.html', content)
+                if r.status_code != 403:
+                    s_msg = r.json()  # 返回 python对象
+                    content = handle_data(s_msg)
+                    return render(request, 'detail.html', content)
+                else:
+                    return HttpResponse("很抱歉, 今日api配额(200)已用完, 请明天再来.")
         else:
             return render(request, 'index2.html', content)
