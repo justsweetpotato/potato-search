@@ -7,18 +7,18 @@ from .data import handle_data
 
 
 # Create your views here.
-def index(request):
+def test(request):
     s_msg = Word()
     content = {"msg": s_msg}
-    return render(request, 'index.html', content)
+    return render(request, 'test.html', content)
 
 
-def test(request):
+def index(request):
     s_msg = Word()
     content = {"msg": s_msg}
 
     if request.method != 'POST':
-        return render(request, 'index2.html', content)
+        return render(request, 'index.html', content)
     else:
         form = BookForm(request.POST)
         if form.is_valid():  # 验证表单数据
@@ -43,4 +43,4 @@ def test(request):
                 else:
                     return HttpResponse("很抱歉, 今日api配额(200)已用完, 请明天再来.")
         else:
-            return render(request, 'index2.html', content)
+            return render(request, 'index.html', content)

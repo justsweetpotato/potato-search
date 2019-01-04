@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-<a href="{% url 'potato:test' %}">返回首页</a>&nbsp;&nbsp;&nbsp;没有找到? 去 <a href="http://gen.lib.rus.ec/">Library Genesis</a> 找找英文版!
+<a href="{% url 'potato:index' %}">返回首页</a>&nbsp;&nbsp;&nbsp;没有找到? 去 <a href="http://gen.lib.rus.ec/">Library Genesis</a> 找找英文版!
     <ul>
         {% for x,y in content.items %}
             <li>

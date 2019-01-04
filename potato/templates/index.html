@@ -8,50 +8,43 @@
     <title>土豆图书搜索</title>
     <style type="text/css">
         .search-logo{text-align:center;}
-        .gcse{width:55%}
-         a:link { text-decoration: none;color: blue}
+        .img { height:20%; width:30%}
+        .search-btn{text-align:center;}
+        .search-text{height:15%; width:40%; padding:9px 7px; border:1px solid #b8b8b8; outline:none; margin-right:0px;}
+        .search-sub{height:15%; width:10%;background-color:#38f; border:none; padding:1px; line-height:38px; color:white; font-size:16px;margin:0px;}
+        .info {text-align:center;}
+        .msg {text-align:center;}
+        a:link { text-decoration: none;color: blue}
     </style>
-    <script>
-      (function() {
-        var cx = '007606540339251262492:fq_p2g_s5pa';
-        var gcse = document.createElement('script');
-        gcse.type = 'text/javascript';
-        gcse.async = true;
-        gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(gcse, s);
-      })();
-    </script>
 </head>
 <body>
     <div class="bg-search-img">
         <div class="search-conent">
             <br>
-            <br>
-            <br>
             <div class="search-logo">
-                <img  style="height:20%; width:30%" src="/static/p.jpg" />
+                <img class="img" src="/static/p.jpg" />
             </div>
             <br>
             <div class="search-btn">
-                <center>
-                    <div class="gcse">
-                        <gcse:search></gcse:search>
-                    </div>
-                </center>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="text" autofocus="autofocus" class="search-text" /><br><br>
+                    <input type="submit" class="search-sub" value="搜书" />
+                </form>
             </div>
         </div>
         <br>
         <br>
-        <center>{{ msg }}</center>
+        <div class="msg">
+            {{ msg }}
+        </div>
         <br>
         <br>
-        <br>
-        <center>
-            <small><a href="{% url 'potato:test' %}">正式版</a></small>
-            <br>
-            <small>Power by Django & ubisoft</small>
-        </center>
+        <div class="info">
+{#            <small><a href="{% url 'potato:index' %}">旧版</a></small><br>#}
+            <small>Power by Django</small><br>
+            <small>作者: 青空锁云, sweetpotato</small>
+        </div>
     </div>
 </body>
 </html>
