@@ -1,7 +1,8 @@
 # search-book-heroku
 土豆图书搜索引擎<br>
 使用谷歌自定义搜索, 返回图书的搜索结果<br>
-<a href="https://search-books.herokuapp.com/">土豆图书搜索</a>
+<a href="https://search-books.herokuapp.com/">土豆图书搜索</a><br>
+<small>*heroku 的应用托管服务半小时内无连接请求会进入休眠状态, 第一次访问较慢是正常现象, 请稍等, 之后不会有这个问题.</small>
 
 
 ![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/makedown-img-store/master/search/10.png)
