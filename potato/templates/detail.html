@@ -11,18 +11,18 @@
     </style>
 </head>
 <body>
-<a href="{% url 'potato:index' %}">返回首页</a>&nbsp;&nbsp;&nbsp;<small>没有找到? 去 <a href="http://gen.lib.rus.ec/">Library Genesis</a> 找找英文版!</small>
-    <ul>
-        {% for x,y in content.items %}
-            <li>
-            {{ x }}
-            <br>
-            <a href="{{ y }}">{{ y }}</a>
-            </li>
-            <br>
-        {% empty %}
-            <li>很抱歉, 没有搜索到内容.</li>
-        {% endfor %}
-    </ul>
+    <a href="{% url 'potato:index' %}">返回首页</a>&nbsp;&nbsp;&nbsp;<small>没有找到? 去 <a href="http://gen.lib.rus.ec/">Library Genesis</a> 找找英文版!</small>&nbsp;&nbsp;&nbsp;<small>网页打不开? 试试复制链接到 <a href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!</small>
+        <ul>
+            {% for x,y in content.items %}
+                <li>
+                {{ x }}
+                <br>
+                <a href="{{ y }}">{{ y }}</a>
+                </li>
+                <br>
+            {% empty %}
+                <li>很抱歉, 没有搜索到内容.</li>
+            {% endfor %}
+        </ul>
 </body>
 </html>

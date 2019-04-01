@@ -1,20 +1,20 @@
 from django.shortcuts import render, HttpResponse
 import requests
 
-from .word import Word
+from .word import word
 from .forms import BookForm
 from .data import handle_data
 
 
 # Create your views here.
 def test(request):
-    s_msg = Word()
+    s_msg = word()
     content = {"msg": s_msg}
     return render(request, 'test.html', content)
 
 
 def index(request):
-    s_msg = Word()
+    s_msg = word()
     content = {"msg": s_msg}
 
     if request.method != 'POST':
@@ -30,14 +30,14 @@ def index(request):
             r = requests.get(url)
             if r.status_code != 403:  # 表示第一个api 可用
                 # s_msg = r.content.decode("utf-8")  返回 json
-                s_msg = r.json()  # 返回 python对象
+                s_msg = r.json()  # 返回 Python对象
                 content = handle_data(s_msg)
                 return render(request, 'detail.html', content)
                 # return HttpResponse(s_msg)
             else:
                 r = requests.get(url2)
                 if r.status_code != 403:
-                    s_msg = r.json()  # 返回 python对象
+                    s_msg = r.json()  # 返回 Python对象
                     content = handle_data(s_msg)
                     return render(request, 'detail.html', content)
                 else:
