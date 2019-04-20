@@ -26,6 +26,8 @@ def word():
         "只有一个人在旅行时，才听得到自己的声音，它会告诉你，这世界比想象中的宽阔。",
         "在这个世界上别太依赖任何人，因为当你在黑暗中挣扎时，连你的影子都会离开你。",
         "不要对外表过分在意，心灵才是最重要的。",
+        # 名言佳句
+        "It's better to light a candle than curse the darkness.",
     ]
     msg = choice(word_list)
     return msg
