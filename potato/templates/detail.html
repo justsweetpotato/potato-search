@@ -19,7 +19,18 @@
     </style>
 </head>
 <body>
-<a href="{% url 'potato:index' %}">返回首页</a>&nbsp;&nbsp;&nbsp;<small>没有找到? 去 <a href="http://gen.lib.rus.ec/">Library
+<div>
+    <a href="{% url 'potato:index' %}">返回首页</a>
+    &nbsp;&nbsp;&nbsp;
+    <form action="" method="post" style="margin:0px;display:inline;">
+        {% csrf_token %}
+        <input type="text" name="text" autofocus="autofocus" class="search-text"/>
+        <input type="submit" class="search-sub" value="搜书"/>
+    </form>
+</div>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<small>没有找到? 去 <a href="http://gen.lib.rus.ec/">Library
     Genesis</a> 找找看!
 </small>&nbsp;&nbsp;&nbsp;<small>网页打不开? 试试复制链接到 <a href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!</small>
 <ul>
