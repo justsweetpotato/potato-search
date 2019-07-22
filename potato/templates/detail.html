@@ -60,7 +60,7 @@
     <a href="{% url 'potato:index' %}">
         <img src="/static/ssp.jpg" alt="" class="img_potato">
     </a>
-    &nbsp;&nbsp;
+{#    &nbsp;&nbsp;#}
     <form action="" method="post" class="form1">
         {% csrf_token %}
         <input type="text" name="text" autofocus="autofocus" class="search-text"/>
