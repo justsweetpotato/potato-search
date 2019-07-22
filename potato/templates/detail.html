@@ -10,7 +10,12 @@
     <style>
         a:link {
             text-decoration: none;
-            color: blue
+            color: blue;
+            text-align: center;
+        }
+
+        .img_potato {
+            vertical-align: middle
         }
 
         .li1 {
@@ -21,25 +26,56 @@
             margin: 0px;
             display: inline;
         }
+
+        .div1 {
+            width: 100%;
+        }
+
+        .search-text {
+            height: 15%;
+            width: 30%;
+            padding: 9px 7px;
+            border: 1px solid #b8b8b8;
+            outline: none;
+            font-size: 16px;
+            margin-right: 0px;
+        }
+
+        .search-sub {
+            height: 15%;
+            width: 5%;
+            background-color: #38f;
+            border: none;
+            padding: 1px;
+            line-height: 38px;
+            color: white;
+            font-size: 16px;
+            margin: 0px;
+        }
+
     </style>
 </head>
 <body>
-<div>
-    <a href="{% url 'potato:index' %}">返回首页</a>
-    &nbsp;&nbsp;&nbsp;
+<div class="div1">
+    <a href="{% url 'potato:index' %}">
+        <img src="/static/ssp.jpg" alt="" class="img_potato">
+    </a>
+    &nbsp;&nbsp;
     <form action="" method="post" class="form1">
         {% csrf_token %}
         <input type="text" name="text" autofocus="autofocus" class="search-text"/>
         &nbsp;
-        <input type="submit" class="search-sub" value="搜书"/>
+        <input type="submit" class="search-sub" value="🔍"/>
     </form>
 </div>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<small>没有找到? 去 <a href="http://gen.lib.rus.ec/">Library
-    Genesis</a> 找找看!
-</small>&nbsp;&nbsp;&nbsp;<small>网页打不开? 试试复制链接到 <a href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!</small>
+
 <ul>
+    <small>
+        没有找到? 去 <a href="http://gen.lib.rus.ec/">Library Genesis</a> 找找看!&nbsp;&nbsp;&nbsp;网页打不开? 试试复制链接到 <a
+            href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!
+    </small>
+    <br>
+    <br>
     {% for x,y in content.items %}
         <li class="li1">
             {{ x }}

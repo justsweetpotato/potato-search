@@ -2,13 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="5;url={% url 'potato:index' %}">
     <title>404</title>
     <style>
-        a:link { text-decoration: none;color: blue}
+        a:link {
+            text-decoration: none;
+            color: blue;
+        }
+
+        .food {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <a href="{% url 'potato:index' %}">返回首页</a>
+<br>
+<br>
+<br>
+<div class="food">
     <h2>页面未找到(404).</h2>
+    <p>5 秒后自动返回首页.</p>
+</div>
 </body>
 </html>
