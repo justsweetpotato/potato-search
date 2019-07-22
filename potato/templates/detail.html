@@ -16,15 +16,21 @@
         li {
             list-style-type: decimal;
         }
+
+        .form {
+            margin: 0px;
+            display: inline;
+        }
     </style>
 </head>
 <body>
 <div>
     <a href="{% url 'potato:index' %}">返回首页</a>
     &nbsp;&nbsp;&nbsp;
-    <form action="" method="post" style="margin:0px;display:inline;">
+    <form action="" method="post" class="form">
         {% csrf_token %}
         <input type="text" name="text" autofocus="autofocus" class="search-text"/>
+        &nbsp;
         <input type="submit" class="search-sub" value="搜书"/>
     </form>
 </div>
