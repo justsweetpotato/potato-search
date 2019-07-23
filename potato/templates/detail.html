@@ -41,7 +41,7 @@
             vertical-align: middle
         }
 
-        .li1 {
+        .li1, .li2 {
             list-style-type: none;
         }
 
@@ -123,7 +123,7 @@
         </li>
         <br>
     {% empty %}
-        <li>很抱歉, 没有搜索到内容.</li>
+        <li class="li2">很抱歉, 没有搜索到内容.</li>
     {% endfor %}
 </ul>
 </body>

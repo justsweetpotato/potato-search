@@ -32,7 +32,8 @@ def requests_to_google(client_msg):
             content = handle_data(server_msg)
             return content
 
-    return None
+    # 所有请求均失败, 返回 403
+    return 403
 
 
 def handle_data(server_msg):
@@ -52,6 +53,6 @@ def handle_data(server_msg):
         data_tuple = zip(title_list, link_list, snippet_list)
         content = {"content": data_tuple}
     else:
-        content = None
+        return None
 
     return content
