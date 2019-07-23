@@ -31,7 +31,7 @@ def index(request):
         c_msg = form.cleaned_data['text']  # 获取验证后的表单数据
         content = requests_to_google(c_msg)  # 向 Google API 请求, 并处理返回结果
 
-        if content:
+        if content != None:
             return render(request, 'detail.html', content)
         # 没有数据, 返回错误信息
         return render(request, 'error.html', status=403)
