@@ -1,8 +1,12 @@
 #!/usr/bin/env python
+# 用于处理与文字相关的逻辑
+
 from random import choice
 
 
 def word():
+    '''从文字列表中随机选择一条并返回'''
+
     word_list = [
         # 神隐少女
         "人生就是一列开往坟墓的列车，路途上会有很多站，很难有人可以自始至终陪着走完。当陪你的人要下车时，即使不舍也该心存感激，然后挥手道别。",
@@ -29,9 +33,7 @@ def word():
         # 名言佳句
         "It's better to light a candle than curse the darkness.",
     ]
+
     msg = choice(word_list)
+
     return msg
-
-
-if __name__ == '__main__':
-    print(word())
