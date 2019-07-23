@@ -36,18 +36,20 @@ def requests_to_google(client_msg):
 
 
 def handle_data(server_msg):
-    '''提取 Google API 返回的数据(只需要 标题 and 连接)'''
+    '''提取 Google API 返回的数据(只需要 标题 and 连接 and 简介)'''
 
     title_list = []
     link_list = []
+    snippet_list = []
 
     # 如果不存在 items 表示没有搜索结果
     if server_msg.get("items"):
         for data_dict in server_msg["items"]:
             title_list.append(data_dict["title"])
             link_list.append(data_dict["link"])
+            snippet_list.append(data_dict["snippet"])
 
-        data_tuple = zip(title_list, link_list)
+        data_tuple = zip(title_list, link_list, snippet_list)
         content = {"content": data_tuple}
     else:
         content = None

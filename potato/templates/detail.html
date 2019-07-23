@@ -76,11 +76,11 @@
     </small>
     <br>
     <br>
-    {% for x,y in content %}
+    {% for x, y, z in content %}
         <li class="li1">
-            {{ x }}
+            <a href="{{ y }}">{{ x }}</a>
             <br>
-            <a href="{{ y }}">{{ y }}</a>
+            {{ z }}
         </li>
         <br>
     {% empty %}
