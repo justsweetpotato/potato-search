@@ -14,17 +14,41 @@
             text-align: center;
         }
 
+        a:hover {
+            text-decoration: underline;
+            color: blue;
+        }
+
+        .a_info:link {
+            text-decoration: none;
+            color: green;
+            text-align: center;
+        }
+
+        .a_img {
+            margin: 1%;
+        }
+
+        .a_img:hover {
+            text-decoration: none;
+        }
+
+        .a3 {
+            color: darkblue;
+        }
+
         .img_potato {
             vertical-align: middle
         }
 
         .li1 {
-            list-style-type: decimal;
+            list-style-type: none;
         }
 
         .form1 {
             margin: 0px;
             display: inline;
+            margin-left: 1%;
         }
 
         .div1 {
@@ -33,7 +57,7 @@
 
         .search-text {
             height: 15%;
-            width: 30%;
+            width: 40%;
             padding: 9px 7px;
             border: 1px solid #b8b8b8;
             outline: none;
@@ -53,14 +77,23 @@
             margin: 0px;
         }
 
+        .ul1 {
+            width: 45%;
+            margin-left: 8%;
+        }
+
+        .span1 {
+            color: gray();
+        }
+
+
     </style>
 </head>
 <body>
 <div class="div1">
-    <a href="{% url 'potato:index' %}">
+    <a class="a_img" href="{% url 'potato:index' %}">
         <img src="/static/ssp.jpg" alt="" class="img_potato">
     </a>
-    {#    &nbsp;&nbsp;#}
     <form action="" method="post" class="form1">
         {% csrf_token %}
         <input type="text" name="text" autofocus="autofocus" class="search-text"/>
@@ -69,18 +102,24 @@
     </form>
 </div>
 
-<ul>
+<ul class="ul1">
     <small>
-        没有找到? 去 <a href="http://gen.lib.rus.ec/">Library Genesis</a> 找找看!&nbsp;&nbsp;&nbsp;网页打不开? 试试复制链接到 <a
-            href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!
+        没有找到? 去 <a class="a1" href="http://gen.lib.rus.ec/">Library Genesis</a> 找找看!&nbsp;&nbsp;&nbsp;网页打不开? 试试复制链接到 <a
+            class="a2" href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!
     </small>
     <br>
     <br>
     {% for x, y, z in content %}
         <li class="li1">
-            <a href="{{ y }}">{{ x }}</a>
+            <a class="a3" href="{{ y }}">{{ x | safe }}</a>
             <br>
-            {{ z }}
+            <small>
+                <a class="a_info" href="{{ y }}">{{ y }}</a>
+                <br>
+                <span class="span1">
+                    {{ z | safe }}
+                </span>
+            </small>
         </li>
         <br>
     {% empty %}

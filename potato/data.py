@@ -47,7 +47,7 @@ def handle_data(server_msg):
         for data_dict in server_msg["items"]:
             title_list.append(data_dict["title"])
             link_list.append(data_dict["link"])
-            snippet_list.append(data_dict["snippet"])
+            snippet_list.append(data_dict["htmlSnippet"])
 
         data_tuple = zip(title_list, link_list, snippet_list)
         content = {"content": data_tuple}
