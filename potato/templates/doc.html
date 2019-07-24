@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doc</title>
+    <style>
+        a:link {
+            text-decoration: none;
+            color: blue
+        }
+    </style>
+</head>
+<body>
+<a href="{% url 'potato:index' %}">返回首页</a>
+<br>
+<br>
+<div class="food">
+    <h2>文档</h2>
+    <p>
+        API:<br>
+        调用方式: /api?q={0}&page={1}&key={2} <br>
+        {0} 替换为查询字符, 类型为 str <br>
+        {1} 替换为页数(默认每页10条数据), 类型为 str|int <br>
+        {2} [可选参数] 替换为自己的 API KEY, 类型为 str <br>
+        例: <a href="/api?q=python&page=1">/api?q=python&page=1</a>
+    </p>
+</div>
+</body>
+</html>

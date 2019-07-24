@@ -1,8 +1,8 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import render, HttpResponseRedirect, reverse, HttpResponse
 
 from .forms import BookForm
 from .word import word
-from .data import requests_to_google, get_ip_address
+from .data import requests_to_google, get_api_data
 
 
 def search(request):
@@ -40,3 +40,22 @@ def test(request):
     s_msg = word()
     content = {"msg": s_msg}
     return render(request, 'test.html', content)
+
+
+def doc(request):
+    '''文档'''
+    return render(request, 'doc.html')
+
+
+def api(request):
+    '''接口, 返回 json 数据'''
+
+    q = request.GET.get('q')
+    page = request.GET.get('page')
+    key = request.GET.get('key')
+
+    if q and page:
+        response = get_api_data(q, page, key)
+        return HttpResponse(response)
+
+    return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")

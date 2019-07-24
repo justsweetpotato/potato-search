@@ -74,3 +74,22 @@ def get_ip_address(ip):
     ip_address = res[0] + ' ' + res[1] + ' ' + res[2] + ' ' + res[4]
 
     return ip_address
+
+
+def get_api_data(q, page, key):
+    '''直接返回 Google API 接口的结果'''
+
+    if key == None:
+        key = "AIzaSyDti_06GjeOV6trMz0ixATpXC6pTuJhAt4"
+
+    url = "https://www.googleapis.com/customsearch/v1?" \
+          "q={0}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start={1}&" \
+          "key={2}".format(q, page, key)
+
+    with requests.get(url) as response:
+        if response.status_code != 403:
+            return response
+
+        return 403
+
+    # TODO: 如果 key 错误
