@@ -7,6 +7,8 @@
 使用了 Django 框架, <b>表单</b>获取用户输入, <b>视图</b>将用户输入的内容构造成<b>请求URL</b>, 向<b>谷歌API</b>进行请求, 拿到结果后进行提取, 再把提取后的内容写入<b>模板</b>交由<b>视图</b>处理并返回前端页面. <br>
 
 ![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/10.png)
+<hr>
+
 ![搜索结果](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/11.png)
 
 

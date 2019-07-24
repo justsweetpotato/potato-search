@@ -14,7 +14,8 @@ def search(request):
     if form.is_valid():  # 验证表单数据
         c_msg = request.GET.get('q')  # 获取验证后的表单数据
         page = request.GET.get('page', 1)
-        ip = request.META['HTTP_X_FORWARDED_FOR']  # 在使用反向代理的服务器上获取 Client IP
+        # ip = request.META['HTTP_X_FORWARDED_FOR']  # 在使用反向代理的服务器上获取 Client IP
+        ip = "127.0.0.1"
         content = requests_to_google(c_msg, int(page), ip)  # 向 Google API 请求, 并处理返回结果
 
         if content != 403:
