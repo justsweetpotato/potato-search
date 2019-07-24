@@ -86,6 +86,9 @@
             color: gray();
         }
 
+        .span2 {
+            color: orangered;
+        }
 
     </style>
 </head>
@@ -94,9 +97,8 @@
     <a class="a_img" href="{% url 'potato:index' %}">
         <img src="/static/ssp.jpg" alt="" class="img_potato">
     </a>
-    <form action="" method="post" class="form1">
-        {% csrf_token %}
-        <input type="text" name="text" autofocus="autofocus" class="search-text"/>
+    <form action="/search" method="get" class="form1">
+        <input type="text" name="q" autofocus="autofocus" class="search-text"/>
         &nbsp;
         <input type="submit" class="search-sub" value="🔍"/>
     </form>
@@ -111,7 +113,7 @@
     <br>
     {% for x, y, z in content %}
         <li class="li1">
-            <a class="a3" href="{{ y }}">{{ x | safe }}</a>
+            <a class="a3" href="{{ y }}">{{ x }}</a>
             <br>
             <small>
                 <a class="a_info" href="{{ y }}">{{ y }}</a>
@@ -123,8 +125,21 @@
         </li>
         <br>
     {% empty %}
-        <li class="li2">很抱歉, 没有搜索到内容.</li>
+        <li class="li2">找不到和您查询的 “<span class="span2">{{ q }}</span>” 相符的内容或信息.</li>
     {% endfor %}
+    <br>
+    {% if not empty %}
+        {% for page_number in  pages %}
+            {% ifequal page_number page %}
+                {{ page_number }}&nbsp;&nbsp;&nbsp;
+            {% else %}
+                <a class="a_page" href="?q={{ q }}&page={{ page_number }}">{{ page_number }}</a>&nbsp;&nbsp;&nbsp;
+            {% endifequal %}
+        {% endfor %}
+        &nbsp;&nbsp;&nbsp;👈&nbsp;
+        <small>你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3 页以后的搜索结果.</small>
+    {% endif %}
 </ul>
+<br>
 </body>
 </html>

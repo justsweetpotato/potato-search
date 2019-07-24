@@ -4,4 +4,5 @@ from django import forms
 
 
 class BookForm(forms.Form):
-    text = forms.CharField(label="内容", required=True, max_length=100)
+    q = forms.CharField(label="内容", required=True, max_length=100)
+    page = forms.IntegerField(label="页数", required=False, max_value=99)

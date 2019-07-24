@@ -68,9 +68,8 @@
         <br>
         <br>
         <div class="search-btn">
-            <form action="" method="post">
-                {% csrf_token %}
-                <input type="text" name="text" autofocus="autofocus" class="search-text"/><br><br>
+            <form action="/search" method="get">
+                <input type="text" name="q" autofocus="autofocus" class="search-text"/><br><br>
                 <input type="submit" class="search-sub" value="搜书"/>
             </form>
         </div>
@@ -83,10 +82,10 @@
     <br>
     <br>
     <div class="info">
-        {#            <small><a href="{% url 'potato:index' %}">旧版</a></small><br>#}
         <small>Powered by Django</small>
         <br>
         <small>作者: 青空锁云, sweetpotato</small>
+        <!-- Github: https://github.com/justsweetpotato -->
         <br>
         <a href="https://go.sweetpotato.xyz">
             <img src="/static/freedom_wings.jpg" alt="">
