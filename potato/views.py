@@ -16,7 +16,7 @@ def search(request):
         page = request.GET.get('page', 1)
         ip = request.META['REMOTE_ADDR']
         # ip_address = get_ip_address(ip)
-        ip_address = os.environ.get('HTTP_X_FORWARDED_FOR')
+        ip_address = os.environ.get('REMOTE_ADDR')
 
         content = requests_to_google(c_msg, int(page), ip_address)  # 向 Google API 请求, 并处理返回结果
 
