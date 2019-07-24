@@ -35,7 +35,7 @@ def index(request):
 
 
 def test(request):
-    '''测试页面, 使用 google 提供的 javascript 代码生成搜索框'''
+    '''测试页面, 使用 Google 提供的 JavaScript 代码生成搜索框'''
 
     s_msg = word()
     content = {"msg": s_msg}
