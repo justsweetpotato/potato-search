@@ -4,7 +4,7 @@
 import requests
 
 
-def requests_to_google(client_msg, page, ip_address):
+def requests_to_google(client_msg, page, ip):
     '''向 Google API 发送请求, 并返回数据'''
     # https://www.googleapis.com/customsearch/v1?
     # q=python&cx=007606540339251262492:fq_p2g_s5pa&num=10&start=1&
@@ -34,7 +34,8 @@ def requests_to_google(client_msg, page, ip_address):
                 content['q'] = client_msg
                 content['page'] = page
                 content['pages'] = list(range(1, pages + 1))
-                content['address'] = ip_address
+                content['address'] = get_ip_address(ip)
+                content['ip'] = ip
                 return content
 
     # 所有请求均失败, 返回 403
