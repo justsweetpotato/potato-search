@@ -15,7 +15,7 @@ def search(request):
         c_msg = request.GET.get('q')  # 获取验证后的表单数据
         page = request.GET.get('page', 1)
         ip1 = request.META['HTTP_X_FORWARDED_FOR']
-        
+
         # ip_address = get_ip_address(ip)
 
         content = requests_to_google(c_msg, int(page), ip1)  # 向 Google API 请求, 并处理返回结果

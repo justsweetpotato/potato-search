@@ -64,8 +64,6 @@ def handle_data(server_msg):
 
     return content
 
-def get_client_ip(request):
-    x_forwarded_for = request
 
 def get_ip_address(ip):
     '''获取 IP 的地理位置'''
