@@ -6,11 +6,15 @@
 #### 使用谷歌自定义搜索, 返回图书的搜索结果. <br>
 使用了 Django 框架, <b>表单</b>获取用户输入, <b>视图</b>将用户输入的内容构造成<b>请求URL</b>, 向<b>谷歌API</b>进行请求, 拿到结果后进行提取, 再把提取后的内容写入<b>模板</b>交由<b>视图</b>处理并返回前端页面. <br>
 
-![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/makedown-img-store/master/search/10.png)
-![搜索结果](https://raw.githubusercontent.com/justsweetpotato/makedown-img-store/master/search/11.png)
+![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/10.png)
+![搜索结果](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/11.png)
 
 
 ### 版本更新
+v3.0 正式版(7/24/2019)<br>
+完成分页功能.<br>
+大幅度优化界面显示.
+
 v2.4 (7/23/2019)<br>
 搜索详情界面优化, 现在可以在详情页面进行搜索.<br>
 搜索结果增加了详细说明.<br>
