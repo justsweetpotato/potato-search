@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from .forms import BookForm
 from .word import word
 from .data import requests_to_google, get_ip_address
-
+import os
 
 def search(request):
     '''将用户输入发送至谷歌处理, 处理返回结果后填充至网页'''
@@ -15,7 +15,8 @@ def search(request):
         c_msg = request.GET.get('q')  # 获取验证后的表单数据
         page = request.GET.get('page', 1)
         ip = request.META['REMOTE_ADDR']
-        ip_address = get_ip_address(ip)
+        # ip_address = get_ip_address(ip)
+        ip_address = os.environ.get('HTTP_X_FORWARDED_FOR')
 
         content = requests_to_google(c_msg, int(page), ip_address)  # 向 Google API 请求, 并处理返回结果
 
