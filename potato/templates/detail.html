@@ -151,10 +151,9 @@
     {% if not empty %}
         {% for page_number in  pages %}
             {% ifequal page_number page %}
-                {{ page_number }}&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;{{ page_number }}&nbsp;&nbsp;
             {% else %}
-                <a class="a_page" href="?location={{ location }}&q={{ q }}&page={{ page_number }}">{{ page_number }}</a>
-                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<a class="a_page" href="?location={{ location }}&q={{ q }}&page={{ page_number }}">{{ page_number }}</a>&nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
         &nbsp;&nbsp;&nbsp;👈&nbsp;
