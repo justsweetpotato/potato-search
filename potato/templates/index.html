@@ -60,6 +60,16 @@
         }
 
     </style>
+    <!--
+    <script>
+        function required() {
+            var empty = document.forms["form1"]["q"].value;
+            if (empty == "") {
+                return false;
+            }
+        }
+    </script>
+    -->
 </head>
 <body>
 <div class="bg-search-img">
@@ -73,9 +83,10 @@
         <br>
         <br>
         <div class="search-btn">
-            <form action="/search" method="get">
+            <form name="form1" action="/search/" method="get" onsubmit="return required()">
+                <input type="hidden" name="location" value="{{ location }}">
                 <input type="text" name="q" autofocus="autofocus" class="search-text"/><br><br>
-                <input type="submit" class="search-sub" value="搜书"/>
+                <input type="submit" id="my_submit" class="search-sub" value="搜书" onclick="return empty()"/>
             </form>
         </div>
     </div>

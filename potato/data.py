@@ -14,14 +14,21 @@ KEY_LIST = [
 ]
 
 
-def requests_to_google(client_msg, page, ip, address):
+def requests_to_google(request):
     '''向 Google API 发送请求, 并返回数据'''
     # https://www.googleapis.com/customsearch/v1?
     # q=python&cx=007606540339251262492:fq_p2g_s5pa&num=10&start=1&
     # key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
 
+    client_msg = request.GET.get('q')  # 获取查询字符
+    page = request.GET.get('page', 1)  # 获取页码
+    location = request.GET.get('location', 'off')  # 地理位置开关
 
-
+    if location == 'on':
+        ip = get_client_ip(request)  # 获取用户 IP
+        address = get_ip_address(ip)  # 获取用户地理位置
+    else:
+        ip, address = None, None
 
     for key in KEY_LIST:
         url = "https://www.googleapis.com/customsearch/v1?" \
@@ -49,7 +56,7 @@ def requests_to_google(client_msg, page, ip, address):
         content['pages'] = list(range(1, PAGES + 1))
         content['ip'] = ip
         content['address'] = address
-
+        content['location'] = location
 
         return content
 

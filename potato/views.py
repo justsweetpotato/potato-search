@@ -18,24 +18,10 @@ def search(request):
     form = BookForm(request.GET)
 
     if form.is_valid():  # 验证表单数据
-        client_msg = request.GET.get('q')  # 获取查询字符
-        page = request.GET.get('page', 1)  # 获取页码
-        location = request.COOKIES.get('location')
-        if not location:
-            location = request.GET.get('location', 'off')
-
-        if location == 'on':
-            ip = get_client_ip(request)
-            address = get_ip_address(ip)
-        else:
-            ip, address = None, None
-
-        content = requests_to_google(client_msg, page, ip, address)  # 向 Google API 请求, 并处理返回结果
+        content = requests_to_google(request)  # 向 Google API 请求, 并处理返回结果
 
         if content != 403:
-            if location == 'on':
-                response = render(request, 'detail.html', content)
-                response.set_cookie('location')
+            response = render(request, 'detail.html', content)
             return response
         # 没有查询到任何结果, 返回错误信息
         return render(request, 'error.html', status=403)
@@ -46,8 +32,10 @@ def search(request):
 def index(request):
     '''主页'''
 
+    location = request.GET.get('location', 'off')
     s_msg = word()
     content = {"msg": s_msg}
+    content['location'] = location
 
     return render(request, 'index.html', content)
 

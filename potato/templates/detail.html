@@ -103,17 +103,25 @@
         }
 
     </style>
-
+    <script>
+        function required() {
+            var empty = document.forms["form1"]["q"].value;
+            if (empty == "") {
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="div1">
-    <a class="a_img" href="{% url 'potato:index' %}">
+    <a class="a_img" href="{% url 'potato:index' %}?location={{ location }}">
         <img src="/static/ssp.jpg" alt="" class="img_potato">
     </a>
-    <form action="/search" method="get" class="form1">
-        <input type="text" name="q" autofocus="autofocus" class="search-text"/>
+    <form name="form1" action="/search/" method="get" class="form1" onsubmit="return required()">
+        <input type="hidden" name="location" value="{{ location }}">
+        <input type="text" name="q" value="{{ q }}" class="search-text" id="input1"/>
         &nbsp;
-        <input type="submit" class="search-sub" value="🔍" onclick="f()"/>
+        <input type="submit" class="search-sub" value="🔍"/>
     </form>
 </div>
 <ul class="ul1">
@@ -145,7 +153,8 @@
             {% ifequal page_number page %}
                 {{ page_number }}&nbsp;&nbsp;&nbsp;
             {% else %}
-                <a class="a_page" href="?q={{ q }}&page={{ page_number }}">{{ page_number }}</a>&nbsp;&nbsp;&nbsp;
+                <a class="a_page" href="?location={{ location }}&q={{ q }}&page={{ page_number }}">{{ page_number }}</a>
+                &nbsp;&nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
         &nbsp;&nbsp;&nbsp;👈&nbsp;
@@ -158,10 +167,10 @@
     <small>
         {% if ip %}
             {{ address }}<span class="span3"> - 基于您的 IP 地址 - <a href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
-                href="search?q={{ q }}&page={{ page }}&location=off">关闭定位</a></span>
+                href="?location=off&q={{ q }}&page={{ page }}">关闭定位</a></span>
         {% else %}
             无法获取位置信息
-            <span class="span4"> - 地理位置被禁用 - <a href="search?q={{ q }}&page={{ page }}&location=on">开启定位</a></span>
+            <span class="span4"> - 地理位置被禁用 - <a href="?location=on&q={{ q }}&page={{ page }}">开启定位</a></span>
         {% endif %}
     </small>
 </ul>
