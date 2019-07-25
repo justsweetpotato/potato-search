@@ -49,6 +49,10 @@
             list-style-type: none;
         }
 
+        .li3, .li4, .li5 {
+            list-style-type: disc;
+        }
+
         .form1 {
             margin: 0px;
             display: inline;
@@ -145,7 +149,18 @@
         </li>
         <br>
     {% empty %}
+        <br>
+        <br>
         <li class="li2">找不到和您查询的 “<span class="span2">{{ q }}</span>” 相符的内容或信息.</li>
+        <br>
+        建议:
+        <br>
+        <br>
+        <ul>
+            <li class="li3">请检查输入字词有无错误.</li>
+            <li class="li4">请尝试其他查询词.</li>
+            <li class="li5">请改用较常见的字词.</li>
+        </ul>
     {% endfor %}
     <br>
     {% if not empty %}
@@ -153,7 +168,9 @@
             {% ifequal page_number page %}
                 &nbsp;&nbsp;{{ page_number }}&nbsp;&nbsp;
             {% else %}
-                &nbsp;&nbsp;<a class="a_page" href="?location={{ location }}&q={{ q }}&page={{ page_number }}">{{ page_number }}</a>&nbsp;&nbsp;
+                &nbsp;&nbsp;
+                <a class="a_page" href="?location={{ location }}&q={{ q }}&page={{ page_number }}">{{ page_number }}</a>
+                &nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
         &nbsp;&nbsp;&nbsp;👈&nbsp;
