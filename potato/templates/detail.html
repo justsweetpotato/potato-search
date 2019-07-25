@@ -103,6 +103,7 @@
         }
 
     </style>
+
 </head>
 <body>
 <div class="div1">
@@ -112,7 +113,7 @@
     <form action="/search" method="get" class="form1">
         <input type="text" name="q" autofocus="autofocus" class="search-text"/>
         &nbsp;
-        <input type="submit" class="search-sub" value="🔍"/>
+        <input type="submit" class="search-sub" value="🔍" onclick="f()"/>
     </form>
 </div>
 <ul class="ul1">
@@ -156,9 +157,11 @@
     🌎&nbsp;
     <small>
         {% if ip %}
-            {{ address }}<span class="span3"> - 基于您的 IP 地址 - <a href="https://www.ipip.net/ip.html">{{ ip }}</a></span>
+            {{ address }}<span class="span3"> - 基于您的 IP 地址 - <a href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
+                href="search?q={{ q }}&page={{ page }}&location=off">关闭定位</a></span>
         {% else %}
-            无法获取位置信息<span class="span4"> - 地理位置被禁用</span>
+            无法获取位置信息
+            <span class="span4"> - 地理位置被禁用 - <a href="search?q={{ q }}&page={{ page }}&location=on">开启定位</a></span>
         {% endif %}
     </small>
 </ul>
