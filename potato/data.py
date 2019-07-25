@@ -66,6 +66,16 @@ def handle_data(server_msg):
     return content
 
 
+def get_client_ip(request):
+    '''获取用户 IP'''
+
+    ip = request.META.get("HTTP_X_FORWARDED_FOR", "")  # 在使用反向代理的服务器上获取 Client IP
+    if not ip:
+        ip = request.META.get('REMOTE_ADDR', "")
+
+    return ip
+
+
 def get_ip_address(ip):
     '''获取 IP 的地理位置'''
 
@@ -86,10 +96,6 @@ def get_api_data(q, page, key):
           "q={0}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start={1}&" \
           "key={2}".format(q, page, key)
 
-    with requests.get(url) as response:
-        if response.status_code != 403:
-            return response
-
-        return 403
-
-    # TODO: 如果 key 错误
+    with requests.get(url) as r:
+        server_msg = r.text
+        return server_msg

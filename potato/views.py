@@ -1,8 +1,14 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse, HttpResponse
+from django.shortcuts import render
+from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import reverse
 
 from .forms import BookForm
 from .word import word
-from .data import requests_to_google, get_api_data
+from .data import requests_to_google
+from .data import get_api_data
+from .data import get_client_ip
+from .data import get_ip_address
 
 
 def search(request):
@@ -14,7 +20,7 @@ def search(request):
     if form.is_valid():  # 验证表单数据
         c_msg = request.GET.get('q')  # 获取验证后的表单数据
         page = request.GET.get('page', 1)
-        ip = request.META['HTTP_X_FORWARDED_FOR']  # 在使用反向代理的服务器上获取 Client IP
+        ip = get_client_ip(request)  # 获取用户 IP
         content = requests_to_google(c_msg, int(page), ip)  # 向 Google API 请求, 并处理返回结果
 
         if content != 403:
@@ -44,18 +50,28 @@ def test(request):
 
 def doc(request):
     '''文档'''
+
     return render(request, 'doc.html')
 
 
-def api(request):
-    '''接口, 返回 json 数据'''
+def api_book(request):
+    '''书籍查询接口, 返回 json 数据'''
 
     q = request.GET.get('q')
-    page = request.GET.get('page')
-    key = request.GET.get('key')
+    page = request.GET.get('page', 1)
+    key = request.GET.get('key', None)
 
     if q and page:
-        response = get_api_data(q, page, key)
-        return HttpResponse(response)
+        server_msg = get_api_data(q, page, key)
+        return HttpResponse(server_msg, content_type="application/json")
 
     return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
+
+
+def api_ip(request):
+    '''用户 IP 地址查询接口'''
+
+    ip = get_client_ip(request)
+    ip_address = get_ip_address(ip)
+
+    return HttpResponse("当前 IP: " + ip + " 来自于: " + ip_address)
