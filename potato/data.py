@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # 处理数据
 
-from django.conf import settings
 import requests
 
 # 总页数
@@ -23,12 +22,12 @@ def requests_to_google(request):
     client_msg = request.GET.get('q')  # 获取查询字符
     page = request.GET.get('page', 1)  # 获取页码
     location = request.GET.get('location', 'off')  # 地理位置开关
+    ip = None
+    address = None
 
     if location == 'on':
         ip = get_client_ip(request)  # 获取用户 IP
         address = get_ip_address(ip)  # 获取用户地理位置
-    else:
-        ip, address = None, None
 
     for key in KEY_LIST:
         url = "https://www.googleapis.com/customsearch/v1?" \
