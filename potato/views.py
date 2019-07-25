@@ -7,7 +7,6 @@ from .forms import BookForm
 from .word import word
 from .data import requests_to_google
 from .data import get_api_data
-from .data import get_client_ip
 from .data import get_ip_address
 
 
@@ -20,8 +19,9 @@ def search(request):
     if form.is_valid():  # 验证表单数据
         c_msg = request.GET.get('q')  # 获取验证后的表单数据
         page = request.GET.get('page', 1)
-        ip = get_client_ip(request)  # 获取用户 IP
-        content = requests_to_google(c_msg, int(page), ip)  # 向 Google API 请求, 并处理返回结果
+        ip, address = get_ip_address(request)  # 获取用户 IP 及位置(可禁用此功能提高加载速度)
+        content = requests_to_google(c_msg, int(page), ip, address)  # 向 Google API 请求, 并处理返回结果
+        # content = requests_to_google(c_msg, int(page))
 
         if content != 403:
             return render(request, 'detail.html', content)
@@ -71,7 +71,5 @@ def api_book(request):
 def api_ip(request):
     '''用户 IP 地址查询接口'''
 
-    ip = get_client_ip(request)
-    ip_address = get_ip_address(ip)
-
-    return HttpResponse("当前 IP: " + ip + " 来自于: " + ip_address)
+    ip, address = get_ip_address(request)
+    return HttpResponse("当前 IP: " + ip + " 来自于: " + address)

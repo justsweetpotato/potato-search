@@ -94,7 +94,7 @@
             color: orangered;
         }
 
-        .span3 {
+        .span3, .span4 {
             color: gray;
         }
 
@@ -153,8 +153,14 @@
     <br>
     <br>
     <hr>
-    🌎&nbsp;<small>{{ address }} <span class="span3">- 基于您的 IP 地址 - <a href="https://www.ipip.net/ip.html">{{ ip }}</a></span>
-</small>
+    🌎&nbsp;
+    <small>
+        {% if ip %}
+            {{ address }}<span class="span3"> - 基于您的 IP 地址 - <a href="https://www.ipip.net/ip.html">{{ ip }}</a></span>
+        {% else %}
+            无法获取位置信息<span class="span4"> - 地理位置被禁用</span>
+        {% endif %}
+    </small>
 </ul>
 <br>
 </body>

@@ -3,23 +3,23 @@
 
 import requests
 
+# 总页数
+PAGES = 3
 
-def requests_to_google(client_msg, page, ip):
+# API KEY (100次/日)
+KEY_LIST = [
+    "AIzaSyDti_06GjeOV6trMz0ixATpXC6pTuJhAt4",
+    "AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0",
+]
+
+
+def requests_to_google(client_msg, page, ip=None, address=None):
     '''向 Google API 发送请求, 并返回数据'''
     # https://www.googleapis.com/customsearch/v1?
     # q=python&cx=007606540339251262492:fq_p2g_s5pa&num=10&start=1&
     # key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
 
-    # 总页数
-    pages = 3
-
-    # API KEY (100次/日)
-    key_list = [
-        "AIzaSyDti_06GjeOV6trMz0ixATpXC6pTuJhAt4",
-        "AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0",
-    ]
-
-    for key in key_list:
+    for key in KEY_LIST:
 
         url = "https://www.googleapis.com/customsearch/v1?" \
               "q={0}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start={1}&" \
@@ -33,9 +33,9 @@ def requests_to_google(client_msg, page, ip):
                 content = handle_data(server_msg)
                 content['q'] = client_msg
                 content['page'] = page
-                content['pages'] = list(range(1, pages + 1))
-                content['address'] = get_ip_address(ip)
+                content['pages'] = list(range(1, PAGES + 1))
                 content['ip'] = ip
+                content['address'] = address
                 return content
 
     # 所有请求均失败, 返回 403
@@ -66,31 +66,27 @@ def handle_data(server_msg):
     return content
 
 
-def get_client_ip(request):
-    '''获取用户 IP'''
+def get_ip_address(request):
+    '''获取用户 IP 及地理位置'''
 
-    ip = request.META.get("HTTP_X_FORWARDED_FOR", "")  # 在使用反向代理的服务器上获取 Client IP
+    # 在使用反向代理的服务器上获取 Client IP
+    ip = request.META.get("HTTP_X_FORWARDED_FOR", "")
     if not ip:
         ip = request.META.get('REMOTE_ADDR', "")
 
-    return ip
-
-
-def get_ip_address(ip):
-    '''获取 IP 的地理位置'''
-
+    # 获取地理位置
     url = "https://freeapi.ipip.net/{0}".format(ip)
     res = requests.get(url).json()
-    ip_address = res[0] + ' ' + res[1] + ' ' + res[2] + ' ' + res[4]
+    address = res[0] + ' ' + res[1] + ' ' + res[2] + ' ' + res[4]
 
-    return ip_address
+    return ip, address
 
 
 def get_api_data(q, page, key):
     '''直接返回 Google API 接口的结果'''
 
     if key == None:
-        key = "AIzaSyDti_06GjeOV6trMz0ixATpXC6pTuJhAt4"
+        key = KEY_LIST[0]
 
     url = "https://www.googleapis.com/customsearch/v1?" \
           "q={0}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start={1}&" \
