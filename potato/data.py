@@ -35,30 +35,19 @@ def requests_to_google(request):
               "q={0}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start={1}&" \
               "key={2}".format(client_msg, page, key)
 
-        # # 使用 with 语句可以确保连接被关闭
-        # with requests.get(url) as r:
-        #     # Google API 配额用尽时会返回 403 错误
-        #     if r.status_code != 403:
-        #         server_msg = r.json()  # 直接处理 json 返回 字典
-        #         content = handle_data(server_msg)
-        #         content['q'] = client_msg
-        #         content['page'] = int(page)
-        #         content['pages'] = list(range(1, PAGES + 1))
-        #         content['ip'] = ip
-        #         content['address'] = address
-        #         return content
-
-        content = {'content': zip([1, 2, 3], [1, 2, 3], [1, 2, 3])}
-        content['empty'] = False
-
-        content['q'] = client_msg
-        content['page'] = int(page)
-        content['pages'] = list(range(1, PAGES + 1))
-        content['ip'] = ip
-        content['address'] = address
-        content['location'] = location
-
-        return content
+        # 使用 with 语句可以确保连接被关闭
+        with requests.get(url) as r:
+            # Google API 配额用尽时会返回 403 错误
+            if r.status_code != 403:
+                server_msg = r.json()  # 直接处理 json 返回 字典
+                content = handle_data(server_msg)
+                content['q'] = client_msg
+                content['page'] = int(page)
+                content['pages'] = list(range(1, PAGES + 1))
+                content['ip'] = ip
+                content['address'] = address
+                content['location'] = location
+                return content
 
     # 所有请求均失败, 返回 403
     return 403
