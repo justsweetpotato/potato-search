@@ -62,36 +62,38 @@ def requests_to_google(request):
 
 
 def requests_to_wikipedia(client_msg):
-    '''向维基百科查询词条信息'''  # TODO: 需要改进逻辑
+    '''向维基百科查询词条信息'''
 
     url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
     response = requests.get(url)
     text = response.content.decode('utf-8')
     html = etree.HTML(text)
+    content = None
 
-    try:
-        content_exist_text = html.xpath('//*[@id="mw-content-text"]/div/p[1]/text()')[0].strip()  # 获取 p[1] 文本
-    except:
-        title, content = None, None
-        return title, content
+    for i in range(1, 5):
+        try:
+            content_exist_text = html.xpath('//*[@id="mw-content-text"]/div/p[{0}]/text()'.format(i))[
+                0].strip()  # 获取 p[?] 文本
+        except:
+            return None, None
 
-    if content_exist_text:  # 如果存在 p[1] 的文本
-        content = html.xpath('//*[@id="mw-content-text"]/div/p[1]')[0].xpath('string(.)')  # 获取文本
-        content_exist_list = re.match('.+? 可以指：', content)  # 词条存在多义
-        content_exist_info = re.match('.*?为准。', content.strip())  # 获取说明信息
-        if content_exist_info:  # 如果 p[1] 为说明信息
-            content = html.xpath('//*[@id="mw-content-text"]/div/p[2]')[0].xpath('string(.)')  # 获取 p[2]
-    else:
-        content_exist_list = None  # 词条不存在多义
-        content = html.xpath('//*[@id="mw-content-text"]/div/p[2]')[0].xpath('string(.)')  # 获取 p[2] 文本
+        if content_exist_text:  # 如果存在 p[?] 的文本
+            content = html.xpath('//*[@id="mw-content-text"]/div/p[{0}]'.format(i))[0].xpath('string(.)')  # 获取文本
+            content_exist_info = re.match('.*?为准。', content.strip())  # 获取说明信息
+            if content_exist_info:  # 如果 p[?] 为说明信息
+                continue
+        else:
+            continue
 
+    content_exist_list = re.match('.+? 可以指：', content)  # 词条存在多义吗
     if content_exist_list:  # 如果词条存在多义
-        title, content = None, None
-    else:
+        return None, None
+
+    if content:
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
         content = re.sub('(\[.+?\]|（.*?）)', '', content)  # 将文本中的 [] 与 () 舍弃
-
-    return title, content
+        return title, content
+    return None, None
 
 
 def handle_data(server_msg):
@@ -174,3 +176,11 @@ def check_web(web):
     content = {'content': zip(title_list, url_list, checked)}
 
     return content
+
+
+if __name__ == '__main__':
+    print(requests_to_wikipedia('南京'))
+    print(requests_to_wikipedia('广州'))
+    print(requests_to_wikipedia('Python'))
+    print(requests_to_wikipedia('ooo'))
+    print(requests_to_wikipedia('aeklwhlek239210'))
