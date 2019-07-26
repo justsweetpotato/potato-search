@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
-from django.shortcuts import reverse
+from django.shortcuts import reverse, redirect
 
 from .forms import BookForm
 from .word import word
@@ -11,6 +11,11 @@ from .data import get_client_ip
 from .data import get_ip_address
 from .data import requests_to_wikipedia
 from .data import check_web
+
+WEB = (
+    ('Web 代理', 'https://bot-go-1.herokuapp.com/', ''),
+    ('You2Php', 'https://bot-yt-test.herokuapp.com/', '')
+)
 
 
 def search(request):
@@ -53,12 +58,12 @@ def test(request):
 def doc(request):
     '''文档'''
 
-    web = (
-        ('Web 代理', 'https://bot-go-1.herokuapp.com/'),
-        ('You2Php', 'https://bot-yt-test.herokuapp.com/')
-    )
-
-    content = check_web(web)
+    status = request.GET.get('status', '0')
+    if status == '1':
+        content = check_web(WEB)
+        content['status'] = '1'
+    else:
+        content = {'content': WEB}
     return render(request, 'doc.html', content)
 
 

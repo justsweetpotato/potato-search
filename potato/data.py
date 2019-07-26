@@ -160,17 +160,17 @@ def check_web(web):
     url_list = []
     checked = []
 
-    for title, url in web:
+    for title, url, _ in web:
         title_list.append(title)
         url_list.append(url)
         try:
             with requests.get(url) as r:
                 if r.status_code == 200:
-                    checked.append(True)
+                    checked.append(1)
                 else:
-                    checked.append(False)
+                    checked.append(0)
         except:
-            checked.append(False)
+            checked.append(0)
     content = {'content': zip(title_list, url_list, checked)}
 
     return content

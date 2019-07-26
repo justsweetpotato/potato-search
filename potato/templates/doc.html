@@ -20,6 +20,10 @@
             color: red;
         }
 
+        .span_uncheck {
+            color: gray;
+        }
+
     </style>
 </head>
 <body>
@@ -55,12 +59,15 @@
 
     <p>
         工具:<br>
-        {% for title, url, ok in content %}
+        <a href="?status=1">检测网站可用性</a><br>
+        {% for title, url, check in content %}
             {{ title }}: <a href="{{ url }}">{{ url }}</a>
-            {% if ok %}
+            {% if check == 1 %}
                 <span class="span_ok">可用</span>
-            {% else %}
+            {% elif check == 0 %}
                 <span class="span_not_ok">不可用</span>
+            {% else %}
+                <span class="span_uncheck">未检测</span>
             {% endif %}
             <br>
         {% endfor %}
