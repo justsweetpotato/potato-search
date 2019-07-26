@@ -93,4 +93,5 @@ def api_wiki(request):
         title, q_text = requests_to_wikipedia(q)
         if title:
             return HttpResponse(title + "<br>" + q_text)
+        return HttpResponse("查询不到有关词条")
     return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
