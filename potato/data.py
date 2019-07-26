@@ -26,6 +26,11 @@ def requests_to_google(request):
     location = request.GET.get('location', 'off')  # 地理位置开关
     ip = None
     address = None
+    title = None
+    q_text = None
+
+    if page == 1:
+        title, q_text = requests_to_wikipedia(client_msg)  # 获取查询字符的简介
 
     if location == 'on':
         ip = get_client_ip(request)  # 获取用户 IP
@@ -48,8 +53,8 @@ def requests_to_google(request):
                 content['ip'] = ip
                 content['address'] = address
                 content['location'] = location
-                if page == 1:
-                    content['title'], content['text'] = requests_to_wikipedia(client_msg)
+                content['title'] = title
+                content['text'] = q_text
                 return content
 
     # 所有请求均失败, 返回 403
@@ -104,8 +109,8 @@ def handle_data(server_msg):
             link_list.append(data_dict["link"])
             snippet_list.append(data_dict["htmlSnippet"])
 
-        data_tuple = zip(title_list, link_list, snippet_list)
-        content = {"content": data_tuple}
+        data_zip = zip(title_list, link_list, snippet_list)
+        content = {"content": data_zip}
         content["empty"] = False
     else:
         content["empty"] = True
@@ -146,3 +151,26 @@ def get_api_data(q, page, key):
     with requests.get(url) as r:
         server_msg = r.text
         return server_msg
+
+
+def check_web(web):
+    '''检查网站可用性 & 激活 herokuapp'''
+
+    title_list = []
+    url_list = []
+    checked = []
+
+    for title, url in web:
+        title_list.append(title)
+        url_list.append(url)
+        try:
+            with requests.get(url) as r:
+                if r.status_code == 200:
+                    checked.append(True)
+                else:
+                    checked.append(False)
+        except:
+            checked.append(False)
+    content = {'content': zip(title_list, url_list, checked)}
+
+    return content

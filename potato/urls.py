@@ -9,4 +9,5 @@ urlpatterns = [
     path('doc/', views.doc, name='doc'),
     path('api/book/', views.api_book, name='api_book'),
     path('api/ip/', views.api_ip, name='api_ip'),
+    path('api/wiki/', views.api_wiki, name='api_wiki')
 ]

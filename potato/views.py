@@ -9,6 +9,8 @@ from .data import requests_to_google
 from .data import get_api_data
 from .data import get_client_ip
 from .data import get_ip_address
+from .data import requests_to_wikipedia
+from .data import check_web
 
 
 def search(request):
@@ -51,7 +53,13 @@ def test(request):
 def doc(request):
     '''文档'''
 
-    return render(request, 'doc.html')
+    web = (
+        ('Web 代理', 'https://bot-go-1.herokuapp.com/'),
+        ('You2Php', 'https://bot-yt-test.herokuapp.com/')
+    )
+
+    content = check_web(web)
+    return render(request, 'doc.html', content)
 
 
 def api_book(request):
@@ -74,3 +82,15 @@ def api_ip(request):
     ip = get_client_ip(request)
     address = get_ip_address(ip)
     return HttpResponse("当前 IP: " + ip + " 来自于: " + address)
+
+
+def api_wiki(request):
+    '''维基百科查询接口'''
+
+    q = request.GET.get('q', '')
+
+    if q:
+        title, q_text = requests_to_wikipedia(q)
+        if title:
+            return HttpResponse(title + "<br>" + q_text)
+    return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
