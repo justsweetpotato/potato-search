@@ -66,7 +66,7 @@
 
         .search-text {
             height: 15%;
-            width: 40%;
+            width: 45%;
             padding: 9px 7px;
             border: 1px solid #b8b8b8;
             outline: none;
@@ -88,7 +88,7 @@
 
         .ul1 {
             margin-top: 0;
-            width: 45%;
+            width: 50%;
             margin-left: 8%;
         }
 
@@ -114,9 +114,13 @@
         }
 
         .div_info {
-            border: 1px solid  #DCDCDC;
+            border: 1px solid #DCDCDC;
             padding: 10px;
-            border-radius:10px
+            border-radius: 10px
+        }
+
+        .small {
+            float: right;
         }
 
     </style>
@@ -148,7 +152,7 @@
     </small>
     <br>
     <br>
-    {% if title %}
+    {% if title and page == 1 %}
         <div class="div_info">
             <h4>{{ title }}</h4>
             <small>{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">维基百科</a></small>
@@ -192,8 +196,9 @@
                 &nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
-        &nbsp;&nbsp;&nbsp;👈&nbsp;
-        <small>你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3 页以后的搜索结果.</small>
+        <small class="small">&nbsp;&nbsp;&nbsp;👈&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
+            页以后的搜索结果.&nbsp;&nbsp;&nbsp;
+        </small>
     {% endif %}
     <br>
     <br>
