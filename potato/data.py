@@ -22,7 +22,10 @@ def requests_to_google(request):
     # key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
 
     client_msg = request.GET.get('q')  # 获取查询字符
-    page = request.GET.get('page', 1)  # 获取页码
+    try:
+        page = int(request.GET.get('page', 1))  # 获取页码
+    except:
+        page = 1
     location = request.GET.get('location', 'off')  # 地理位置开关
     ip = None
     address = None
@@ -43,12 +46,13 @@ def requests_to_google(request):
                 server_msg = r.json()  # 直接处理 json 返回 字典
                 content = handle_data(server_msg)
                 content['q'] = client_msg
-                content['page'] = int(page)
+                content['page'] = page
                 content['pages'] = list(range(1, PAGES + 1))
                 content['ip'] = ip
                 content['address'] = address
                 content['location'] = location
-                content['title'], content['text'] = requests_to_wikipedia(client_msg)
+                if page == 1:
+                    content['title'], content['text'] = requests_to_wikipedia(client_msg)
                 return content
 
     # 所有请求均失败, 返回 403
