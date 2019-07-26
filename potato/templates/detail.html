@@ -60,6 +60,7 @@
         }
 
         .div1 {
+            margin-bottom: 0;
             width: 100%;
         }
 
@@ -86,6 +87,7 @@
         }
 
         .ul1 {
+            margin-top: 0;
             width: 45%;
             margin-left: 8%;
         }
@@ -104,6 +106,17 @@
 
         body {
             height: 100%;
+        }
+
+        h4 {
+            margin-top: 0;
+            font-weight: normal;
+        }
+
+        .div_info {
+            border: 1px solid  #DCDCDC;
+            padding: 10px;
+            border-radius:10px
         }
 
     </style>
@@ -134,6 +147,13 @@
             class="a2" href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!
     </small>
     <br>
+    <br>
+    {% if title %}
+        <div class="div_info">
+            <h4>{{ title }}</h4>
+            <small>{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">维基百科</a></small>
+        </div>
+    {% endif %}
     <br>
     {% for x, y, z in content %}
         <li class="li1">

@@ -2,6 +2,8 @@
 # 处理数据
 
 import requests
+import re
+from lxml import etree
 
 # 总页数
 PAGES = 3
@@ -46,10 +48,44 @@ def requests_to_google(request):
                 content['ip'] = ip
                 content['address'] = address
                 content['location'] = location
+                content['title'], content['text'] = requests_to_wikipedia(client_msg)
                 return content
 
     # 所有请求均失败, 返回 403
     return 403
+
+
+def requests_to_wikipedia(client_msg):
+    '''向维基百科查询词条信息'''  # TODO: 需要改进逻辑
+
+    url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
+    response = requests.get(url)
+    text = response.content.decode('utf-8')
+    html = etree.HTML(text)
+
+    try:
+        content_exist_text = html.xpath('//*[@id="mw-content-text"]/div/p[1]/text()')[0].strip()  # 获取 p[1] 文本
+    except:
+        title, content = None, None
+        return title, content
+
+    if content_exist_text:  # 如果存在 p[1] 的文本
+        content = html.xpath('//*[@id="mw-content-text"]/div/p[1]')[0].xpath('string(.)')  # 获取文本
+        content_exist_list = re.match('.+? 可以指：', content)  # 词条存在多义
+        content_exist_info = re.match('.*?为准。', content.strip())  # 获取说明信息
+        if content_exist_info:  # 如果 p[1] 为说明信息
+            content = html.xpath('//*[@id="mw-content-text"]/div/p[2]')[0].xpath('string(.)')  # 获取 p[2]
+    else:
+        content_exist_list = None  # 词条不存在多义
+        content = html.xpath('//*[@id="mw-content-text"]/div/p[2]')[0].xpath('string(.)')  # 获取 p[2] 文本
+
+    if content_exist_list:  # 如果词条存在多义
+        title, content = None, None
+    else:
+        title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
+        content = re.sub('(\[.+?\]|（.*?）)', '', content)  # 将文本中的 [] 与 () 舍弃
+
+    return title, content
 
 
 def handle_data(server_msg):
