@@ -22,10 +22,7 @@ def requests_to_google(request):
     # key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
 
     client_msg = request.GET.get('q')  # 获取查询字符
-    try:
-        page = int(request.GET.get('page', 1))  # 获取页码
-    except:
-        page = 1
+    page = int(request.GET.get('page', 1))  # 获取页码
     location = request.GET.get('location', 'off')  # 地理位置开关
     ip = None
     address = None
