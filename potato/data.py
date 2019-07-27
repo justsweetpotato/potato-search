@@ -83,7 +83,7 @@ def requests_to_wikipedia(client_msg):
 
         if content_exist_text:  # 如果存在 p[?] 的文本
             content = html.xpath('//*[@id="mw-content-text"]/div/p[{0}]'.format(i))[0].xpath('string(.)')  # 获取文本
-            content_exist_info = re.match('.*?为准。', content.strip())  # 获取说明信息
+            content_exist_info = re.match('.*?为准。', content.strip(), flags=re.S)  # 获取说明信息
             if content_exist_info:  # 如果 p[?] 为说明信息
                 continue
             break
@@ -91,12 +91,12 @@ def requests_to_wikipedia(client_msg):
             continue
 
     if content:
-        content_exist_list = re.match('.+?[ ，]?可以[指是]：', content)  # 词条存在多义吗
+        content_exist_list = re.match('.+?[ ，]?可以[指是]：', content, flags=re.S)  # 词条存在多义吗
         if content_exist_list:  # 如果词条存在多义
             return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
-        content = re.sub('(\[.*?\]|（.*?）)', '', content)  # 将文本中的 [] 与 () 舍弃
+        content = re.sub('(\[.*?\]|（.*?）)', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
         return title, content
     return None, None
 
@@ -202,9 +202,20 @@ def error_403():
 
 
 if __name__ == '__main__':
-    # print(requests_to_wikipedia('南京'))
-    # print(requests_to_wikipedia('广州'))
-    # print(requests_to_wikipedia('Python'))
-    # print(requests_to_wikipedia('ooo'))
-    # print(requests_to_wikipedia('aeklwhlek239210'))
-    print(error_403())
+    import socket
+    import socks
+
+    addr = "127.0.0.1"
+    port = 1984
+
+    socks.set_default_proxy(socks.SOCKS5, addr, port)
+    socket.socket = socks.socksocket
+
+    print(requests_to_wikipedia('南京'))
+    print(requests_to_wikipedia('广州'))
+    print(requests_to_wikipedia('Python'))
+    print(requests_to_wikipedia('法国大革命'))
+    print(requests_to_wikipedia('六四事件'))
+    print(requests_to_wikipedia('ooo'))
+    print(requests_to_wikipedia('aeklwhlek239210'))
+    
