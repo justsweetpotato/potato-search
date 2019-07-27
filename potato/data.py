@@ -91,7 +91,7 @@ def requests_to_wikipedia(client_msg):
             continue
 
     if content:
-        content_exist_list = re.match('(.+? 可以指：|.+? 可以是：)', content)  # 词条存在多义吗
+        content_exist_list = re.match('(.+? |.+?，)可以[指是]：', content)  # 词条存在多义吗
         if content_exist_list:  # 如果词条存在多义
             return None, None
 
