@@ -193,9 +193,11 @@ def error_403():
     reset_time_hour = 15 - bj_dt.hour  # API 次数在北京时间 15时(太平洋时间 0时) 重置
     reset_time_hour += 24 if reset_time_hour < 0 else reset_time_hour
     reset_time_minute = 0 - bj_dt.minute
-    reset_time_minute += 60 if reset_time_minute < 0 else reset_time_minute
+    if reset_time_minute < 0:
+        reset_time_minute += 60
+        reset_time_hour -= 1
 
-    content = {'count': api_request_count, 'hour': reset_time_hour - 1, 'minute': reset_time_minute}
+    content = {'count': api_request_count, 'hour': reset_time_hour, 'minute': reset_time_minute}
     return content
 
 
