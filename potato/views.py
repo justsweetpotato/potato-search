@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
-from django.shortcuts import reverse, redirect
+from django.shortcuts import reverse
 
 from .forms import BookForm
 from .word import word
@@ -11,6 +11,7 @@ from .data import get_client_ip
 from .data import get_ip_address
 from .data import requests_to_wikipedia
 from .data import check_web
+from .data import error_403
 
 WEB = (
     ('Web 代理', 'https://bot-go-1.herokuapp.com/', ''),
@@ -31,7 +32,8 @@ def search(request):
             response = render(request, 'detail.html', content)
             return response
         # 没有查询到任何结果, 返回错误信息
-        return render(request, 'error.html', status=403)
+        content = error_403()
+        return render(request, 'error.html', content, status=403)
 
     return HttpResponseRedirect(reverse('potato:index'))
 

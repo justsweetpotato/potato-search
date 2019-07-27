@@ -3,6 +3,9 @@
 
 import requests
 import re
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 from lxml import etree
 
 # 总页数
@@ -12,6 +15,7 @@ PAGES = 3
 KEY_LIST = [
     "AIzaSyDti_06GjeOV6trMz0ixATpXC6pTuJhAt4",
     "AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0",
+    'AIzaSyAdolxu5TWJhArM00hTqTUwOTDHK00806s'
 ]
 
 
@@ -179,9 +183,26 @@ def check_web(web):
     return content
 
 
+def error_403():
+    '''获取 API 调用最大次数和重置时间'''
+
+    api_request_count = len(KEY_LIST) * 100
+    utc_dt = datetime.utcnow().replace(tzinfo=timezone.utc)  # UTC 时间
+    bj_dt = utc_dt.astimezone(timezone(timedelta(hours=8)))  # UTC+8 (北京时间)
+
+    reset_time_hour = 15 - bj_dt.hour  # API 次数在北京时间 15时(太平洋时间 0时) 重置
+    reset_time_hour += 24 if reset_time_hour < 0 else reset_time_hour
+    reset_time_minute = 0 - bj_dt.minute
+    reset_time_minute += 60 if reset_time_minute < 0 else reset_time_minute
+
+    content = {'count': api_request_count, 'hour': reset_time_hour - 1, 'minute': reset_time_minute}
+    return content
+
+
 if __name__ == '__main__':
-    print(requests_to_wikipedia('南京'))
-    print(requests_to_wikipedia('广州'))
-    print(requests_to_wikipedia('Python'))
-    print(requests_to_wikipedia('ooo'))
-    print(requests_to_wikipedia('aeklwhlek239210'))
+    # print(requests_to_wikipedia('南京'))
+    # print(requests_to_wikipedia('广州'))
+    # print(requests_to_wikipedia('Python'))
+    # print(requests_to_wikipedia('ooo'))
+    # print(requests_to_wikipedia('aeklwhlek239210'))
+    print(error_403())
