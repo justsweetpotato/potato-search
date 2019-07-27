@@ -91,12 +91,12 @@ def requests_to_wikipedia(client_msg):
             continue
 
     if content:
-        content_exist_list = re.match('(.+? |.+?，)可以[指是]：', content)  # 词条存在多义吗
+        content_exist_list = re.match('.+?[ ，]可以[指是]：', content)  # 词条存在多义吗
         if content_exist_list:  # 如果词条存在多义
             return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
-        content = re.sub('(\[.+?\]|（.*?）)', '', content)  # 将文本中的 [] 与 () 舍弃
+        content = re.sub('(\[.*?\]|（.*?）)', '', content)  # 将文本中的 [] 与 () 舍弃
         return title, content
     return None, None
 
