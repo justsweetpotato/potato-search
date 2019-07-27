@@ -116,7 +116,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'search_book/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'search_book/static')
 
 # if os.getcwd() == '/app':
 #     import dj_database_url
