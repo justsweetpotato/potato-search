@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="/static/sp.png" type="image/x-icon">
-    <title>土豆搜书</title>
+    <title>土豆搜索</title>
     <style type="text/css">
         .search-logo {
             text-align: center;
@@ -28,22 +28,25 @@
             outline: none;
             font-size: 16px;
             margin-right: 0px;
+            border-radius: 1px;
         }
 
-        .search-sub {
+        .search-sub1, .search-sub2 {
             height: 15%;
-            width: 10%;
-            background-color: #38f;
+            width: 60px;
+            background-color: lightgray;
             border: none;
             padding: 1px;
             line-height: 38px;
-            color: white;
+            color: dimgrey;
             font-size: 16px;
             margin: 0px;
+            border-radius: 2px;
         }
 
         .info {
             text-align: center;
+            color: dimgrey;
         }
 
         .msg {
@@ -56,7 +59,7 @@
 
         .a_doc {
             text-decoration: none;
-            color: black;
+            color: dimgrey;
         }
 
     </style>
@@ -86,7 +89,10 @@
             <form name="form1" action="/search/" method="get" onsubmit="return required()">
                 <input type="hidden" name="location" value="{{ location }}">
                 <input type="text" name="q" autofocus="autofocus" class="search-text"/><br><br>
-                <input type="submit" id="my_submit" class="search-sub" value="搜书" onclick="return empty()"/>
+                <input type="submit" name="action" id="my_submit2" class="search-sub2" value="搜索"
+                       onclick="return empty()"/>&nbsp;&nbsp;&nbsp;
+                <input type="submit" name="action" id="my_submit1" class="search-sub1" value="搜书"
+                       onclick="return empty()"/>
             </form>
         </div>
     </div>

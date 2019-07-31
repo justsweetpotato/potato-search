@@ -72,11 +72,12 @@
             outline: none;
             font-size: 16px;
             margin-right: 0px;
+            border-radius: 1px;
         }
 
         .search-sub {
             height: 15%;
-            width: 5%;
+            width: 60px;
             background-color: #38f;
             border: none;
             padding: 1px;
@@ -84,6 +85,7 @@
             color: white;
             font-size: 16px;
             margin: 0px;
+            border-radius: 2px;
         }
 
         .ul1 {
@@ -121,10 +123,6 @@
             border-radius: 10px
         }
 
-        .small {
-            float: right;
-        }
-
         .span5 {
             max-width: 70%;
             overflow: hidden;
@@ -138,6 +136,13 @@
             float: right;
         }
 
+        .small_info {
+            color: dimgrey;
+        }
+
+        .small_url {
+            float: right;
+        }
 
     </style>
     <script>
@@ -158,13 +163,20 @@
         <input type="hidden" name="location" value="{{ location }}">
         <input type="text" name="q" value="{{ q }}" class="search-text" id="input1"/>
         &nbsp;
-        <input type="submit" class="search-sub" value="🔍"/>
+        <input type="submit" name="action" class="search-sub" value="{{ type }}"/>
     </form>
 </div>
 <ul class="ul1">
-    <small>
-        <i><a class="a1" href="http://gen.lib.rus.ec/search.php?req={{ q }}">Search for Library Genesis</a></i>
-    </small>
+    {% if page == 1 %}
+        <small class="small_info">找到约 {{ results }} 条结果 (用时 {{ time }} 秒)</small>
+        {% if not all %}
+            <small class="small_url"><i><a class="a1" href="http://gen.lib.rus.ec/search.php?req={{ q }}">Search for
+                Library
+                Genesis</a></i></small>
+        {% endif %}
+    {% else %}
+        <small class="small_info">找到约 {{ results }} 条结果, 以下是第 {{ page }} 页 (用时 {{ time }} 秒)</small>
+    {% endif %}
     <br>
     <br>
     {% if title and page == 1 %}
@@ -208,11 +220,12 @@
                 &nbsp;&nbsp;{{ page_number }}&nbsp;&nbsp;
             {% else %}
                 &nbsp;&nbsp;
-                <a class="a_page" href="?location={{ location }}&q={{ q }}&page={{ page_number }}">{{ page_number }}</a>
+                <a class="a_page"
+                   href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}">{{ page_number }}</a>
                 &nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
-        <small class="small">&nbsp;&nbsp;&nbsp;👈&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
+        <small class="small_know">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👈&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
             页以后的搜索结果.&nbsp;&nbsp;&nbsp;
         </small>
     {% endif %}
@@ -223,10 +236,10 @@
     <small>
         {% if ip %}
             {{ address }}<span class="span3"> - 基于您的 IP 地址 - <a href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
-                href="?location=off&q={{ q }}&page={{ page }}">关闭定位</a></span>
+                href="?location=off&q={{ q }}&page={{ page }}&action={{ type }}">关闭定位</a></span>
         {% else %}
             无法获取位置信息
-            <span class="span4"> - 地理位置被禁用 - <a href="?location=on&q={{ q }}&page={{ page }}">开启定位</a></span>
+            <span class="span4"> - 地理位置被禁用 - <a href="?location=on&q={{ q }}&page={{ page }}&action={{ type }}">开启定位</a></span>
         {% endif %}
     </small>
 </ul>

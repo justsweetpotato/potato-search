@@ -20,13 +20,21 @@ KEY_LIST = [
 
 WEB_PROXY = "https://gogogo-google.herokuapp.com/proxy/"
 
+TYPE = {
+    "search": "007606540339251262492:smmy8xt1wrw",
+    "book": "007606540339251262492:fq_p2g_s5pa"
+}
+
 
 def requests_to_google(request):
     '''向 Google API 发送请求, 并返回数据'''
-    # https://www.googleapis.com/customsearch/v1?
-    # q=python&cx=007606540339251262492:fq_p2g_s5pa&num=10&start=1&
-    # key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
+    # https://www.googleapis.com/customsearch/v1?q=python&cx=007606540339251262492:smmy8xt1wrw&num=10&start=1&key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
 
+    type = request.GET.get('action', "搜索")
+    if type == "搜索":
+        type_value = TYPE["search"]
+    else:
+        type_value = TYPE["book"]
     client_msg = request.GET.get('q')  # 获取查询字符
     page = int(request.GET.get('page', 1))  # 获取页码
     location = request.GET.get('location', 'off')  # 地理位置开关
@@ -44,8 +52,8 @@ def requests_to_google(request):
 
     for key in KEY_LIST:
         url = "https://www.googleapis.com/customsearch/v1?" \
-              "q={0}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start={1}&" \
-              "key={2}".format(client_msg, page, key)
+              "q={0}&cx={1}&num=10&start={2}&" \
+              "key={3}".format(client_msg, type_value, page, key)
 
         # 使用 with 语句可以确保连接被关闭
         with requests.get(url) as r:
@@ -61,6 +69,11 @@ def requests_to_google(request):
                 content['location'] = location
                 content['title'] = title
                 content['text'] = q_text
+                if type == "搜索":
+                    content["type"] = "搜索"
+                    content["all"] = True
+                else:
+                    content["type"] = "搜书"
                 return content
 
     # 所有请求均失败, 返回 403
@@ -120,6 +133,8 @@ def handle_data(server_msg):
 
         data_zip = zip(title_list, link_list, snippet_list)
         content = {"content": data_zip}
+        content['results'] = server_msg.get("searchInformation")["formattedTotalResults"]
+        content['time'] = server_msg.get("searchInformation")["formattedSearchTime"]
         content["empty"] = False
     else:
         content["empty"] = True
