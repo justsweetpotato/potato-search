@@ -69,6 +69,20 @@ def doc(request):
     return render(request, 'doc.html', content)
 
 
+def api_search(request):
+    '''谷歌搜索接口'''
+
+    q = request.GET.get('q')
+    page = request.GET.get('page', 1)
+    key = request.GET.get('key', None)
+
+    if q and page:
+        server_msg = get_api_data(q, page, key, 1)
+        return HttpResponse(server_msg, content_type="application/json")
+
+    return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
+
+
 def api_book(request):
     '''书籍查询接口, 返回 json 数据'''
 

@@ -162,15 +162,20 @@ def get_ip_address(ip):
     return address
 
 
-def get_api_data(q, page, key):
+def get_api_data(q, page, key, type=0):
     '''直接返回 Google API 接口的结果'''
 
     if key == None:
         key = KEY_LIST[0]
 
+    if type == 1:
+        type_value = TYPE["search"]
+    else:
+        type_value = TYPE["book"]
+
     url = "https://www.googleapis.com/customsearch/v1?" \
-          "q={0}&cx=007606540339251262492:fq_p2g_s5pa&num=10&start={1}&" \
-          "key={2}".format(q, page, key)
+          "q={0}&cx={1}&num=10&start={2}&" \
+          "key={3}".format(q, type_value, page, key)
 
     with requests.get(url) as r:
         server_msg = r.text
