@@ -213,7 +213,8 @@ def error_403():
     bj_dt = utc_dt.astimezone(timezone(timedelta(hours=8)))  # UTC+8 (北京时间)
 
     reset_time_hour = 15 - bj_dt.hour  # API 次数在北京时间 15时(太平洋时间 0时) 重置
-    reset_time_hour += 24 if reset_time_hour < 0 else reset_time_hour
+    if reset_time_hour < 0:
+        reset_time_hour += 24
     reset_time_minute = 0 - bj_dt.minute
     if reset_time_minute < 0:
         reset_time_minute += 60
@@ -233,12 +234,14 @@ if __name__ == '__main__':
     socks.set_default_proxy(socks.SOCKS5, addr, port)
     socket.socket = socks.socksocket
 
-    print(requests_to_wikipedia('南京'))
-    print(requests_to_wikipedia('广州'))
-    print(requests_to_wikipedia('Python'))
-    print(requests_to_wikipedia('法国大革命'))
-    print(requests_to_wikipedia('六四事件'))
-    print(requests_to_wikipedia('ooo'))
-    print(requests_to_wikipedia('aeklwhlek239210'))
-    print(requests_to_wikipedia('土豆'))
-    print(requests_to_wikipedia('西京'))
+    # print(requests_to_wikipedia('南京'))
+    # print(requests_to_wikipedia('广州'))
+    # print(requests_to_wikipedia('Python'))
+    # print(requests_to_wikipedia('法国大革命'))
+    # print(requests_to_wikipedia('六四事件'))
+    # print(requests_to_wikipedia('ooo'))
+    # print(requests_to_wikipedia('aeklwhlek239210'))
+    # print(requests_to_wikipedia('土豆'))
+    # print(requests_to_wikipedia('西京'))
+
+    print(error_403())
