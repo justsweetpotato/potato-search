@@ -217,11 +217,11 @@
     {% if not empty %}
         {% for page_number in  pages %}
             {% ifequal page_number page %}
-                &nbsp;&nbsp;{{ page_number }}&nbsp;&nbsp;
+                &nbsp;&nbsp;<b>{{ page_number }}</b>&nbsp;&nbsp;
             {% else %}
                 &nbsp;&nbsp;
                 <a class="a_page"
-                   href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}">{{ page_number }}</a>
+                   href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}"><b>{{ page_number }}</b></a>
                 &nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
