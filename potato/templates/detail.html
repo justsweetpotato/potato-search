@@ -87,7 +87,8 @@
         }
 
         .ul1 {
-            margin-top: 0;
+            margin-top: -10px;
+            padding-top: 0px;
             width: 50%;
             margin-left: 8%;
         }
@@ -115,6 +116,7 @@
 
         .div_info {
             border: 1px solid #DCDCDC;
+            margin-top: 0px;
             padding: 10px;
             border-radius: 10px
         }
@@ -147,8 +149,7 @@
 </div>
 <ul class="ul1">
     <small>
-        没有找到? 去 <a class="a1" href="http://gen.lib.rus.ec/">Library Genesis</a> 找找看!&nbsp;&nbsp;&nbsp;网页打不开? 试试复制链接到 <a
-            class="a2" href="https://gogogo-google.herokuapp.com/">网页代理</a> 打开!
+        <i><a class="a1" href="http://gen.lib.rus.ec/search.php?req={{ q }}">Search for Library Genesis</a></i>
     </small>
     <br>
     <br>
@@ -157,14 +158,14 @@
             <h4>{{ title }}</h4>
             <small>{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">维基百科</a></small>
         </div>
+        <br>
     {% endif %}
-    <br>
     {% for x, y, z in content %}
         <li class="li1">
             <a class="a3" href="{{ y }}">{{ x }}</a>
             <br>
             <small>
-                <a class="a_info" href="{{ y }}">{{ y }}</a>
+                <a class="a_info" href="{{ y | safe }}">{{ y | safe }}</a>
                 <br>
                 <span class="span1">
                     {{ z | safe }}

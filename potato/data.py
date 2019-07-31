@@ -18,6 +18,8 @@ KEY_LIST = [
     'AIzaSyAdolxu5TWJhArM00hTqTUwOTDHK00806s'
 ]
 
+WEB_PROXY = "https://gogogo-google.herokuapp.com/proxy/"
+
 
 def requests_to_google(request):
     '''向 Google API 发送请求, 并返回数据'''
@@ -113,7 +115,7 @@ def handle_data(server_msg):
     if server_msg.get("items"):
         for data_dict in server_msg["items"]:
             title_list.append(data_dict["title"])
-            link_list.append(data_dict["link"])
+            link_list.append(add_url_link(data_dict["link"]))
             snippet_list.append(data_dict["htmlSnippet"])
 
         data_zip = zip(title_list, link_list, snippet_list)
@@ -123,6 +125,16 @@ def handle_data(server_msg):
         content["empty"] = True
 
     return content
+
+
+def add_url_link(url):
+    '''缩短 url 长度和增加功能'''
+
+    if len(url) > 66:
+        url = url[:66] + " ..." + "&nbsp;&nbsp;<a href={0}{1}>匿名访问</a>".format(WEB_PROXY, url)
+    else:
+        url += "&nbsp;&nbsp;<a href={0}{1}>匿名访问</a>".format(WEB_PROXY, url)
+    return url
 
 
 def get_client_ip(request):
