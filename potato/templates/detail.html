@@ -125,6 +125,20 @@
             float: right;
         }
 
+        .span5 {
+            max-width: 70%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            float: left;
+        }
+
+        .span6 {
+            max-width: 30%;
+            float: right;
+        }
+
+
     </style>
     <script>
         function required() {
@@ -165,7 +179,8 @@
             <a class="a3" href="{{ y }}">{{ x }}</a>
             <br>
             <small>
-                <a class="a_info" href="{{ y | safe }}">{{ y | safe }}</a>
+                <span class="span5"><a class="a_info" href="{{ y }}">{{ y }}</a></span><span
+                    class="span6"><a href="https://gogogo-google.herokuapp.com/proxy/{{ y }}">匿名访问</a></span>
                 <br>
                 <span class="span1">
                     {{ z | safe }}
