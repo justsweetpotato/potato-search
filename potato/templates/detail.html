@@ -167,15 +167,17 @@
     </form>
 </div>
 <ul class="ul1">
-    {% if page == 1 %}
-        <small class="small_info">找到约 {{ results }} 条结果 (用时 {{ time }} 秒)</small>
-        {% if not all %}
-            <small class="small_url"><i><a class="a1" href="http://gen.lib.rus.ec/search.php?req={{ q }}">Search for
-                Library
-                Genesis</a></i></small>
+    {% if results %}
+        {% if page == 1 %}
+            <small class="small_info">找到约 {{ results }} 条结果 (用时 {{ time }} 秒)</small>
+            {% if not all %}
+                <small class="small_url"><i><a class="a1" href="http://gen.lib.rus.ec/search.php?req={{ q }}">Search for
+                    Library
+                    Genesis</a></i></small>
+            {% endif %}
+        {% else %}
+            <small class="small_info">找到约 {{ results }} 条结果, 以下是第 {{ page }} 页 (用时 {{ time }} 秒)</small>
         {% endif %}
-    {% else %}
-        <small class="small_info">找到约 {{ results }} 条结果, 以下是第 {{ page }} 页 (用时 {{ time }} 秒)</small>
     {% endif %}
     <br>
     <br>
