@@ -111,7 +111,7 @@ def requests_to_wikipedia(client_msg):
             return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
-        content = re.sub('(\[.*?\]|（.*?）)', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
+        content = re.sub('(\[.*?\]|（.*?）|中国互联网.*?（.*?（.*。)', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
         return title, content
     return None, None
 
@@ -243,5 +243,6 @@ if __name__ == '__main__':
     print(requests_to_wikipedia('aeklwhlek239210'))
     print(requests_to_wikipedia('土豆'))
     print(requests_to_wikipedia('西京'))
+    print(requests_to_wikipedia('百度'))
 
     # print(error_403())
