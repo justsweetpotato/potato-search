@@ -38,7 +38,7 @@
         }
 
         .img_potato {
-            vertical-align: middle
+            vertical-align: middle;
         }
 
         .li1 {
@@ -229,15 +229,15 @@
         <br>
     {% endfor %}
     <br>
+    <span>
     {% if not empty %}
         {% for page_number in  pages %}
             {% ifequal page_number page %}
                 &nbsp;&nbsp;<b>{{ page_number }}</b>&nbsp;&nbsp;
             {% else %}
-                &nbsp;&nbsp;
-                <a class="a_page"
-                   href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}"><b>{{ page_number }}</b></a>
-                &nbsp;&nbsp;
+                &nbsp;&nbsp;<a class="a_page"
+                   href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}"><b>{{ page_number }}</b>
+                </a>&nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
         <small class="small_know">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👈&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
