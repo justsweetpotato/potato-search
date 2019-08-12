@@ -184,6 +184,7 @@ def get_api_data(q, page, key, type=0):
 
 def check_web(web):
     '''检查网站可用性 & 激活 herokuapp'''
+    # TODO: 可用异步请求的方式改进
 
     title_list = []
     url_list = []
