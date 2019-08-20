@@ -13,9 +13,10 @@ from .data import requests_to_wikipedia
 from .data import check_web
 from .data import error_403
 
+# TODO: 可移动到 data 中
 WEB = (
-    ('Web 代理', 'https://bot-go-1.herokuapp.com/', ''),
-    ('You2Php', 'https://bot-yt-test.herokuapp.com/', '')
+    ('web_proxy', 'https://bot-go-1.herokuapp.com/', ''),
+    ('yt_proxy', 'https://bot-yt-8-21.herokuapp.com/', '')
 )
 
 

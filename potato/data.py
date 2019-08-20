@@ -18,7 +18,8 @@ KEY_LIST = [
     'AIzaSyAdolxu5TWJhArM00hTqTUwOTDHK00806s'
 ]
 
-WEB_PROXY = "https://bot-go-1.herokuapp.com/proxy/"
+WEB_PROXY = 'https://bot-go-1.herokuapp.com/'
+YT_PROXY = 'https://bot-yt-8-21.herokuapp.com/'
 
 TYPE = {
     "search": "007606540339251262492:smmy8xt1wrw",
@@ -69,7 +70,7 @@ def requests_to_google(request):
                 content['location'] = location
                 content['title'] = title
                 content['text'] = q_text
-                content['proxy'] = WEB_PROXY
+                content['proxy'] = WEB_PROXY + "proxy/"
                 if type == "搜索":
                     content["type"] = "搜索"
                     content["all"] = True
@@ -123,16 +124,23 @@ def handle_data(server_msg):
     title_list = []
     link_list = []
     snippet_list = []
+    video_list = []
     content = {}
 
     # 如果不存在 items 表示没有搜索结果
     if server_msg.get("items"):
         for data_dict in server_msg["items"]:
             title_list.append(data_dict["title"])
-            link_list.append(data_dict["link"])
+            url = data_dict["link"]
+            if url[:24] == "https://www.youtube.com/":
+                new_url = YT_PROXY + "watch.php?v=" + url[32:]
+                video_list.append(new_url)
+            else:
+                video_list.append(False)
+            link_list.append(url)
             snippet_list.append(data_dict["htmlSnippet"])
 
-        data_zip = zip(title_list, link_list, snippet_list)
+        data_zip = zip(title_list, link_list, snippet_list, video_list)
         content = {"content": data_zip}
         content['results'] = server_msg.get("searchInformation")["formattedTotalResults"]
         content['time'] = server_msg.get("searchInformation")["formattedSearchTime"]
