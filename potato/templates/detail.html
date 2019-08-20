@@ -40,18 +40,15 @@
         .a3 {
             color: #1a0dab;
             font-size: 18px;
+
         }
 
         .a3:visited {
             color: #609;
         }
 
-        .a_page {
-            color: #4285f4;
-        }
-
         .a_page:visited {
-            color: #4285f4;
+            color: blue;
         }
 
         .img_potato {
@@ -182,6 +179,7 @@
             color: #545454;
         }
 
+
     </style>
     <script>
         function required() {
@@ -306,8 +304,8 @@
                 {% endifequal %}
             {% endfor %}
             <br>
-            <small class="small_know">🍔&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
-                页以后的搜索结果.&nbsp;&nbsp;&nbsp;
+            <small class="small_know">&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
+                页以后的搜索结果&nbsp;&nbsp;&nbsp;
             </small>
             </div>
         {% endif %}
@@ -316,11 +314,13 @@
     🌎&nbsp;
     <small>
         {% if ip %}
-            {{ address }}<span class="span3"> - 基于您的 IP 地址 - <a href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
-                href="?location=off&q={{ q }}&page={{ page }}&action={{ type }}">关闭定位</a></span>
+            {{ address }}
+            <span class="span3"> - 基于您的 IP 地址 - <a class="a_lon" href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
+                    href="?location=off&q={{ q }}&page={{ page }}&action={{ type }}">关闭定位</a></span>
         {% else %}
             无法获取位置信息
-            <span class="span4"> - 地理位置被禁用 - <a href="?location=on&q={{ q }}&page={{ page }}&action={{ type }}">开启定位</a></span>
+            <span class="span4"> - 地理位置被禁用 - <a class="a_loff"
+                                                href="?location=on&q={{ q }}&page={{ page }}&action={{ type }}">开启定位</a></span>
         {% endif %}
     </small>
 </ul>
