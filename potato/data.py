@@ -18,7 +18,7 @@ KEY_LIST = [
     'AIzaSyAdolxu5TWJhArM00hTqTUwOTDHK00806s'
 ]
 
-WEB_PROXY = "https://gogogo-google.herokuapp.com/proxy/"
+WEB_PROXY = "https://bot-go-1.herokuapp.com/proxy/"
 
 TYPE = {
     "search": "007606540339251262492:smmy8xt1wrw",
@@ -69,6 +69,7 @@ def requests_to_google(request):
                 content['location'] = location
                 content['title'] = title
                 content['text'] = q_text
+                content['proxy'] = WEB_PROXY
                 if type == "搜索":
                     content["type"] = "搜索"
                     content["all"] = True

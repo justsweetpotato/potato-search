@@ -25,6 +25,10 @@
             text-align: center;
         }
 
+        .a_info:visited {
+            color: green;
+        }
+
         .a_img {
             margin: 1%;
         }
@@ -34,7 +38,12 @@
         }
 
         .a3 {
-            color: darkblue;
+            color: #1a0dab;
+            font-size: 18px;
+        }
+
+        .a3:visited {
+            color: #609;
         }
 
         .img_potato {
@@ -96,7 +105,7 @@
         }
 
         .span1 {
-            color: gray();
+            color: #545454;
         }
 
         .span2 {
@@ -124,7 +133,7 @@
         }
 
         .span5 {
-            max-width: 80%;
+            max-width: 77%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -147,12 +156,36 @@
             float: right;
         }
 
+        .select1 {
+            color: green;
+            width: 3%;
+            float: left;
+            border: 0;
+            background: transparent;
+            {#-moz-appearance: none; /* Firefox */#}
+            {#-webkit-appearance: none; /* Safari 和 Chrome */#}
+        }
+
+        .select1 select {
+            border: 0;
+            background: transparent;
+        }
+
     </style>
     <script>
         function required() {
             var empty = document.forms["form1"]["q"].value;
             if (empty == "") {
                 return false;
+            }
+        }
+
+        function mbar(sobj) {
+            var docurl = sobj.options[sobj.selectedIndex].value;
+            if (docurl != "") {
+                open(docurl, '_self');
+                sobj.selectedIndex = 0;
+                sobj.blur();
             }
         }
     </script>
@@ -196,8 +229,16 @@
             <a class="a3" href="{{ y }}">{{ x }}</a>
             <br>
             <small>
-                <span class="span5"><a class="a_info" href="{{ y }}">{{ y }}</a></span><span
-                    class="span6"><a href="https://gogogo-google.herokuapp.com/proxy/{{ y }}">匿名访问</a></span>
+                <span class="span5">
+                    <a class="a_info" href="{{ y }}">{{ y }}</a>
+                </span>
+                <select class="select1" name="select" id="select" onchange=mbar(this)>
+                    <option selected></option>
+                    <option value="{{ proxy }}https://webcache.googleusercontent.com/search?q=cache:{{ y }}">网页快照</option>
+                </select>
+                <span class="span6">
+                    <a href="{{ proxy}}{{ y }}">匿名访问</a>
+                </span>
                 <br>
                 <span class="span1">
                     {{ z | safe }}
@@ -236,7 +277,7 @@
                 &nbsp;&nbsp;<b>{{ page_number }}</b>&nbsp;&nbsp;
             {% else %}
                 &nbsp;&nbsp;<a class="a_page"
-                   href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}"><b>{{ page_number }}</b>
+                               href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}"><b>{{ page_number }}</b>
                 </a>&nbsp;&nbsp;
             {% endifequal %}
         {% endfor %}
@@ -244,7 +285,7 @@
             页以后的搜索结果.&nbsp;&nbsp;&nbsp;
         </small>
     {% endif %}
-    <br>
+        <br>
     <br>
     <hr>
     🌎&nbsp;
