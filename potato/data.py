@@ -138,7 +138,7 @@ def handle_data(server_msg):
             title_list.append(data_dict["title"])
             url = data_dict["link"]
             if url[:24] == "https://www.youtube.com/":
-                new_url = YT_PROXY + "watch.php?v=" + url[32:]
+                new_url = YT_PROXY + "4k.php?" + url
                 video_list.append(new_url)
             else:
                 video_list.append("")
