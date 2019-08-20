@@ -13,12 +13,6 @@ from .data import requests_to_wikipedia
 from .data import check_web
 from .data import error_403
 
-# TODO: 可移动到 data 中
-WEB = (
-    ('web_proxy', 'https://bot-go-1.herokuapp.com/', ''),
-    ('yt_proxy', 'https://bot-yt-8-21.herokuapp.com/', '')
-)
-
 
 def search(request):
     '''将用户输入发送至谷歌处理, 处理返回结果后填充至网页'''
@@ -62,11 +56,7 @@ def doc(request):
     '''文档'''
 
     status = request.GET.get('status', '0')
-    if status == '1':
-        content = check_web(WEB)
-        content['status'] = '1'
-    else:
-        content = {'content': WEB}
+    content = check_web(status)
     return render(request, 'doc.html', content)
 
 

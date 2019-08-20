@@ -18,8 +18,13 @@ KEY_LIST = [
     'AIzaSyAdolxu5TWJhArM00hTqTUwOTDHK00806s'
 ]
 
-WEB_PROXY = 'https://bot-go-1.herokuapp.com/'
-YT_PROXY = 'https://bot-yt-8-21.herokuapp.com/'
+WEB = (
+    ('网页代理', 'https://bot-go-1.herokuapp.com/', ''),
+    ('You2Php', 'https://bot-yt-8-21.herokuapp.com/', '')
+)
+
+WEB_PROXY = WEB[0][1]
+YT_PROXY = WEB[1][1]
 
 TYPE = {
     "search": "007606540339251262492:smmy8xt1wrw",
@@ -191,26 +196,29 @@ def get_api_data(q, page, key, type=0):
         return server_msg
 
 
-def check_web(web):
+def check_web(status):
     '''检查网站可用性 & 激活 herokuapp'''
     # TODO: 可用异步请求的方式改进
+    if status == '1':
+        title_list = []
+        url_list = []
+        checked = []
 
-    title_list = []
-    url_list = []
-    checked = []
-
-    for title, url, _ in web:
-        title_list.append(title)
-        url_list.append(url)
-        try:
-            with requests.get(url) as r:
-                if r.status_code == 200:
-                    checked.append(1)
-                else:
-                    checked.append(0)
-        except:
-            checked.append(0)
-    content = {'content': zip(title_list, url_list, checked)}
+        for title, url, _ in WEB:
+            title_list.append(title)
+            url_list.append(url)
+            try:
+                with requests.get(url) as r:
+                    if r.status_code == 200:
+                        checked.append(1)
+                    else:
+                        checked.append(0)
+            except:
+                checked.append(0)
+        content = {'content': zip(title_list, url_list, checked)}
+        content['status'] = '1'
+    else:
+        content = {'content': WEB}
 
     return content
 
