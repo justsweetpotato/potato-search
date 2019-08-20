@@ -46,6 +46,14 @@
             color: #609;
         }
 
+        .a_page {
+            color: #4285f4;
+        }
+
+        .a_page:visited {
+            color: #4285f4;
+        }
+
         .img_potato {
             vertical-align: middle;
         }
@@ -162,13 +170,16 @@
             float: left;
             border: 0;
             background: transparent;
-            {#-moz-appearance: none; /* Firefox */#}
-            {#-webkit-appearance: none; /* Safari 和 Chrome */#}
+        {#-moz-appearance: none; /* Firefox */#}{#-webkit-appearance: none; /* Safari 和 Chrome */#}
         }
 
         .select1 select {
             border: 0;
             background: transparent;
+        }
+
+        .small_know {
+            color: #545454;
         }
 
     </style>
@@ -234,10 +245,11 @@
                 </span>
                 <select class="select1" name="select" id="select" onchange=mbar(this)>
                     <option selected></option>
-                    <option value="{{ proxy }}https://webcache.googleusercontent.com/search?q=cache:{{ y }}">网页快照</option>
+                    <option value="{{ proxy }}https://webcache.googleusercontent.com/search?q=cache:{{ y }}">网页快照
+                    </option>
                 </select>
                 <span class="span6">
-                    <a href="{{ proxy}}{{ y }}">匿名访问</a>
+                    <a href="{{ proxy }}{{ y }}">匿名访问</a>
                 </span>
                 <br>
                 <span class="span1">
@@ -270,22 +282,35 @@
         <br>
     {% endfor %}
     <br>
-    <span>
-    {% if not empty %}
-        {% for page_number in  pages %}
-            {% ifequal page_number page %}
-                &nbsp;&nbsp;<b>{{ page_number }}</b>&nbsp;&nbsp;
-            {% else %}
-                &nbsp;&nbsp;<a class="a_page"
-                               href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}"><b>{{ page_number }}</b>
-                </a>&nbsp;&nbsp;
-            {% endifequal %}
-        {% endfor %}
-        <small class="small_know">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👈&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
-            页以后的搜索结果.&nbsp;&nbsp;&nbsp;
-        </small>
-    {% endif %}
-        <br>
+    <div style="text-align: center">
+        {% if not empty %}
+            {% for page_number in  pages %}
+                {% ifequal page_number page %}
+                    {% if page != 1 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    {{ page_number }}
+                    {% if page != 3 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                {% else %}
+                    {% if page == 3 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    <a class="a_page"
+                       href="?location={{ location }}&q={{ q }}&page={{ page_number }}&action={{ type }}">{{ page_number }}
+                    </a>
+                    {% if page == 1 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                {% endifequal %}
+            {% endfor %}
+            <br>
+            <small class="small_know">🍔&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
+                页以后的搜索结果.&nbsp;&nbsp;&nbsp;
+            </small>
+            </div>
+        {% endif %}
     <br>
     <hr>
     🌎&nbsp;
