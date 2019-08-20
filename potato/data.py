@@ -141,7 +141,7 @@ def handle_data(server_msg):
                 new_url = YT_PROXY + "watch.php?v=" + url[32:]
                 video_list.append(new_url)
             else:
-                video_list.append(False)
+                video_list.append("")
             link_list.append(url)
             snippet_list.append(data_dict["htmlSnippet"])
 
