@@ -36,7 +36,7 @@
 }
 
 .div1 {
-    position: fixed;
+    position: absolute;
     top: 5%;
     width: 100%;
 }
@@ -44,7 +44,7 @@
 .info {
     text-align: center;
     color: dimgrey;
-    position: fixed;
+    position: absolute;
     bottom: 5%;
     width: 100%;
 }
