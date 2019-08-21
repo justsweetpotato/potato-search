@@ -113,7 +113,7 @@ def requests_to_wikipedia(client_msg):
             continue
 
     if content:
-        content_exist_list = re.match('.+?[ ，]?可[以能]是?[指是].*?：', content, flags=re.S)  # 词条存在多义吗
+        content_exist_list = re.match('.+?[ ，]?(可以|可能|或)(是| +)?[指是].*?：', content, flags=re.S)  # 词条存在多义吗
         if content_exist_list:  # 如果词条存在多义
             return None, None
 
@@ -262,5 +262,6 @@ if __name__ == '__main__':
     print(requests_to_wikipedia('土豆'))
     print(requests_to_wikipedia('西京'))
     print(requests_to_wikipedia('百度'))
+    print(requests_to_wikipedia('hi'))
 
     # print(error_403())
