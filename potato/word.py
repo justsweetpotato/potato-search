@@ -32,6 +32,10 @@ def word():
         "不要对外表过分在意，心灵才是最重要的。",
         # 名言佳句
         "It's better to light a candle than curse the darkness.",
+        # 歌曲
+        "你是你本身的傳奇, 憑著你志氣會成大器; 天公不造美, 幾經風浪也是你.  — 你是你本身的傳奇"
+        "撞進了冰山, 捲上了急灣, 一秒從未想折返; 就望到了, 就能望到了, 終會踏足這峽灣.  — 發現號"
+
     ]
 
     msg = choice(word_list)
