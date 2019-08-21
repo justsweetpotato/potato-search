@@ -1,0 +1,16 @@
+a:link {
+    text-decoration: none;
+    color: blue
+}
+
+.span_ok {
+    color: green;
+}
+
+.span_not_ok {
+    color: red;
+}
+
+.span_uncheck {
+    color: gray;
+}

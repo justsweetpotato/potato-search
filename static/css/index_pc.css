@@ -1,0 +1,53 @@
+.search-logo {
+    text-align: center;
+}
+
+.img {
+    width: 30%
+}
+
+.search-btn {
+    text-align: center;
+}
+
+.search-text {
+    height: 20%;
+    width: 40%;
+    padding: 9px 7px;
+    border: 1px solid #b8b8b8;
+    outline: none;
+    font-size: 16px;
+    margin-right: 0px;
+    border-radius: 1px;
+}
+
+.search-sub1, .search-sub2 {
+    height: 15%;
+    width: 60px;
+    background-color: lightgray;
+    border: none;
+    padding: 1px;
+    line-height: 38px;
+    color: dimgrey;
+    font-size: 16px;
+    margin: 0px;
+    border-radius: 2px;
+}
+
+.info {
+    text-align: center;
+    color: dimgrey;
+}
+
+.msg {
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.a_doc {
+    text-decoration: none;
+    color: dimgrey;
+}
