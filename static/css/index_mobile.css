@@ -36,7 +36,7 @@
 }
 
 .div1 {
-    position: absolute;
+    position: fixed;
     top: 5%;
     width: 100%;
 }
@@ -44,9 +44,10 @@
 .info {
     text-align: center;
     color: dimgrey;
-    position: absolute;
+    position: fixed;
     bottom: 5%;
     width: 100%;
+    display: none; /* 不得已的办法 */
 }
 
 .msg {
