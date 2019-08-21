@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="/static/sp.png" type="image/x-icon">
+    <link rel="icon" href="/static/potato.png" type="image/x-icon">
     <title>搜索结果</title>
     <style>
         a:link {
@@ -179,6 +179,9 @@
             color: #545454;
         }
 
+        .div_page {
+            text-align: center;
+        }
 
     </style>
     <script>
@@ -202,7 +205,7 @@
 <body>
 <div class="div1">
     <a class="a_img" href="{% url 'potato:index' %}?location={{ location }}">
-        <img src="/static/ssp.jpg" alt="" class="img_potato">
+        <img src="/static/detail.jpg" alt="" class="img_potato">
     </a>
     <form name="form1" action="/search/" method="get" class="form1" onsubmit="return required()">
         <input type="hidden" name="location" value="{{ location }}">
@@ -285,7 +288,7 @@
         <br>
     {% endfor %}
     <br>
-    <div style="text-align: center">
+    <div class="div_page">
         {% if not empty %}
             {% for page_number in  pages %}
                 {% ifequal page_number page %}

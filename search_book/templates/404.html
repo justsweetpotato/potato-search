@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="refresh" content="5;url={% url 'potato:index' %}">
+    {#    <meta http-equiv="refresh" content="5;url={% url 'potato:index' %}">#}
+    <link rel="icon" href="/static/potato.png" type="image/x-icon">
     <title>404</title>
     <style>
         a:link {
@@ -16,6 +17,10 @@
         .food {
             text-align: center;
         }
+
+        .img {
+            width: 25%;
+        }
     </style>
 </head>
 <body>
@@ -25,7 +30,9 @@
 <br>
 <div class="food">
     <h2>页面不存在(404).</h2>
-    <p>5 秒后自动返回首页.</p>
+    {#    <p>5 秒后自动返回首页.</p>#}
+    <br>
+    <img class="img" src="/static/error.jpg" alt="">
 </div>
 </body>
 </html>
