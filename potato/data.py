@@ -89,9 +89,11 @@ def requests_to_google(request):
 
 def requests_to_wikipedia(client_msg):
     '''向维基百科查询词条信息'''
-
+    # TODO: 逻辑可以改进
     url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
     response = requests.get(url)
+    if response.status_code == 404:
+        return None, None
     text = response.content.decode('utf-8')
     html = etree.HTML(text)
     content = None
@@ -261,8 +263,9 @@ if __name__ == '__main__':
     print(requests_to_wikipedia('aeklwhlek239210'))
     print(requests_to_wikipedia('土豆'))
     print(requests_to_wikipedia('西京'))
-    print(requests_to_wikipedia('百度'))
     print(requests_to_wikipedia('hi'))
+    print(requests_to_wikipedia('ewae'))
+    print(requests_to_wikipedia('百度'))
     print(requests_to_wikipedia('分號'))
 
     # print(error_403())
