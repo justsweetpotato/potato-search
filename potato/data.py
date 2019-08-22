@@ -7,6 +7,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 from lxml import etree
+from threading import Thread
 
 # 总页数
 PAGES = 3
@@ -18,9 +19,10 @@ KEY_LIST = [
     'AIzaSyAdolxu5TWJhArM00hTqTUwOTDHK00806s'
 ]
 
+# (名称, 网址, 状态)
 WEB = (
     ('网页代理', 'https://bot-go-1.herokuapp.com/', ''),
-    ('You2Php', 'https://bot-yt-8-21.herokuapp.com/', '')
+    ('You2Php', 'https://bot-yt-8-21.herokuapp.com/', ''),
 )
 
 WEB_PROXY = WEB[0][1]
@@ -30,6 +32,19 @@ TYPE = {
     "search": "007606540339251262492:smmy8xt1wrw",
     "book": "007606540339251262492:fq_p2g_s5pa"
 }
+
+
+class MyThread(Thread):
+    def __init__(self, func, args=()):
+        super(MyThread, self).__init__()
+        self.func = func
+        self.args = args
+
+    def run(self):
+        self.result = self.func(*self.args)
+
+    def get_result(self):
+        return self.result
 
 
 def requests_to_google(request):
@@ -49,12 +64,15 @@ def requests_to_google(request):
     title = None
     q_text = None
 
+    # TODO:耗时操作, 可用异步请求新特性
     if page == 1:
-        title, q_text = requests_to_wikipedia(client_msg)  # 获取查询字符的简介
+        thread_wiki = MyThread(func=requests_to_wikipedia, args=(client_msg,))  # 获取维基百科词条的简介
+        thread_wiki.start()
 
+    # TODO:耗时操作, 可用异步请求新特性
     if location == 'on':
-        ip = get_client_ip(request)  # 获取用户 IP
-        address = get_ip_address(ip)  # 获取用户地理位置
+        thread_local = MyThread(func=get_ip_and_address, args=(request,))  # 获取 IP 和 address
+        thread_local.start()
 
     for key in KEY_LIST:
         url = "https://www.googleapis.com/customsearch/v1?" \
@@ -67,6 +85,17 @@ def requests_to_google(request):
             if r.status_code != 403:
                 server_msg = r.json()  # 直接处理 json 返回 字典
                 content = handle_data(server_msg)
+                if type == "搜索":
+                    content["type"] = "搜索"
+                    content["all"] = True
+                else:
+                    content["type"] = "搜书"
+                if page == 1:
+                    thread_wiki.join()
+                    title, q_text = thread_wiki.get_result()
+                if location == 'on':
+                    thread_local.join()
+                    ip, address = thread_local.get_result()
                 content['q'] = client_msg
                 content['page'] = page
                 content['pages'] = list(range(1, PAGES + 1))
@@ -76,11 +105,6 @@ def requests_to_google(request):
                 content['title'] = title
                 content['text'] = q_text
                 content['proxy'] = WEB_PROXY + "proxy/"
-                if type == "搜索":
-                    content["type"] = "搜索"
-                    content["all"] = True
-                else:
-                    content["type"] = "搜书"
                 return content
 
     # 所有请求均失败, 返回 403
@@ -91,8 +115,11 @@ def requests_to_wikipedia(client_msg):
     '''向维基百科查询词条信息'''
     # TODO: 逻辑可以改进
     url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
-    response = requests.get(url)
-    if response.status_code == 404:
+    try:
+        response = requests.get(url)
+    except:
+        return None, None
+    if response.status_code != 200:
         return None, None
     text = response.content.decode('utf-8')
     html = etree.HTML(text)
@@ -122,6 +149,7 @@ def requests_to_wikipedia(client_msg):
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
         content = re.sub('\[.*?\]|（.*?）|中国互联网.*?（.*?（.*。|用法如下：', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
         return title, content
+
     return None, None
 
 
@@ -158,24 +186,21 @@ def handle_data(server_msg):
     return content
 
 
-def get_client_ip(request):
-    '''获取用户 IP'''
+def get_ip_and_address(request):
+    '''获取用户 IP 与 地址'''
 
     ip = request.META.get("HTTP_X_FORWARDED_FOR", "")  # 在使用反向代理的服务器上获取 Client IP
     if not ip:
         ip = request.META.get('REMOTE_ADDR', "")  # 在本地测试环境获取 Client IP
-
-    return ip
-
-
-def get_ip_address(ip):
-    '''获取用户地理位置'''
-
     url = "https://freeapi.ipip.net/{0}".format(ip)  # 获取地理位置
-    res = requests.get(url).json()
-    address = res[0] + ' ' + res[1] + ' ' + res[2] + ' ' + res[4]
+    try:
+        res = requests.get(url).json()
+    except:
+        return None, None
+    else:
+        address = res[0] + ' ' + res[1] + ' ' + res[2] + ' ' + res[4]
 
-    return address
+    return ip, address
 
 
 def get_api_data(q, page, key, type=0):
@@ -200,29 +225,47 @@ def get_api_data(q, page, key, type=0):
 
 def check_web(status):
     '''检查网站可用性 & 激活 herokuapp'''
-    # TODO: 可用异步请求的方式改进
+    # TODO: 可用异步请求新特性
     if status == '1':
         title_list = []
         url_list = []
         checked = []
+        thread_list = []
 
         for title, url, _ in WEB:
             title_list.append(title)
             url_list.append(url)
-            try:
-                with requests.get(url) as r:
-                    if r.status_code == 200:
-                        checked.append(1)
-                    else:
-                        checked.append(0)
-            except:
-                checked.append(0)
+            t = MyThread(func=requests_status, args=(url,))
+            thread_list.append(t)
+
+        for t in thread_list:
+            t.start()
+
+        for t in thread_list:
+            t.join()
+
+        for t in thread_list:
+            checked.append(t.get_result())
+
         content = {'content': zip(title_list, url_list, checked)}
         content['status'] = '1'
     else:
         content = {'content': WEB}
 
     return content
+
+
+def requests_status(url):
+    '''请求网站, 返回状态码'''
+
+    try:
+        r = requests.get(url)
+    except:
+        return 0
+    else:
+        if r.status_code == 200:
+            return 1
+        return 0
 
 
 def error_403():
@@ -254,18 +297,57 @@ if __name__ == '__main__':
     socks.set_default_proxy(socks.SOCKS5, addr, port)
     socket.socket = socks.socksocket
 
-    print(requests_to_wikipedia('南京'))
-    print(requests_to_wikipedia('广州'))
-    print(requests_to_wikipedia('Python'))
-    print(requests_to_wikipedia('法国大革命'))
-    print(requests_to_wikipedia('六四事件'))
-    print(requests_to_wikipedia('ooo'))
-    print(requests_to_wikipedia('aeklwhlek239210'))
-    print(requests_to_wikipedia('土豆'))
-    print(requests_to_wikipedia('西京'))
-    print(requests_to_wikipedia('hi'))
-    print(requests_to_wikipedia('ewae'))
-    print(requests_to_wikipedia('百度'))
-    print(requests_to_wikipedia('分號'))
+    # print(requests_to_wikipedia('南京'))
+    # print(requests_to_wikipedia('广州'))
+    # print(requests_to_wikipedia('Python'))
+    # print(requests_to_wikipedia('法国大革命'))
+    # print(requests_to_wikipedia('六四事件'))
+    # print(requests_to_wikipedia('ooo'))
+    # print(requests_to_wikipedia('aeklwhlek239210'))
+    # print(requests_to_wikipedia('土豆'))
+    # print(requests_to_wikipedia('西京'))
+    # print(requests_to_wikipedia('hi'))
+    # print(requests_to_wikipedia('ewae'))
+    # print(requests_to_wikipedia('百度'))
+    # print(requests_to_wikipedia('分號'))
 
     # print(error_403())
+
+    # def func_test(num):
+    #     import time
+    #     time.sleep(5)
+    #     print('func_test down')
+    #     return "func_test: {}".format(num)
+    #
+    # t = MyThread(func=func_test, args=(5, ))
+    # t.start()
+    # print(t.get_result())
+    # print('all down')
+
+    # 多线程的切换由 OS 调度, 不可控
+    # 主线程默认不会等待子线程结束, 主线程执行完毕立即结束(join 方法让主线程等待子线程执行完毕)
+    # 主线程结束后, 子线程不会退出, 直到子线程执行完毕(setDemon 方法让主线程结束后立即杀死子线程)
+
+    from time import sleep
+
+
+    def func_test2():
+        for i in range(10):
+            print('child {}'.format(i))
+            sleep(1)
+
+
+    def main():
+        t = Thread(target=func_test2)
+        # t.daemon = True
+        t.start()
+        for i in range(5):
+            print('father {}'.format(i))
+            sleep(1)
+
+        # t.join()
+        error = 1 / 0  # 这里确保出错让主线程退出
+        print('next...')  # next 不会被打印, 证明主线程退出
+
+
+    main()

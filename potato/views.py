@@ -7,8 +7,7 @@ from .forms import BookForm
 from .word import word
 from .data import requests_to_google
 from .data import get_api_data
-from .data import get_client_ip
-from .data import get_ip_address
+from .data import get_ip_and_address
 from .data import requests_to_wikipedia
 from .data import check_web
 from .data import error_403
@@ -91,8 +90,7 @@ def api_book(request):
 def api_ip(request):
     '''用户 IP 地址查询接口'''
 
-    ip = get_client_ip(request)
-    address = get_ip_address(ip)
+    ip, address = get_ip_and_address(request)
     return HttpResponse("当前 IP: " + ip + " 来自于: " + address)
 
 
