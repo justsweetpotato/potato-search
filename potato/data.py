@@ -149,7 +149,7 @@ def requests_to_wikipedia(client_msg):
             continue
 
     if content:
-        content_exist_list = re.match('.*?[^。\n]$', content, flags=re.S)  # 词条是否存在多义
+        content_exist_list = re.match('.*?[^。(\n|\[\d\])]$', content, flags=re.S)  # 词条是否存在多义
         if content_exist_list:  # 如果存在多义, 则取有用的信息
             content_exist_list_use = re.sub('。.*?：', '。\n', content_exist_list.group())
             if content_exist_list_use.endswith('。\n'):  # 如果结尾不为。表示无用信息
@@ -320,5 +320,6 @@ if __name__ == '__main__':
     print(requests_to_wikipedia('百度'))
     print(requests_to_wikipedia('分号'))
     print(requests_to_wikipedia('华盛顿'))
+    print(requests_to_wikipedia('亚马逊雨林'))
 
     # print(error_403())
