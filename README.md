@@ -1,19 +1,26 @@
 
-## 土豆图书搜索引擎<br>
-<a href="https://search-books.herokuapp.com/">土豆图书搜索</a><br>
+## 土豆搜索引擎<br>
+<a href="https://potato-search.herokuapp.com/">https://potato-search.herokuapp.com/</a><br>
 <i>*heroku 的应用托管服务半小时内无连接请求会进入休眠状态, 第一次访问较慢是正常现象, 请稍等.</i>
 
-#### 使用谷歌自定义搜索, 返回图书的搜索结果. <br>
+#### 使用谷歌自定义搜索, 返回搜索结果. <br>
 使用了 Django 框架, <b>表单</b>获取用户输入, <b>视图</b>将用户输入的内容构造成<b>请求URL</b>, 向<b>谷歌API</b>进行请求, 拿到结果后进行提取, 再把提取后的内容交由<b>视图</b>处理后写入<b>模板</b>并返回前端页面. <br>
 
-![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/10.png)
+![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/index.png)
 <hr>
 
-![搜索结果](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/11.png)
+![搜索结果1](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail1.png)
+<hr>
 
+![搜索结果2](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail2.png)
 
 ### 版本更新
-v3.1 正式版(8/1/2019)<br>
+v3.2 (8/23/2019)<br>
+性能优化, 使用多线程完成请求, 减少页面等待时间.<br>
+页面优化, 分离电脑端与手机端页面, 提升用户体验度.<br>
+其他多项优化.<br>
+
+v3.1 (8/1/2019)<br>
 除"搜书功能"外增加"搜索功能", 搜索结果与谷歌相同.<br>
 增加"词条简介"功能, 搜索结果会出现来自维基百科的简介(如果有的话).<br>
 增加以"沙盒模式"打开网页, 通过内置的"网页代理"用户的真实 IP 将对目标网站隐藏.<br>
@@ -27,19 +34,17 @@ v2.4 (7/23/2019)<br>
 搜索详情界面优化, 现在可以在详情页面进行搜索.<br>
 搜索结果增加了详细说明.<br>
 优化了代码逻辑, 更加简洁美观.<br>
-TODO: 搜索结果将增加至 3 页.
 
 v2.3 (4/2/2019)<br>
-修复了界面文本的一些错误, 对用户使用更加友好,<br> 
+修复了界面文本的一些错误, 对用户使用更加友好.<br> 
 优化了向 API 发送请求的逻辑, 现在会自动关闭连接.
 
 v2.2 (3/31/2019)<br>
 在谷歌 CSE 平台更新了搜索源(旧搜索源有些已经无法访问, 已删除无法访问的源并新增源).
 
 v2.1<br>
-新增一个 APIKEY 使每日请求配额达到 200,<br> 
-新增了一个 API 配额用尽时的提示,<br> 
-新增了 404 页面与 500 页面,<br>
+新增了一个 APIKEY 配额用尽时的提示.<br> 
+新增了 404 页面与 500 页面.<br>
 解决了搜索一串乱码时, 服务器返回 403 的错误(现在会显示未搜索到内容).<br>
 已知问题: 分页功能未完成, 目前只显示 1 页 10 条结果.
 
@@ -51,6 +56,5 @@ v1.1<br>
 已知问题: 中国大陆无法使用.
 
 v1.0<br>
-基础引擎框架<br>
+基础引擎框架.<br>
 已知问题: 中国大陆无法使用(谷歌 javascript 生成的界面在中国大陆无法加载, 并且反向代理无法解决这个问题).<br>
-
