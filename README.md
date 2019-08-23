@@ -8,8 +8,10 @@
 
 ![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/index.png)
 <hr>
+
 ![搜索结果1](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail1.png)
 <hr>
+
 ![搜索结果2](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail2.png)
 
 ### 版本更新
