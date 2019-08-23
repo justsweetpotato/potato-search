@@ -35,6 +35,8 @@ TYPE = {
 
 
 class MyThread(Thread):
+    '''一个能保存子线程结果的自定义线程类'''
+
     def __init__(self, func, args=()):
         super(MyThread, self).__init__()
         self.func = func
@@ -85,17 +87,21 @@ def requests_to_google(request):
             if r.status_code != 403:
                 server_msg = r.json()  # 直接处理 json 返回 字典
                 content = handle_data(server_msg)
+
                 if type == "搜索":
                     content["type"] = "搜索"
                     content["all"] = True
                 else:
                     content["type"] = "搜书"
+
                 if page == 1:
                     thread_wiki.join()
                     title, q_text = thread_wiki.get_result()
+
                 if location == 'on':
                     thread_local.join()
                     ip, address = thread_local.get_result()
+
                 content['q'] = client_msg
                 content['page'] = page
                 content['pages'] = list(range(1, PAGES + 1))
@@ -142,12 +148,14 @@ def requests_to_wikipedia(client_msg):
             continue
 
     if content:
-        content_exist_list = re.match('.+?[ ，]?(可以|可能|或)(是| +)?[指是].*?：', content, flags=re.S)  # 词条存在多义吗
-        if content_exist_list:  # 如果词条存在多义
-            return None, None
+        content_exist_list = re.match('.*?[^。\n]$', content, flags=re.S)  # 词条是否存在多义
+        if content_exist_list:  # 如果存在多义, 则取有用的信息
+            content_exist_list = re.sub('。.*?：', '。', content_exist_list.group())
+            if not content_exist_list.endswith('。'):  # 如果结尾不为。表示无用信息
+                return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
-        content = re.sub('\[.*?\]|（.*?）|中国互联网.*?（.*?（.*。|用法如下：', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
+        content = re.sub('\[.*?\]|（.*?）|中国互联网.*。', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
         return title, content
 
     return None, None
@@ -243,8 +251,6 @@ def check_web(status):
 
         for t in thread_list:
             t.join()
-
-        for t in thread_list:
             checked.append(t.get_result())
 
         content = {'content': zip(title_list, url_list, checked)}
@@ -297,57 +303,18 @@ if __name__ == '__main__':
     socks.set_default_proxy(socks.SOCKS5, addr, port)
     socket.socket = socks.socksocket
 
-    # print(requests_to_wikipedia('南京'))
-    # print(requests_to_wikipedia('广州'))
-    # print(requests_to_wikipedia('Python'))
-    # print(requests_to_wikipedia('法国大革命'))
-    # print(requests_to_wikipedia('六四事件'))
-    # print(requests_to_wikipedia('ooo'))
-    # print(requests_to_wikipedia('aeklwhlek239210'))
-    # print(requests_to_wikipedia('土豆'))
-    # print(requests_to_wikipedia('西京'))
-    # print(requests_to_wikipedia('hi'))
-    # print(requests_to_wikipedia('ewae'))
-    # print(requests_to_wikipedia('百度'))
-    # print(requests_to_wikipedia('分號'))
+    print(requests_to_wikipedia('南京'))
+    print(requests_to_wikipedia('广州'))
+    print(requests_to_wikipedia('Python'))
+    print(requests_to_wikipedia('法国大革命'))
+    print(requests_to_wikipedia('六四事件'))
+    print(requests_to_wikipedia('ooo'))
+    print(requests_to_wikipedia('aeklwhlek239210'))
+    print(requests_to_wikipedia('土豆'))
+    print(requests_to_wikipedia('西京'))
+    print(requests_to_wikipedia('hi'))
+    print(requests_to_wikipedia('ewae'))
+    print(requests_to_wikipedia('百度'))
+    print(requests_to_wikipedia('分號'))
 
     # print(error_403())
-
-    # def func_test(num):
-    #     import time
-    #     time.sleep(5)
-    #     print('func_test down')
-    #     return "func_test: {}".format(num)
-    #
-    # t = MyThread(func=func_test, args=(5, ))
-    # t.start()
-    # print(t.get_result())
-    # print('all down')
-
-    # 多线程的切换由 OS 调度, 不可控
-    # 主线程默认不会等待子线程结束, 主线程执行完毕立即结束(join 方法让主线程等待子线程执行完毕)
-    # 主线程结束后, 子线程不会退出, 直到子线程执行完毕(setDemon 方法让主线程结束后立即杀死子线程)
-
-    from time import sleep
-
-
-    def func_test2():
-        for i in range(10):
-            print('child {}'.format(i))
-            sleep(1)
-
-
-    def main():
-        t = Thread(target=func_test2)
-        # t.daemon = True
-        t.start()
-        for i in range(5):
-            print('father {}'.format(i))
-            sleep(1)
-
-        # t.join()
-        error = 1 / 0  # 这里确保出错让主线程退出
-        print('next...')  # next 不会被打印, 证明主线程退出
-
-
-    main()
