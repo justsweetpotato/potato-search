@@ -1,9 +1,9 @@
 
-## 土豆图书搜索引擎<br>
-<a href="https://search-books.herokuapp.com/">土豆图书搜索</a><br>
+## 土豆搜索引擎<br>
+<a href="https://potato-search.herokuapp.com/">https://potato-search.herokuapp.com/</a><br>
 <i>*heroku 的应用托管服务半小时内无连接请求会进入休眠状态, 第一次访问较慢是正常现象, 请稍等.</i>
 
-#### 使用谷歌自定义搜索, 返回图书的搜索结果. <br>
+#### 使用谷歌自定义搜索, 返回搜索结果. <br>
 使用了 Django 框架, <b>表单</b>获取用户输入, <b>视图</b>将用户输入的内容构造成<b>请求URL</b>, 向<b>谷歌API</b>进行请求, 拿到结果后进行提取, 再把提取后的内容交由<b>视图</b>处理后写入<b>模板</b>并返回前端页面. <br>
 
 ![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/index.png)
@@ -34,7 +34,6 @@ v2.4 (7/23/2019)<br>
 搜索详情界面优化, 现在可以在详情页面进行搜索.<br>
 搜索结果增加了详细说明.<br>
 优化了代码逻辑, 更加简洁美观.<br>
-TODO: 搜索结果将增加至 3 页.
 
 v2.3 (4/2/2019)<br>
 修复了界面文本的一些错误, 对用户使用更加友好,<br> 
