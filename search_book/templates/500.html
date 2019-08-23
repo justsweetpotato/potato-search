@@ -7,28 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="/static/potato.png" type="image/x-icon">
     <title>500</title>
-    <style>
-        a:link {
-            text-decoration: none;
-            color: blue
-        }
-
-        .food {
-            text-align: center;
-        }
-
-        .img {
-            width: 25%;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/doc.css">
 </head>
 <body>
-<a href="{% url 'potato:index' %}">返回首页</a>
+<button class="btn1" onclick="window.location.href='{% url 'potato:index' %}'">返回主页</button>
 <br>
 <br>
 <br>
-<div class="food">
+<div class="div_500">
     <h2>服务器内部错误(500).</h2>
     <p>
         您可以前往 <a href="https://github.com/justsweetpotato/search-book-heroku/issues">此页面</a> 报告本次错误, 感谢您的反馈.

@@ -21,8 +21,9 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    ('网页代理', 'https://bot-go-1.herokuapp.com/', ''),
+    ('网页代理', 'https://gogogo-google.herokuapp.com/', ''),
     ('You2Php', 'https://bot-yt-8-21.herokuapp.com/', ''),
+    ('网页代理(备用)', 'https://bot-go-1.herokuapp.com/', ''),
 )
 
 WEB_PROXY = WEB[0][1]
@@ -150,8 +151,10 @@ def requests_to_wikipedia(client_msg):
     if content:
         content_exist_list = re.match('.*?[^。\n]$', content, flags=re.S)  # 词条是否存在多义
         if content_exist_list:  # 如果存在多义, 则取有用的信息
-            content_exist_list = re.sub('。.*?：', '。', content_exist_list.group())
-            if not content_exist_list.endswith('。'):  # 如果结尾不为。表示无用信息
+            content_exist_list_use = re.sub('。.*?：', '。\n', content_exist_list.group())
+            if content_exist_list_use.endswith('。\n'):  # 如果结尾不为。表示无用信息
+                content = content_exist_list_use
+            else:
                 return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
@@ -315,6 +318,7 @@ if __name__ == '__main__':
     print(requests_to_wikipedia('hi'))
     print(requests_to_wikipedia('ewae'))
     print(requests_to_wikipedia('百度'))
-    print(requests_to_wikipedia('分號'))
+    print(requests_to_wikipedia('分号'))
+    print(requests_to_wikipedia('华盛顿'))
 
     # print(error_403())

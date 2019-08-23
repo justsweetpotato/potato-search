@@ -8,27 +8,14 @@
     {#    <meta http-equiv="refresh" content="5;url={% url 'potato:index' %}">#}
     <link rel="icon" href="/static/potato.png" type="image/x-icon">
     <title>404</title>
-    <style>
-        a:link {
-            text-decoration: none;
-            color: blue;
-        }
-
-        .food {
-            text-align: center;
-        }
-
-        .img {
-            width: 25%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/doc.css">
 </head>
 <body>
-<a href="{% url 'potato:index' %}">返回首页</a>
+<button class="btn1" onclick="window.location.href='{% url 'potato:index' %}'">返回主页</button>
 <br>
 <br>
 <br>
-<div class="food">
+<div class="div_404">
     <h2>页面不存在(404).</h2>
     {#    <p>5 秒后自动返回首页.</p>#}
     <br>

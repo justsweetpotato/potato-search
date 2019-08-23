@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="/static/potato.png" type="image/x-icon">
     <title>Error</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/error.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/doc.css">
 </head>
 <body>
-<a href="{% url 'potato:index' %}">返回首页</a>
+<button class="btn1" onclick="window.location.href='{% url 'potato:index' %}'">返回主页</button>
 <br>
 <br>
 <br>
-<div class="food">
+<div class="div_error">
     <h2>Custom Search 拒绝响应(403).</h2>
     <p>
         很抱歉, 今日请求配额 {{ count }} 已用尽, 请尝试等待 {{ hour }} 小时 {{ minute }} 分 后再试.

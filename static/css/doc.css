@@ -1,3 +1,7 @@
+@charset "UTF-8";
+
+/* doc 部分 */
+
 a:link {
     text-decoration: none;
     color: blue
@@ -13,4 +17,34 @@ a:link {
 
 .span_uncheck {
     color: gray;
+}
+
+/* 404, 500, error 部分*/
+
+.div_404 {
+    text-align: center;
+}
+
+.div_500 {
+    text-align: center;
+}
+
+.div_error {
+    text-align: center;
+}
+
+.img {
+    width: 25%;
+}
+
+.btn1 {
+    width: 100px;
+    background-color: lightskyblue;
+    border: none;
+    padding: 1px;
+    line-height: 38px;
+    color: white;
+    font-size: 16px;
+    margin: 0px;
+    border-radius: 25px;
 }

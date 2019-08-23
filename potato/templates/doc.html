@@ -10,10 +10,9 @@
     <link rel="stylesheet" type="text/css" href="/static/css/doc.css">
 </head>
 <body>
-<a href="{% url 'potato:index' %}">返回首页</a>
+<button class="btn1" id="btn1" onclick="window.location.href='{% url 'potato:index' %}'">返回主页</button>
 <br>
-<br>
-<div class="food">
+<div class="div_doc">
     <h2>文档</h2>
     <p>
         谷歌搜索 API:<br>
@@ -53,7 +52,8 @@
 
     <p>
         工具:<br>
-        <a href="?status=1">检测网站可用性</a><br>
+        <button class="btn2" onclick="window.location.href='?status=1'">检测网站可用性</button>
+        <br>
         {% for title, url, check in content %}
             {{ title }}: <a href="{{ url }}">{{ url }}</a>
             {% if check == 1 %}
