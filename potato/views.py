@@ -58,7 +58,12 @@ def doc(request):
     '''文档'''
 
     status = request.GET.get('status', '0')
+    location = request.GET.get('location', 'off')
+    language = request.GET.get('lang', 'zh')
     content = check_web(status)
+    content['location'] = location
+    content['lang'] = language
+
     return render(request, 'doc.html', content)
 
 
