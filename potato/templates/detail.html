@@ -27,9 +27,9 @@
         {% else %}
             <option selected>Language</option>
         {% endif %}
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&q={{ q }}&action={{ type }}">English
+        <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&q={{ q }}&page={{ page }}&action={{ type }}">English
         </option>
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh&q={{ q }}&action={{ type }}">中文(中国)
+        <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh&q={{ q }}&page={{ page }}&action={{ type }}">中文(中国)
         </option>
     </select>
 </div>
