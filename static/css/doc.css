@@ -19,6 +19,13 @@ a:link {
     color: gray;
 }
 
+.div_code {
+    text-align: center;
+    margin: 5% 10% 10% 10%;
+    background: black;
+    color: white;
+}
+
 /* 404, 500, error 部分*/
 
 .div_404 {
