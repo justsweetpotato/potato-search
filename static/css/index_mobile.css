@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.div0 {
+    float: right;
+}
+
 .search-logo {
     text-align: center;
 }
@@ -37,8 +41,6 @@
 }
 
 .div1 {
-    position: fixed;
-    top: 5%;
     width: 100%;
 }
 

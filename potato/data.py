@@ -53,12 +53,24 @@ class MyThread(Thread):
 def requests_to_google(request):
     '''向 Google API 发送请求, 并返回数据'''
     # https://www.googleapis.com/customsearch/v1?q=python&cx=007606540339251262492:smmy8xt1wrw&num=10&start=1&key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
-
+    language = request.GET.get('lang', 'zh')  # 获取语言
     type = request.GET.get('action', "搜索")
-    if type == "搜索":
-        type_value = TYPE["search"]
+
+    if language == 'en':
+        if (type == "Library") or (type == "搜书"):
+            type = "Library"
+            type_value = TYPE["book"]
+        else:
+            type = "Search"
+            type_value = TYPE["search"]
     else:
-        type_value = TYPE["book"]
+        if (type == "搜书") or (type == "Library"):
+            type = "搜书"
+            type_value = TYPE["book"]
+        else:
+            type = "搜索"
+            type_value = TYPE["search"]
+
     client_msg = request.GET.get('q')  # 获取查询字符
     page = int(request.GET.get('page', 1))  # 获取页码
     location = request.GET.get('location', 'off')  # 地理位置开关
@@ -69,7 +81,7 @@ def requests_to_google(request):
 
     # TODO:耗时操作, 可用异步请求新特性
     if page == 1:
-        thread_wiki = MyThread(func=requests_to_wikipedia, args=(client_msg,))  # 获取维基百科词条的简介
+        thread_wiki = MyThread(func=requests_to_wikipedia, args=(client_msg, language))  # 获取维基百科词条的简介
         thread_wiki.start()
 
     # TODO:耗时操作, 可用异步请求新特性
@@ -77,10 +89,15 @@ def requests_to_google(request):
         thread_local = MyThread(func=get_ip_and_address, args=(request,))  # 获取 IP 和 address
         thread_local.start()
 
+    if language == 'en':
+        lang = 'lang_en'
+    else:
+        lang = 'lang_zh-cn'
+
     for key in KEY_LIST:
         url = "https://www.googleapis.com/customsearch/v1?" \
               "q={0}&cx={1}&num=10&start={2}&" \
-              "key={3}".format(client_msg, type_value, page, key)
+              "key={3}&lr={4}".format(client_msg, type_value, page, key, lang)
 
         # 使用 with 语句可以确保连接被关闭
         with requests.get(url) as r:
@@ -89,11 +106,8 @@ def requests_to_google(request):
                 server_msg = r.json()  # 直接处理 json 返回 字典
                 content = handle_data(server_msg)
 
-                if type == "搜索":
-                    content["type"] = "搜索"
-                    content["all"] = True
-                else:
-                    content["type"] = "搜书"
+                if (type == "搜索") or (type == "Search"):
+                    content["search"] = True
 
                 if page == 1:
                     thread_wiki.join()
@@ -103,6 +117,7 @@ def requests_to_google(request):
                     thread_local.join()
                     ip, address = thread_local.get_result()
 
+                content['type'] = type
                 content['q'] = client_msg
                 content['page'] = page
                 content['pages'] = list(range(1, PAGES + 1))
@@ -112,16 +127,22 @@ def requests_to_google(request):
                 content['title'] = title
                 content['text'] = q_text
                 content['proxy'] = WEB_PROXY + "proxy/"
+                content['lang'] = language
+
                 return content
 
     # 所有请求均失败, 返回 403
     return 403
 
 
-def requests_to_wikipedia(client_msg):
+def requests_to_wikipedia(client_msg, language):
     '''向维基百科查询词条信息'''
     # TODO: 逻辑可以改进
-    url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
+    if language == 'en':
+        # url = "https://en.wikipedia.org/wiki/{}".format(client_msg)
+        return None, None  # TODO: 英语匹配的正则待改进
+    else:
+        url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
     try:
         response = requests.get(url)
     except:

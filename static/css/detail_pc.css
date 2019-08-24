@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.div0 {
+    float: right;
+}
+
 a:link {
     text-decoration: none;
     color: blue;

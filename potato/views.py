@@ -23,8 +23,8 @@ def search(request):
         content = requests_to_google(request)  # 向 Google API 请求, 并处理返回结果
 
         if content != 403:
-            response = render(request, 'detail.html', content)
-            return response
+            return render(request, 'detail.html', content)
+
         # 没有查询到任何结果, 返回错误信息
         content = error_403()
         return render(request, 'error.html', content, status=403)
@@ -36,9 +36,12 @@ def index(request):
     '''主页'''
 
     location = request.GET.get('location', 'off')
-    s_msg = word()
+    language = request.GET.get('lang', 'zh')
+
+    s_msg = word(language)
     content = {"msg": s_msg}
     content['location'] = location
+    content['lang'] = language
 
     return render(request, 'index.html', content)
 
