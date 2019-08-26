@@ -20,6 +20,14 @@
     <script type="text/javascript" src="/static/js/action.js"></script>
 </head>
 <body>
+<div class="div_app">
+    <span>
+        <img src="https://pic.sopili.net/pub/emoji/twitter/2/72x72/1f438.png" width=20 height=20>
+    </span>
+    <div class="div_app_link">
+        <a class="div_app_a1" href="https://obelisk2019.herokuapp.com/">文本竖排</a>
+    </div>
+</div>
 <div class="div0">
     <select class="select0" onchange=mbar(this)>
         {% if lang == 'en' %}
@@ -75,7 +83,8 @@
     <br>
     <br>
     <div class="info">
-        <small>Powered by <a class="a_doc" href="{% url 'potato:doc' %}?location={{ location }}&lang={{ lang }}">Django</a></small>
+        <small>Powered by <a class="a_doc"
+                             href="{% url 'potato:doc' %}?location={{ location }}&lang={{ lang }}">Django</a></small>
         <br>
         {% if lang == 'en' %}
             <small>
