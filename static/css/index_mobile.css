@@ -7,6 +7,11 @@
     display: inline-block;
 }
 
+.img_app1 {
+    width: 40px;
+    height: 40px;
+}
+
 .div_app_link {
     text-align: center;
     display: none;
