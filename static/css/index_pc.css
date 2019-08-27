@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 .div_app {
+    /* 为什么 commit 没用? */
     margin-top: 0.5%;
     text-align: center;
     float: left;
