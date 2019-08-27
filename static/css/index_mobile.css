@@ -1,10 +1,22 @@
 @charset "UTF-8";
 
 .div_app {
+    margin-top: 0.5%;
     text-align: center;
     float: left;
     position: relative;
     display: inline-block;
+}
+
+.div_app_span {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background: lightblue;
+    color: white;
+    font-size: 11.2px;
+    text-align: center;
+    padding: 6.4px;
 }
 
 .img_app1 {
