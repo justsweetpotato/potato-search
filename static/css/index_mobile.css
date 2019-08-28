@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.search-logo {
+    margin-top: 10%;
+}
+
 .div_app {
     margin-top: 0.5%;
     text-align: center;
