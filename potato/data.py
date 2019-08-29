@@ -21,9 +21,9 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    ('网页代理', 'https://gogogo-google.herokuapp.com/', ''),
+    ('网页代理', 'https://bot-go-1.herokuapp.com/', ''),
     ('You2Php', 'https://bot-yt-8-21.herokuapp.com/', ''),
-    ('网页代理(备用)', 'https://bot-go-1.herokuapp.com/', ''),
+
 )
 
 WEB_PROXY = WEB[0][1]
