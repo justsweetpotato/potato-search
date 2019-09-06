@@ -49,7 +49,8 @@ def index(request):
 def test(request):
     '''测试页面, 使用 Google 提供的 JavaScript 代码生成搜索框'''
 
-    s_msg = word()
+    language = request.GET.get('lang', 'zh')
+    s_msg = word(language)
     content = {"msg": s_msg}
     return render(request, 'test.html', content)
 
