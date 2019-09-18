@@ -3,6 +3,7 @@ chardet==3.0.4
 dj-static==0.0.6
 Django==2.2.5
 gunicorn==19.9.0
+hanziconv==0.3.2
 idna==2.8
 lxml==4.4.1
 pytz==2019.2

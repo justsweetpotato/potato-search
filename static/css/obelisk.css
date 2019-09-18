@@ -1,0 +1,279 @@
+@charset "UTF-8";
+
+.a_title {
+    color: black;
+}
+
+.a_small_title {
+    text-decoration: none;
+}
+
+.h2_title {
+    display: inline-block;
+}
+
+.small_title {
+    color: gray;
+}
+
+.s1 {
+    color: lightcoral;
+}
+
+.s2 {
+    color: orange;
+}
+
+.s3 {
+    color: yellow;
+}
+
+.s4 {
+    color: lightgreen;
+}
+
+.s5 {
+    color: lightblue;
+}
+
+.s6 {
+    color: rebeccapurple;
+}
+
+/* 屏幕大于 767 加载, 针对电脑, iPad */
+@media screen and (min-device-width: 767px) {
+    .div_all {
+        width: 80%;
+        margin-top: 1%;
+        margin-left: 5%
+    }
+
+    .span_msg {
+        font-size: 16px
+    }
+
+    .span_warn {
+        display: none;
+    }
+
+    .msg_mobile {
+        display: none;
+    }
+
+    .span_text {
+        font-size: 16px;
+    }
+
+    .msg_pc {
+        width: 100%;
+        height: 96px;
+        font-size: 16px;
+    }
+
+    .div_row {
+        width: 25%;
+        display: inline-block;
+        margin-bottom: 2%;
+    }
+
+    .div_cut {
+        width: 25%;
+        display: inline-block;
+        margin-bottom: 1%;
+    }
+
+    .div_sty {
+        width: 25%;
+        display: inline-block;
+        margin-bottom: 1%;
+    }
+
+    .div_lang {
+        width: 25%;
+        display: inline-block;
+        margin-bottom: 2%;
+    }
+
+    .span_row {
+        font-size: 16px;
+    }
+
+    .input_row {
+        width: 50px;
+        font-size: 16px;
+    }
+
+    .span_cut {
+        font-size: 16px;
+    }
+
+    .span_cut_set {
+        font-size: 16px;
+    }
+
+    .span_sty {
+        font-size: 16px;
+    }
+
+    .span_sty_set {
+        font-size: 16px;
+    }
+
+    .span_lang {
+        font-size: 16px;
+    }
+
+    .span_lang_set {
+        font-size: 16px;
+    }
+
+    .input_sub {
+        width: 64px;
+        height: 32px;
+        border-radius: 12px;
+        font-size: 16px;
+        color: white;
+        background: cornflowerblue;
+    }
+
+    .btn_reset {
+        width: 64px;
+        height: 32px;
+        border-radius: 12px;
+        font-size: 16px;
+        color: white;
+        background: orange;
+    }
+
+    .span_about {
+        font-size: 16px;
+        color: gray();
+    }
+}
+
+/* 屏幕小于 767 加载, 针对手机, 平板 */
+@media screen and (max-device-width: 767px) {
+    .div_all {
+        width: 95%;
+        margin-top: 1%;
+        /*margin-left: 5%;*/
+    }
+
+    .span_msg {
+        font-size: 10px;
+    }
+
+    .span_warn {
+        display: none;
+    }
+
+    .msg_pc {
+        display: none;
+    }
+
+    .span_text {
+        font-size: 14px;
+    }
+
+    .msg_mobile {
+        width: 100%;
+        height: 76px;
+        font-size: 14px;
+    }
+
+    .div_row {
+        width: 45%;
+        display: inline-block;
+        margin-bottom: 2%;
+    }
+
+    .div_cut {
+        width: 45%;
+        display: inline-block;
+        margin-bottom: 1%;
+    }
+
+    .div_sty {
+        width: 50%;
+        display: inline-block;
+        margin-bottom: 1%;
+    }
+
+    .div_lang {
+        width: 50%;
+        display: inline-block;
+        margin-bottom: 2%;
+    }
+
+    .span_row {
+        font-size: 14px;
+    }
+
+    .input_row {
+        width: 40px;
+        font-size: 14px;
+    }
+
+    .span_cut {
+        font-size: 14px;
+    }
+
+    .span_cut_set {
+        font-size: 14px;
+    }
+
+    .span_sty {
+        font-size: 14px;
+    }
+
+    .span_sty_set {
+        font-size: 14px;
+    }
+
+    .span_lang {
+        font-size: 14px;
+    }
+
+    .span_lang_set {
+        font-size: 14px;
+    }
+
+    .input_sub {
+        width: 51.2px;
+        height: 25.6px;
+        border-radius: 9.6px;
+        font-size: 14px;
+        color: white;
+        background: cornflowerblue;
+    }
+
+    .btn_reset {
+        width: 51.2px;
+        height: 25.6px;
+        border-radius: 9.6px;
+        font-size: 14px;
+        color: white;
+        background: orange;
+    }
+
+    .span_about {
+        font-size: 14px;
+        color: gray();
+    }
+}
+
+/* 屏幕小于 300 加载, 发出警告 */
+@media screen and (max-device-width: 300px) {
+    .span_msg {
+        display: none;
+    }
+
+    .span_warn {
+        display: block;
+        font-size: 10px;
+        background: black;
+        color: white;
+        width: 100%;
+        height: 150px;
+    }
+}

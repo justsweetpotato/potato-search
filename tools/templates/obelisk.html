@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文本竖排</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/static/ha.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/static/css/obelisk.css">
+    <script type="text/javascript" src="/static/js/action.js"></script>
+</head>
+<body>
+<div class=div_all>
+    <a class="a_title" href="{% url 'tools:obelisk' %}"><h2 class="h2_title">文本竖排</h2></a>
+    <a class="a_small_title" href="{% url 'potato:index' %}">
+        &nbsp;<small class="small_title"><span class="s1">v</span><span class="s2">0</span><span
+            class="s3">.</span><span
+            class="s4">1</span><span class="s5">.</span><span class="s6">0</span></small>
+    </a>
+    <form action="" name="form" method="post">
+        {% csrf_token %}
+        <span class="span_text">文本:</span><br>
+        {% if type == 'pc' %}
+            <textarea class="msg_pc" maxlength="500" name="msg_pc"
+                      id="msg_pc"
+                      placeholder="请输入文本: (恭喜你发现彩蛋！力量值提升！最大 500 字符)">{{ msg }}</textarea>
+            <textarea class="msg_mobile" maxlength="100"
+                      name="msg_mobile"
+                      id="msg_mobile"
+                      placeholder="请输入文本: (最大 100 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+        {% elif type == 'mobile' %}
+            <textarea class="msg_pc" maxlength="250" name="msg_pc"
+                      id="msg_pc"
+                      placeholder="请输入文本: (最大 250 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+            <textarea class="msg_mobile" maxlength="100"
+                      name="msg_mobile"
+                      id="msg_mobile"
+                      placeholder="请输入文本: (最大 100 字符, 支持中文, 英文, 数字, 常用标点)">{{ msg }}</textarea>
+        {% else %}
+            <textarea class="msg_pc" maxlength="250" name="msg_pc"
+                      id="msg_pc"
+                      placeholder="请输入文本: (最大 250 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+            <textarea class="msg_mobile" maxlength="100"
+                      name="msg_mobile"
+                      id="msg_mobile"
+                      placeholder="请输入文本: (最大 100 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+        {% endif %}
+        <br>
+        <br>
+        <div>
+            <div class=div_row>
+                <span class="span_row">行数:</span><br>
+                <input class="input_row" type="text" name="row" value="{{ row }}">
+            </div>
+            <div class="div_lang">
+                <span class="span_lang">简繁转换:</span><br>
+                <span class="span_lang_set">
+                {% if lang == 'S' %}
+                    <input type="radio" name="lang" value="">无
+                    <input type="radio" name="lang" value="S" checked>简
+                    <input type="radio" name="lang" value="T">繁
+                {% elif lang == 'T' %}
+                    <input type="radio" name="lang" value="">无
+                    <input type="radio" name="lang" value="S">简
+                    <input type="radio" name="lang" value="T" checked>繁
+                {% else %}
+                    <input type="radio" name="lang" value="" checked>无
+                    <input type="radio" name="lang" value="S">简
+                    <input type="radio" name="lang" value="T">繁
+                {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <div class="div_cut">
+                <span class="span_cut">分隔符:</span><br>
+                <span class="span_cut_set">
+            {% if style == ' ' %}
+                <input type="radio" name="style" value="">无
+                <input type="radio" name="style" value=" " checked>空格
+                <input type="radio" name="style" value="|">竖线
+            {% elif style == '|' %}
+                <input type="radio" name="style" value="">无
+                <input type="radio" name="style" value=" ">空格
+                <input type="radio" name="style" value="|" checked>竖线
+            {% else %}
+                <input type="radio" name="style" value="" checked>无
+                <input type="radio" name="style" value=" ">空格
+                <input type="radio" name="style" value="|">竖线
+            {% endif %}
+                </span>
+            </div>
+            <div class="div_sty">
+                <span class="span_sty">样式:</span><br>
+                <span class="span_sty_set">
+                {% if reverse == '0' %}
+                    <input type="radio" name="reverse" value="0" checked>从左往右
+                    <input type="radio" name="reverse" value="1">从右往左
+                {% else %}
+                    <input type="radio" name="reverse" value="0">从左往右
+                    <input type="radio" name="reverse" value="1" checked>从右往左
+                {% endif %}
+                </span>
+            </div>
+        </div>
+        <br>
+        <input class="input_sub" type="submit" name="" id="" value="提交">&nbsp;&nbsp;&nbsp;
+        <button class="btn_reset" onclick="ClearTextArea()">重置</button>
+    </form>
+    <br>
+    <hr>
+    <div>
+        {% if content %}
+            <span class="span_msg">
+                {{ content | safe }}
+            </span>
+            <span class="span_warn">
+                Dev@debian:~# 您的手机屏幕太小<br>
+                Dev@debian:~# 可能会导致显示错乱<br>
+                Dev@debian:~# 对不起<br>
+                Dev@debian:~# 没能修复这个 BUG<br>
+                Dev@debian:~# T-T
+            </span>
+        {% else %}
+            <span class="span_about">
+                使用方法: 规避敏感词审查, 说出你想说的话<br>
+                如果在手机上出现排版错乱, 请缩短文本长度<br>
+                在墙内留言时注意保护好个人隐私, 不要泄露身份信息<br>
+            </span>
+        {% endif %}
+    </div>
+</div>
+<br>
+<br>
+</body>
+</html>
