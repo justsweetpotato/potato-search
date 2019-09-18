@@ -1,8 +1,7 @@
--i https://pypi.org/simple
 certifi==2019.9.11
 chardet==3.0.4
 dj-static==0.0.6
-django==2.2.5
+Django==2.2.5
 gunicorn==19.9.0
 idna==2.8
 lxml==4.4.1
