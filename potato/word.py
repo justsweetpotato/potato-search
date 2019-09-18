@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # 用于处理与文字相关的逻辑
 
 from random import choice
