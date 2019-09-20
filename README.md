@@ -1,6 +1,6 @@
 
 ## 土豆搜索引擎<br>
-<a href="https://potato-search.herokuapp.com/">https://potato-search.herokuapp.com/</a><br>
+<a href="https://search.littlepotato.life/">https://search.littlepotato.life/</a><br>
 <i>*heroku 的应用托管服务半小时内无连接请求会进入休眠状态, 第一次访问较慢是正常现象, 请稍等.</i>
 
 #### 使用谷歌自定义搜索, 返回搜索结果. <br>
