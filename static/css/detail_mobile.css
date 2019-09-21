@@ -2,7 +2,7 @@
 
 .div0 {
     float: right;
-    display: none;  /* 手机下屏蔽此功能 */
+    display: none; /* 手机下屏蔽此功能 */
 }
 
 a:link {
@@ -36,8 +36,7 @@ a:hover {
 
 .a3 {
     color: #1a0dab;
-    font-size: 18px;
-
+    font-size: 17px;
 }
 
 .a3:visited {
@@ -110,6 +109,7 @@ a:hover {
 
 .span1 {
     color: #545454;
+    font-size: 15px;
 }
 
 .span2 {
@@ -154,7 +154,7 @@ h4 {
 
 .small_info {
     color: dimgrey;
-    display: none;  /* 手机下屏蔽此功能 */
+    display: none; /* 手机下屏蔽此功能 */
 }
 
 .small_url {
@@ -180,4 +180,34 @@ h4 {
 
 .div_page {
     text-align: center;
+}
+
+@media screen and (max-device-width: 413px) {
+    .a3 {
+        font-size: 16px;
+    }
+
+    .span1 {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-device-width: 374px) {
+    .a3 {
+        font-size: 15px;
+    }
+
+    .span1 {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-device-width: 359px) {
+    .a3 {
+        font-size: 14px;
+    }
+
+    .span1 {
+        font-size: 12px;
+    }
 }
