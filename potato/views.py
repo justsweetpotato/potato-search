@@ -15,6 +15,8 @@ from .data import requests_to_wikipedia
 from .data import check_web
 from .data import error_403
 
+LANGUAGE_LIST = ['lang_en', 'lang_zh-CN', 'lang_zh-TW']
+
 
 def search(request):
     '''将用户输入发送至谷歌处理, 处理返回结果后填充至网页'''
@@ -26,7 +28,7 @@ def search(request):
         content = requests_to_google(request)  # 向 Google API 请求, 并处理返回结果
 
         if content != 403:
-            return render(request, 'detail.html', content)
+            return render(request, '{}/detail.html'.format(content['lang']), content)
 
         # 没有查询到任何结果, 返回错误信息
         content = error_403()
@@ -39,20 +41,22 @@ def index(request):
     '''主页'''
 
     location = request.GET.get('location', 'off')
-    language = request.GET.get('lang', 'zh')
+    language = request.GET.get('lang', 'lang_zh-CN')
+    if language not in LANGUAGE_LIST:
+        language = 'lang_zh-CN'
 
     s_msg = word(language)
     content = {"msg": s_msg}
     content['location'] = location
     content['lang'] = language
 
-    return render(request, 'index.html', content)
+    return render(request, '{}/index.html'.format(language), content)
 
 
 def test(request):
     '''测试页面, 使用 Google 提供的 JavaScript 代码生成搜索框'''
 
-    language = request.GET.get('lang', 'zh')
+    language = request.GET.get('lang', 'lang_zh-CN')
     s_msg = word(language)
     content = {"msg": s_msg}
     return render(request, 'test.html', content)
@@ -63,7 +67,7 @@ def doc(request):
 
     status = request.GET.get('status', '0')
     location = request.GET.get('location', 'off')
-    language = request.GET.get('lang', 'zh')
+    language = request.GET.get('lang', 'lang_zh-CN')
     content = check_web(status)
     content['location'] = location
     content['lang'] = language

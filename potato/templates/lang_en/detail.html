@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+    <title>Results</title>
+    <!-- 屏幕宽度大于 500 加载 PC 版 CSS -->
+    <link rel="stylesheet" type="text/css" media="screen and (min-device-width: 500px)"
+          href="/static/css/detail_pc.css">
+    <!-- 屏幕宽度小于 500 加载 手机版 CSS -->
+    <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 500px)"
+          href="/static/css/detail_mobile.css">
+    <script type="text/javascript" src="/static/js/action.js"></script>
+</head>
+<body>
+<div class="div0">
+    <select class="select0" onchange=mbar(this)>
+        <option selected value="{% url 'potato:search' %}?location={{ location }}&lang=en&q={{ q }}&page={{ page }}&action={{ action }}">
+            English
+        </option>
+        <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh&q={{ q }}&page={{ page }}&action={{ action }}">
+            中文(简体)
+        </option>
+        <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh&q={{ q }}&page={{ page }}&action={{ action }}">
+            中文(繁體)
+        </option>
+    </select>
+</div>
+<div class="div1">
+    <a class="a_img" href="{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}">
+        <img src="/static/detail.jpg" alt="" class="img_potato">
+    </a>
+    <form name="form1" action="/search/" method="get" class="form1" onsubmit="return required()">
+        <input type="hidden" name="location" value="{{ location }}">
+        <input type="hidden" name="lang" value="{{ lang }}">
+        <input type="text" name="q" value="{{ q }}" class="search-text" id="input1"/>
+        &nbsp;
+        {% if action == 'search' %}
+            <input type="submit" name="action" class="search-sub" value="Search"/>
+        {% else %}
+            <input type="submit" name="action" class="search-sub" value="Library"/>
+        {% endif %}
+    </form>
+</div>
+<ul class="ul1">
+    {% if results %}
+        {% if page == 1 %}
+            <small class="small_info">About {{ results }} results ({{ time }} seconds)</small>
+            {% if book %}
+                <small class="small_url"><i><a class="a1" href="http://gen.lib.rus.ec/search.php?req={{ q }}">Search for
+                    Library
+                    Genesis</a></i></small>
+            {% endif %}
+        {% else %}
+            <small class="small_info"> Page {{ page }} of about {{ results }} results ({{ time }} seconds)</small>
+        {% endif %}
+    {% endif %}
+    <br>
+    <br>
+    {% if title and page == 1 %}
+        <div class="div_info">
+            <h4>{{ title }}</h4>
+            <small>{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">Wikipedia</a></small>
+        </div>
+        <br>
+    {% endif %}
+    {% for x, y, z, v in content %}
+        <li class="li1">
+            <a class="a3" href="{{ y }}">{{ x }}</a>
+            <br>
+            <small>
+                <span class="span5">
+                    <a class="a_info" href="{{ y }}">{{ y }}</a>
+                </span>
+                <select class="select1" name="select" id="select" onchange=mbar(this)>
+                    <option selected></option>
+                    <option value="{{ proxy }}https://webcache.googleusercontent.com/search?q=cache:{{ y }}">
+                        Cached
+                    </option>
+                </select>
+                {% if v %}
+                    <span class="span6"><a href="{{ v }}">Anonymous View</a></span>
+                {% else %}
+                    <span class="span6"><a href="{{ proxy }}{{ y }}">Anonymous View</a></span>
+                {% endif %}
+                <br>
+                <span class="span1">
+                    {{ z | safe }}
+                </span>
+            </small>
+        </li>
+        <br>
+    {% empty %}
+        <li class="li2">Your search - <span class="span2">{{ q }}</span> - did not match any documents.</li>
+        <br>
+        Suggestions:
+        <br>
+        <ul>
+            <li class="li3">Make sure all words are spelled correctly.</li>
+            <li class="li4">Try different keywords.</li>
+            <li class="li5">Try more general keywords.</li>
+        </ul>
+        <div style="position: fixed; bottom: 20px; width: 50%;">
+            <hr>
+            🌎&nbsp;
+            <small>
+                {% if ip %}
+                    {{ address }}
+                    <span class="span3"> - From your Internet address - <a class="a_lon"
+                                                                           href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
+                            href="?location=off&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service off</a></span>
+                {% else %}
+                    Unable to get Location
+                    <span class="span4"> - Location Service is disabled - <a class="a_loff"
+                                                                             href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service on</a></span>
+                {% endif %}
+            </small>
+        </div>
+    {% endfor %}
+    <br>
+    {% if not empty %}
+        <div class="div_page">
+            {% for page_number in  pages %}
+                {% ifequal page_number page %}
+                    {% if page != 1 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    {{ page_number }}
+                    {% if page != 3 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                {% else %}
+                    {% if page == 3 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                    <a class="a_page"
+                       href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page_number }}&action={{ action }}">{{ page_number }}
+                    </a>
+                    {% if page == 1 %}
+                        &nbsp;&nbsp;&nbsp;
+                    {% endif %}
+                {% endifequal %}
+            {% endfor %}
+            <br>
+            <small class="small_know">
+                Q: What is a programmer's favourite hangout place?<br>
+                A: Foo Bar
+            </small>
+        </div>
+        <br>
+        <div>
+            <hr>
+            🌎&nbsp;
+            <small>
+                {% if ip %}
+                    {{ address }}
+                    <span class="span3"> - From your Internet address - <a class="a_lon"
+                                                                           href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
+                            href="?location=off&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service off</a></span>
+                {% else %}
+                    Unable to get Location
+                    <span class="span4"> - Location Service is disabled - <a class="a_loff"
+                                                                             href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service on</a></span>
+                {% endif %}
+            </small>
+        </div>
+    {% endif %}
+</ul>
+</body>
+</html>

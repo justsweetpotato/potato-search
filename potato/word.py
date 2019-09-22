@@ -8,7 +8,7 @@ from random import choice
 def word(language):
     '''从文字列表中随机选择一条并返回'''
 
-    word_list_zh = [
+    word_list_zh_cn = [
         # 神隐少女
         "人生就是一列开往坟墓的列车，路途上会有很多站，很难有人可以自始至终陪着走完。当陪你的人要下车时，即使不舍也该心存感激，然后挥手道别。",
         "不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福。",
@@ -43,9 +43,15 @@ def word(language):
         "Stand on the shoulders of giants",
     ]
 
-    if language == 'en':
+    word_list_zh_tw = [
+        "站在巨人的肩膀上",
+    ]
+
+    if language == 'lang_en':
         msg = choice(word_list_en)
+    elif language == 'lang_zh-TW':
+        msg = choice(word_list_zh_tw)
     else:
-        msg = choice(word_list_zh)
+        msg = choice(word_list_zh_cn)
 
     return msg

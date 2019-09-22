@@ -29,10 +29,12 @@ WEB = (
 WEB_PROXY = WEB[0][1]
 YT_PROXY = WEB[1][1]
 
-TYPE = {
+APP = {
     "search": "007606540339251262492:smmy8xt1wrw",
     "book": "007606540339251262492:fq_p2g_s5pa"
 }
+
+LANGUAGE_LIST = ['lang_en', 'lang_zh-CN', 'lang_zh-TW']
 
 
 class MyThread(Thread):
@@ -53,31 +55,16 @@ class MyThread(Thread):
 def requests_to_google(request):
     '''向 Google API 发送请求, 并返回数据'''
     # https://www.googleapis.com/customsearch/v1?q=python&cx=007606540339251262492:smmy8xt1wrw&num=10&start=1&key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
-    language = request.GET.get('lang', 'zh')  # 获取语言
-    type = request.GET.get('action', "搜索")
-
-    if language == 'en':
-        if (type == "Library") or (type == "搜书"):
-            type = "Library"
-            type_value = TYPE["book"]
-        else:
-            type = "Search"
-            type_value = TYPE["search"]
-    else:
-        if (type == "搜书") or (type == "Library"):
-            type = "搜书"
-            type_value = TYPE["book"]
-        else:
-            type = "搜索"
-            type_value = TYPE["search"]
-
+    language = request.GET.get('lang', 'lang_zh-CN')  # 获取语言
+    action = request.GET.get('action', "search")  # TODO: 将前端此参数改为 search or book, 后端返回此参数供前端判断
+    language, action, app_id = check_value(language, action)  # 检查参数合法性不正确重置为默认值
     client_msg = request.GET.get('q')  # 获取查询字符
     page = int(request.GET.get('page', 1))  # 获取页码
     location = request.GET.get('location', 'off')  # 地理位置开关
-    ip = None
-    address = None
-    title = None
-    q_text = None
+    ip = None  # IP 地址
+    address = None  # 地理位置
+    title = None  # 百科词条标题
+    q_text = None  # 百科词条内容
 
     # TODO:耗时操作, 可用异步请求新特性
     if page == 1:
@@ -89,15 +76,10 @@ def requests_to_google(request):
         thread_local = MyThread(func=get_ip_and_address, args=(request,))  # 获取 IP 和 address
         thread_local.start()
 
-    if language == 'en':
-        lang = 'lang_en'
-    else:
-        lang = 'lang_zh-cn'
-
     for key in KEY_LIST:
         url = "https://www.googleapis.com/customsearch/v1?" \
               "q={0}&cx={1}&num=10&start={2}&" \
-              "key={3}&lr={4}".format(client_msg, type_value, page, key, lang)
+              "key={3}&lr={4}".format(client_msg, app_id, page, key, language)
 
         # 使用 with 语句可以确保连接被关闭
         with requests.get(url) as r:
@@ -106,8 +88,8 @@ def requests_to_google(request):
                 server_msg = r.json()  # 直接处理 json 返回 字典
                 content = handle_data(server_msg)
 
-                if (type == "搜索") or (type == "Search"):
-                    content["search"] = True
+                if action == 'book':
+                    content["book"] = True
 
                 if page == 1:
                     thread_wiki.join()
@@ -117,7 +99,6 @@ def requests_to_google(request):
                     thread_local.join()
                     ip, address = thread_local.get_result()
 
-                content['type'] = type
                 content['q'] = client_msg
                 content['page'] = page
                 content['pages'] = list(range(1, PAGES + 1))
@@ -128,6 +109,7 @@ def requests_to_google(request):
                 content['text'] = q_text
                 content['proxy'] = WEB_PROXY + "proxy/"
                 content['lang'] = language
+                content['action'] = action
 
                 return content
 
@@ -135,12 +117,14 @@ def requests_to_google(request):
     return 403
 
 
-def requests_to_wikipedia(client_msg, language='zh'):
+def requests_to_wikipedia(client_msg, language='lang_zh-CN'):
     '''向维基百科查询词条信息'''
     # TODO: 逻辑可以改进
-    if language == 'en':
+    if language == 'lang_en':
         # url = "https://en.wikipedia.org/wiki/{}".format(client_msg)
         return None, None  # TODO: 英语匹配的正则待改进
+    elif language == 'lang_zh-TW':
+        url = "https://zh.wikipedia.org/zh-tw/{}".format(client_msg)
     else:
         url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
     try:
@@ -162,7 +146,7 @@ def requests_to_wikipedia(client_msg, language='zh'):
 
         if content_exist_text:  # 如果存在 p[?] 的文本
             content = html.xpath('//*[@id="mw-content-text"]/div/p[{0}]'.format(i))[0].xpath('string(.)')  # 获取文本
-            content_exist_info = re.match('.*?为准。', content.strip(), flags=re.S)  # 获取说明信息
+            content_exist_info = re.match('.*?(为准|為准)。', content.strip(), flags=re.S)  # 获取说明信息
             if content_exist_info:  # 如果 p[?] 为说明信息
                 continue
             break
@@ -179,7 +163,7 @@ def requests_to_wikipedia(client_msg, language='zh'):
                 return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
-        content = re.sub('\[.*?\](:\d+)?|（.*?）|中国互联网.*。', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
+        content = re.sub('\[.*?\](:\d+)?|（.*?）|((中国互联网|中國互聯網).*。)', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
         return title, content
 
     return None, None
@@ -242,9 +226,9 @@ def get_api_data(q, page, key, type=0):
         key = KEY_LIST[0]
 
     if type == 1:
-        type_value = TYPE["search"]
+        type_value = APP["search"]
     else:
-        type_value = TYPE["book"]
+        type_value = APP["book"]
 
     url = "https://www.googleapis.com/customsearch/v1?" \
           "q={0}&cx={1}&num=10&start={2}&" \
@@ -315,6 +299,21 @@ def error_403():
 
     content = {'count': api_request_count, 'hour': reset_time_hour, 'minute': reset_time_minute}
     return content
+
+
+def check_value(language='lang_zh-CN', action='search'):
+    '''参数错误则重置为默认值并额外返回 app_id'''
+
+    if language not in LANGUAGE_LIST:
+        language = 'lang_zh-CN'
+
+    if action in ['Library', '搜书', '找書', 'book']:
+        action = 'book'
+    else:
+        action = 'search'
+
+    app_id = APP[action]
+    return language, action, app_id
 
 
 if __name__ == '__main__':
