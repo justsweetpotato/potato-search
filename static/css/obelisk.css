@@ -1,5 +1,26 @@
 @charset "UTF-8";
 
+/* 测试版 */
+
+.beta_small_about {
+    color: gray;
+}
+
+.beta_span_about {
+    color: gray;
+}
+
+.beta_span_msg {
+    writing-mode: tb-rl;
+}
+
+.beta_plan_b {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+/* 普通版 */
+
 .a_title {
     color: black;
 }

@@ -2,3 +2,5 @@ ll_env/
 __pycache__/
 *.sqlite3
 .idea
+Pipfile
+Pipfile.lock

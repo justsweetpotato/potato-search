@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文本竖排</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/static/ha.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/static/css/obelisk.css">
+    <script type="text/javascript" src="/static/js/action.js"></script>
+</head>
+<body>
+<div class=div_all>
+    <a class="a_title" href="{% url 'tools:obelisk_beta' %}?location={{ location }}&lang={{ lang }}"><h2
+            class="h2_title">文本竖排</h2></a>
+    <a class="a_small_title" href="{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}">
+        &nbsp;<small class="small_title"><span class="s1">b</span><span class="s2">e</span><span
+            class="s3">t</span><span
+            class="s4">a</span>&nbsp;</small>
+    </a>
+    <small><a class="beta_plan_b" href="{% url 'tools:obelisk' %}?location={{ location }}&lang={{ lang }}">小土豆方案</a></small>
+    <form action="" name="form" method="post">
+        {% csrf_token %}
+        <span class="span_text">文本:</span><br>
+        {% if type == 'pc' %}
+            <textarea class="msg_pc" maxlength="500" name="msg_pc"
+                      id="msg_pc"
+                      placeholder="请输入文本: (恭喜你发现彩蛋！力量值提升！最大 500 字符)">{{ msg }}</textarea>
+            <textarea class="msg_mobile" maxlength="100"
+                      name="msg_mobile"
+                      id="msg_mobile"
+                      placeholder="请输入文本: (最大 100 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+        {% elif type == 'mobile' %}
+            <textarea class="msg_pc" maxlength="250" name="msg_pc"
+                      id="msg_pc"
+                      placeholder="请输入文本: (最大 250 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+            <textarea class="msg_mobile" maxlength="100"
+                      name="msg_mobile"
+                      id="msg_mobile"
+                      placeholder="请输入文本: (最大 100 字符, 支持中文, 英文, 数字, 常用标点)">{{ msg }}</textarea>
+        {% else %}
+            <textarea class="msg_pc" maxlength="250" name="msg_pc"
+                      id="msg_pc"
+                      placeholder="请输入文本: (最大 250 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+            <textarea class="msg_mobile" maxlength="100"
+                      name="msg_mobile"
+                      id="msg_mobile"
+                      placeholder="请输入文本: (最大 100 字符, 支持中文, 英文, 数字, 常用标点)"></textarea>
+        {% endif %}
+        <br>
+        <small class="beta_small_about">* 使用微软转换方案，回车键即为换行符</small>
+        <br>
+        <br>
+        <input class="input_sub" type="submit" name="" id="" value="提交">&nbsp;&nbsp;&nbsp;
+        <button class="btn_reset" onclick="ClearTextArea()">重置</button>
+    </form>
+    <br>
+    <br>
+    <hr>
+    <div>
+        {% if obelisk_msg %}
+            <span class="beta_span_msg">
+                {{ obelisk_msg | safe }}
+            </span>
+            <span class="span_warn">
+                Dev@debian:~# 您的手机屏幕太小<br>
+                Dev@debian:~# 可能会导致显示错乱<br>
+                Dev@debian:~# 对不起<br>
+                Dev@debian:~# 没能修复这个 BUG<br>
+                Dev@debian:~# T-T
+            </span>
+        {% else %}
+            <span class="beta_span_about">
+                转换结果将显示在这里
+            </span>
+        {% endif %}
+    </div>
+</div>
+<br>
+<br>
+</body>
+</html>

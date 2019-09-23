@@ -6,4 +6,5 @@ from . import views
 
 urlpatterns = [
     path('obelisk/', views.obelisk, name='obelisk'),
+    path('obelisk_beta/', views.obelisk_beta, name='obelisk_beta')
 ]
