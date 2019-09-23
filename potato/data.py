@@ -316,6 +316,13 @@ def check_value(language='lang_zh-CN', action='search'):
     return language, action, app_id
 
 
+def choice_template(language, name):
+    '''根据语言与名称选择模板'''
+
+    template = '{}/{}.html'.format(language, name)
+    return template
+
+
 if __name__ == '__main__':
     import socket
     import socks

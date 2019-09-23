@@ -14,6 +14,7 @@ from .data import get_ip_and_address
 from .data import requests_to_wikipedia
 from .data import check_web
 from .data import error_403
+from .data import choice_template
 
 LANGUAGE_LIST = ['lang_en', 'lang_zh-CN', 'lang_zh-TW']
 
@@ -28,7 +29,8 @@ def search(request):
         content = requests_to_google(request)  # 向 Google API 请求, 并处理返回结果
 
         if content != 403:
-            return render(request, '{}/detail.html'.format(content['lang']), content)
+            template = choice_template(content['lang'], 'detail')
+            return render(request, template, content)
 
         # 没有查询到任何结果, 返回错误信息
         content = error_403()
@@ -49,8 +51,9 @@ def index(request):
     content = {"msg": s_msg}
     content['location'] = location
     content['lang'] = language
+    template = choice_template(language, 'index')
 
-    return render(request, '{}/index.html'.format(language), content)
+    return render(request, template, content)
 
 
 def test(request):
