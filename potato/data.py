@@ -146,7 +146,7 @@ def requests_to_wikipedia(client_msg, language='lang_zh-CN'):
 
         if content_exist_text:  # 如果存在 p[?] 的文本
             content = html.xpath('//*[@id="mw-content-text"]/div/p[{0}]'.format(i))[0].xpath('string(.)')  # 获取文本
-            content_exist_info = re.match('.*?(为准|為准)。', content.strip(), flags=re.S)  # 获取说明信息
+            content_exist_info = re.match('.*?(为准|為準)。', content.strip(), flags=re.S)  # 获取说明信息
             if content_exist_info:  # 如果 p[?] 为说明信息
                 continue
             break
