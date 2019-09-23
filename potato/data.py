@@ -163,7 +163,7 @@ def requests_to_wikipedia(client_msg, language='lang_zh-CN'):
                 return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
-        content = re.sub('\[.*?\](:\d+)?|（.*?）|((中国互联网|中國互聯網).*。)', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
+        content = re.sub('\[.*?\](:\d+)?|（.*?）|((中国互联网|中國網際網路).*。)', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
         return title, content
 
     return None, None
