@@ -18,13 +18,13 @@
 <body>
 <div class="div0">
     <select class="select0" onchange=mbar(this)>
-        <option selected value="{% url 'potato:search' %}?location={{ location }}&lang=en&q={{ q }}&page={{ page }}&action={{ action }}">
+        <option selected value="{% url 'potato:search' %}?location={{ location }}&lang=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
             English
         </option>
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh&q={{ q }}&page={{ page }}&action={{ action }}">
+        <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
             中文(简体)
         </option>
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh&q={{ q }}&page={{ page }}&action={{ action }}">
+        <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
             中文(繁體)
         </option>
     </select>
