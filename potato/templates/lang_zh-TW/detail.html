@@ -24,7 +24,8 @@
         <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
             中文(简体)
         </option>
-        <option selected value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+        <option selected
+                value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
             中文(繁體)
         </option>
     </select>
@@ -67,7 +68,7 @@
         </div>
         <br>
     {% endif %}
-    {% for x, y, z, v in content %}
+    {% for x, y, z in content %}
         <li class="li1">
             <a class="a3" href="{{ y }}">{{ x }}</a>
             <br>
@@ -80,11 +81,7 @@
                     <option value="{{ proxy }}https://webcache.googleusercontent.com/search?q=cache:{{ y }}">頁庫存檔
                     </option>
                 </select>
-                {% if v %}
-                    <span class="span6"><a href="{{ v }}">Anonymous View</a></span>
-                {% else %}
-                    <span class="span6"><a href="{{ proxy }}{{ y }}">Anonymous View</a></span>
-                {% endif %}
+                <span class="span6"><a href="{{ proxy }}{{ y }}">Anonymous View</a></span>
                 <br>
                 <span class="span1">
                     {{ z | safe }}
@@ -115,7 +112,7 @@
                 {% else %}
                     無法取得位置資訊
                     <span class="span4"> - 定位功能被關閉 - <a class="a_loff"
-                                                      href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">開啓定位</a></span>
+                                                        href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">開啓定位</a></span>
                 {% endif %}
             </small>
         </div>
@@ -163,7 +160,7 @@
                 {% else %}
                     無法取得位置資訊
                     <span class="span4"> - 定位功能被關閉 - <a class="a_loff"
-                                                      href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">開啓定位</a></span>
+                                                        href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">開啓定位</a></span>
                 {% endif %}
             </small>
         </div>

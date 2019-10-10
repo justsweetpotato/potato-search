@@ -21,13 +21,10 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    ('网页代理', 'https://bot-go-1.herokuapp.com/', ''),
-    ('You2Php', 'https://bot-yt-8-21.herokuapp.com/', ''),
-
+    ('WebProxy A', 'https://proxy.littlepotato.cf/', ''),  # 通用代理要放第一个后面会根据索引获取
+    ('WebProxy B', 'https://bot-go-2.herokuapp.com/', ''),
+    ('You2Php', 'https://bot-yt-1.herokuapp.com/', ''),
 )
-
-WEB_PROXY = WEB[0][1]
-YT_PROXY = WEB[1][1]
 
 APP = {
     "search": "007606540339251262492:smmy8xt1wrw",
@@ -107,7 +104,7 @@ def requests_to_google(request):
                 content['location'] = location
                 content['title'] = title
                 content['text'] = q_text
-                content['proxy'] = WEB_PROXY + "proxy/"
+                content['proxy'] = WEB[0][1] + "-----"  # 网页代理的 URL 格式
                 content['lang'] = language
                 content['action'] = action
 
@@ -175,7 +172,6 @@ def handle_data(server_msg):
     title_list = []
     link_list = []
     snippet_list = []
-    video_list = []
     content = {}
 
     # 如果不存在 items 表示没有搜索结果
@@ -183,15 +179,10 @@ def handle_data(server_msg):
         for data_dict in server_msg["items"]:
             title_list.append(data_dict["title"])
             url = data_dict["link"]
-            if url[:24] == "https://www.youtube.com/":
-                new_url = YT_PROXY + "watch.php?v=" + url[32:]
-                video_list.append(new_url)
-            else:
-                video_list.append("")
             link_list.append(url)
             snippet_list.append(data_dict["htmlSnippet"])
 
-        data_zip = zip(title_list, link_list, snippet_list, video_list)
+        data_zip = zip(title_list, link_list, snippet_list)
         content = {"content": data_zip}
         content['results'] = server_msg.get("searchInformation")["formattedTotalResults"]
         content['time'] = server_msg.get("searchInformation")["formattedSearchTime"]

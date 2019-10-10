@@ -21,7 +21,8 @@
         <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
             English
         </option>
-        <option selected value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+        <option selected
+                value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
             中文(简体)
         </option>
         <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
@@ -67,7 +68,7 @@
         </div>
         <br>
     {% endif %}
-    {% for x, y, z, v in content %}
+    {% for x, y, z in content %}
         <li class="li1">
             <a class="a3" href="{{ y }}">{{ x }}</a>
             <br>
@@ -80,11 +81,7 @@
                     <option value="{{ proxy }}https://webcache.googleusercontent.com/search?q=cache:{{ y }}">网页快照
                     </option>
                 </select>
-                {% if v %}
-                    <span class="span6"><a href="{{ v }}">匿名访问</a></span>
-                {% else %}
-                    <span class="span6"><a href="{{ proxy }}{{ y }}">匿名访问</a></span>
-                {% endif %}
+                <span class="span6"><a href="{{ proxy }}{{ y }}">匿名访问</a></span>
                 <br>
                 <span class="span1">
                     {{ z | safe }}
