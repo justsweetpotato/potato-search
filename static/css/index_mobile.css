@@ -76,11 +76,11 @@
 .search-sub1, .search-sub2 {
     height: 15%;
     width: 60px;
-    background-color: lightgray;
+    background-color: #f2f2f2;
     border: none;
     padding: 1px;
     line-height: 38px;
-    color: dimgrey;
+    color: #5F6368;
     font-size: 16px;
     margin: 0px;
     border-radius: 2px;
@@ -92,7 +92,7 @@
 
 .info {
     text-align: center;
-    color: dimgrey;
+    color: #5F6368;
     position: fixed;
     bottom: 5%;
     width: 100%;
@@ -101,6 +101,7 @@
 
 .msg {
     text-align: center;
+    color: #5F6368;
     margin: 3%;
 }
 

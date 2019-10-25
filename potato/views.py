@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import reverse
+import json
 
 from .forms import BookForm
 from .word import word
@@ -106,13 +107,6 @@ def api_book(request):
     return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
 
 
-def api_ip(request):
-    '''用户 IP 地址查询接口'''
-
-    ip, address = get_ip_and_address(request)
-    return HttpResponse("当前 IP: " + ip + " 来自于: " + address)
-
-
 def api_wiki(request):
     '''维基百科查询接口'''
 
@@ -121,6 +115,29 @@ def api_wiki(request):
     if q:
         title, q_text = requests_to_wikipedia(q)
         if title:
-            return HttpResponse(title + "<br>" + q_text)
-        return HttpResponse("查询不到有关词条")
+            content = {
+                'title': title,
+                'text': q_text
+            }
+        else:
+            content = {
+                'error': {
+                    'code': 404,
+                    'message': 'Can not find related content.'
+                }
+            }
+        content = json.dumps(content, indent=1, ensure_ascii=False)
+        return HttpResponse(content, content_type="application/json")
     return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
+
+
+def api_ip(request):
+    '''用户 IP 地址查询接口'''
+
+    ip, address = get_ip_and_address(request)
+    content = {
+        'ip': ip,
+        'address': address
+    }
+    content = json.dumps(content, indent=1, ensure_ascii=False)
+    return HttpResponse(content, content_type="application/json")

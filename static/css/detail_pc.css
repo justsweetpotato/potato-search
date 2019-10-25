@@ -42,8 +42,44 @@ a:hover {
     color: #609;
 }
 
+.select_page {
+    font-size: 14px;
+}
+
+.a_page {
+    font-size: 14px;
+}
+
+.a_page:link {
+    color: #4285f4;
+}
+
 .a_page:visited {
-    color: blue;
+    color: #4285f4;
+}
+
+.a_up {
+    font-size: 14px;
+}
+
+.a_up:link {
+    color: #4285f4;
+}
+
+.a_up:visited {
+    color: #4285f4;
+}
+
+.a_down {
+    font-size: 14px;
+}
+
+.a_down:link {
+    color: #4285f4;
+}
+
+.a_down:visited {
+    color: #4285f4;
 }
 
 .img_potato {
@@ -106,6 +142,7 @@ a:hover {
 
 .span1 {
     color: #545454;
+
 }
 
 .span2 {
@@ -113,7 +150,7 @@ a:hover {
 }
 
 .span3, .span4 {
-    color: gray;
+    color: #5f6368;
 }
 
 body {
@@ -170,7 +207,7 @@ h4 {
 }
 
 .small_know {
-    color: #545454;
+    color: #5f6368;
 }
 
 .div_page {

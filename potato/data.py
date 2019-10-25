@@ -9,9 +9,6 @@ from datetime import timezone
 from lxml import etree
 from threading import Thread
 
-# 总页数
-PAGES = 3
-
 # API KEY (100次/日)
 KEY_LIST = [
     "AIzaSyDti_06GjeOV6trMz0ixATpXC6pTuJhAt4",
@@ -52,11 +49,13 @@ class MyThread(Thread):
 def requests_to_google(request):
     '''向 Google API 发送请求, 并返回数据'''
     # https://www.googleapis.com/customsearch/v1?q=python&cx=007606540339251262492:smmy8xt1wrw&num=10&start=1&key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
+
+    pages = 10  # 总页数
     language = request.GET.get('lang', 'lang_zh-CN')  # 获取语言
     action = request.GET.get('action', "search")  # TODO: 将前端此参数改为 search or book, 后端返回此参数供前端判断
-    language, action, app_id = check_value(language, action)  # 检查参数合法性不正确重置为默认值
-    client_msg = request.GET.get('q')  # 获取查询字符
     page = int(request.GET.get('page', 1))  # 获取页码
+    language, action, page, app_id = check_value(language, action, page)  # 检查参数合法性不正确重置为默认值
+    client_msg = request.GET.get('q')  # 获取查询字符
     location = request.GET.get('location', 'off')  # 地理位置开关
     ip = None  # IP 地址
     address = None  # 地理位置
@@ -74,9 +73,17 @@ def requests_to_google(request):
         thread_local.start()
 
     for key in KEY_LIST:
+        # q: 查詢字符串
+        # cx: 自定義搜索的 ID
+        # num: 查詢結果數, 默認為 10
+        # start: 第一條結果的索引, 第一頁第一個為 1, 每頁 10 個, 所以第二頁第一個為 11
+        # key: API KEY
+        # lr: 搜索結果限定的語言
+        # *總結果不會超過 100 個, 即最大 10 頁
+
         url = "https://www.googleapis.com/customsearch/v1?" \
               "q={0}&cx={1}&num=10&start={2}&" \
-              "key={3}&lr={4}".format(client_msg, app_id, page, key, language)
+              "key={3}&lr={4}".format(client_msg, app_id, page * 10 - 9, key, language)
 
         # 使用 with 语句可以确保连接被关闭
         with requests.get(url) as r:
@@ -96,9 +103,13 @@ def requests_to_google(request):
                     thread_local.join()
                     ip, address = thread_local.get_result()
 
+                last_page = content.get('last_page', False)
+                if last_page:
+                    pages = page
+
                 content['q'] = client_msg
                 content['page'] = page
-                content['pages'] = list(range(1, PAGES + 1))
+                content['pages'] = list(range(1, pages + 1))
                 content['ip'] = ip
                 content['address'] = address
                 content['location'] = location
@@ -187,6 +198,9 @@ def handle_data(server_msg):
         content['results'] = server_msg.get("searchInformation")["formattedTotalResults"]
         content['time'] = server_msg.get("searchInformation")["formattedSearchTime"]
         content["empty"] = False
+
+        if len(title_list) < 10:
+            content['last_page'] = True
     else:
         content["empty"] = True
 
@@ -292,7 +306,7 @@ def error_403():
     return content
 
 
-def check_value(language='lang_zh-CN', action='search'):
+def check_value(language='lang_zh-CN', action='search', page=1):
     '''参数错误则重置为默认值并额外返回 app_id'''
 
     if language not in LANGUAGE_LIST:
@@ -303,8 +317,13 @@ def check_value(language='lang_zh-CN', action='search'):
     else:
         action = 'search'
 
+    if page < 1:
+        page = 1
+    elif page > 10:
+        page = 10
+
     app_id = APP[action]
-    return language, action, app_id
+    return language, action, page, app_id
 
 
 def choice_template(language, name):

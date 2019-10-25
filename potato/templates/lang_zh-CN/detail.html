@@ -119,27 +119,23 @@
     <br>
     {% if not empty %}
         <div class="div_page">
+            {% if page != 1 %}
+                <a class="a_up" href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:-1 }}&action={{ action }}">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            {% endif %}
             {% for page_number in  pages %}
-                {% ifequal page_number page %}
-                    {% if page != 1 %}
-                        &nbsp;&nbsp;&nbsp;
-                    {% endif %}
-                    {{ page_number }}
-                    {% if page != 3 %}
-                        &nbsp;&nbsp;&nbsp;
-                    {% endif %}
+                {%  if page_number == page %}
+                    <span class="select_page">{{ page_number }}</span>
+                    &nbsp;
                 {% else %}
-                    {% if page == 3 %}
-                        &nbsp;&nbsp;&nbsp;
-                    {% endif %}
                     <a class="a_page"
-                       href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page_number }}&action={{ action }}">{{ page_number }}
-                    </a>
-                    {% if page == 1 %}
-                        &nbsp;&nbsp;&nbsp;
-                    {% endif %}
-                {% endifequal %}
+                       href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page_number }}&action={{ action }}">{{ page_number }}</a>
+                    &nbsp;
+                {% endif %}
             {% endfor %}
+            {% if page != pages|last %}
+                &nbsp;&nbsp;&nbsp;<a class="a_down" href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:1 }}&action={{ action }}">下一页</a>
+            {% endif %}
+            <br>
             <br>
             <small class="small_know">&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
                 页以后的搜索结果&nbsp;&nbsp;&nbsp;

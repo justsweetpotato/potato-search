@@ -20,7 +20,7 @@
     </button>
 {% endif %}
 <br>
-{% if lang == 'lang_en'  %}
+{% if lang == 'lang_en' %}
     <div class="div_code">
         <br><br><br><br><br><br><br><br>
         Talk is cheap. Show me the code.
@@ -30,10 +30,10 @@
     <div class="div_doc">
         <h2>文档</h2>
         <p>
-            谷歌搜索 API:<br>
+            <b>谷歌搜索 API:</b><br>
             调用方式: /api/search/?q={0}&page={1}&key={2}<br>
             {0} 替换为查询字符, 类型为 str<br>
-            {1} 替换为页数(默认每页10条数据), 类型为 int<br>
+            {1} 替换为第一條結果的索引, 第一頁第一個為 1, 每頁 10 個, 所以第二頁第一個為 11, 类型为 int<br>
             {2} [可选参数] 替换为自己的 API KEY, 类型为 str<br>
             例: <a href="/api/search/?q=python&page=1">/api/search/?q=python&page=1</a><br>
             403 表示今日请求次数已用尽, 请换用其他 API KEY<br>
@@ -41,10 +41,10 @@
         </p>
 
         <p>
-            书籍搜索 API:<br>
+            <b>书籍搜索 API:</b><br>
             调用方式: /api/book/?q={0}&page={1}&key={2}<br>
             {0} 替换为查询字符, 类型为 str<br>
-            {1} 替换为页数(默认每页10条数据), 类型为 int<br>
+            {1} 替换为第一條結果的索引, 第一頁第一個為 1, 每頁 10 個, 所以第二頁第一個為 11, 类型为 int<br>
             {2} [可选参数] 替换为自己的 API KEY, 类型为 str<br>
             例: <a href="/api/book/?q=python&page=1">/api/book/?q=python&page=1</a><br>
             403 表示今日请求次数已用尽, 请换用其他 API KEY<br>
@@ -52,21 +52,22 @@
         </p>
 
         <p>
-            IP 查询 API:<br>
-            调用方式: /api/ip/<br>
-            例: <a href="/api/ip/">/api/ip</a>
-        </p>
-
-        <p>
-            维基百科 API:<br>
+            <b>维基百科 API:</b><br>
             调用方式: /api/wiki/?q={0}<br>
             {0} 替换为词条, 类型为 str<br>
             例: <a href="/api/wiki/?q=上海">/api/wiki/?q=上海</a><br>
         </p>
 
+        <p>
+            <b>IP 查询 API:</b><br>
+            调用方式: /api/ip/<br>
+            例: <a href="/api/ip/">/api/ip</a>
+        </p>
+
+        <br>
 
         <p>
-            工具:<br>
+            <b>工具:</b><br>
             <button class="btn2" onclick="window.location.href='?location={{ location }}&lang={{ lang }}&status=1'">
                 检测网站可用性
             </button>

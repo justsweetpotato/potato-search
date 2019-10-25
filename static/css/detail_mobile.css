@@ -42,8 +42,28 @@ a:hover {
     color: #609;
 }
 
+.select_page {
+    font-size: 14px;
+}
+
+.a_page {
+    font-size: 14px;
+}
+
+.a_page:link {
+    color: #4285f4;
+}
+
 .a_page:visited {
-    color: blue;
+    color: #4285f4;
+}
+
+.a_up {
+    display: none;
+}
+
+.a_down {
+    display: none;
 }
 
 .img_potato {
@@ -116,7 +136,7 @@ a:hover {
 }
 
 .span3, .span4 {
-    color: gray;
+    color: #5f6368;
 }
 
 body {
@@ -174,7 +194,7 @@ h4 {
 }
 
 .small_know {
-    color: #545454;
+    color: #5f6368;
 }
 
 .div_page {
