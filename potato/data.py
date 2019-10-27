@@ -8,6 +8,7 @@ from datetime import timedelta
 from datetime import timezone
 from lxml import etree
 from threading import Thread
+from urllib.parse import unquote
 
 # API KEY (100次/日)
 KEY_LIST = [
@@ -189,8 +190,7 @@ def handle_data(server_msg):
     if server_msg.get("items"):
         for data_dict in server_msg["items"]:
             title_list.append(data_dict["title"])
-            url = data_dict["link"]
-            link_list.append(url)
+            link_list.append(unquote(data_dict["link"], 'utf-8'))  # 进行 URL 解码符合人类阅读
             snippet_list.append(data_dict["htmlSnippet"])
 
         data_zip = zip(title_list, link_list, snippet_list)
