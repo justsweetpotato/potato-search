@@ -19,8 +19,10 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    ('WebProxy A', 'https://proxy.littlepotato.cf/', ''),  # 通用代理要放第一个后面会根据索引获取
-    ('WebProxy B', 'https://bot-go-2.herokuapp.com/', ''),
+    ('WebProxy', 'https://proxy.littlepotato.cf/', ''),
+    ('WebProxy', 'https://proxy.littlepotato.ml/', ''),
+    ('WebProxy', 'https://proxy.littlepotato.tk/', ''),
+    ('WebProxy', 'https://bot-go-2.herokuapp.com/', ''),
     ('You2Php', 'https://bot-yt-1.herokuapp.com/', ''),
 )
 

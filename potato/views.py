@@ -16,6 +16,7 @@ from .data import requests_to_wikipedia
 from .data import check_web
 from .data import error_403
 from .data import choice_template
+from .data import WEB
 
 LANGUAGE_LIST = ['lang_en', 'lang_zh-CN', 'lang_zh-TW']
 
@@ -52,6 +53,7 @@ def index(request):
     content = {"msg": s_msg}
     content['location'] = location
     content['lang'] = language
+    content['proxy'] = WEB[0][1]
     template = choice_template(language, 'index')
 
     return render(request, template, content)
