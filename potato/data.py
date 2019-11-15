@@ -55,7 +55,7 @@ def requests_to_google(request):
 
     pages = 10  # 总页数
     language = request.GET.get('lang', 'lang_zh-CN')  # 获取语言
-    action = request.GET.get('action', "search")  # TODO: 将前端此参数改为 search or book, 后端返回此参数供前端判断
+    action = request.GET.get('action', "search")
     page = int(request.GET.get('page', 1))  # 获取页码
     language, action, page, app_id = check_value(language, action, page)  # 检查参数合法性不正确重置为默认值
     client_msg = request.GET.get('q')  # 获取查询字符
