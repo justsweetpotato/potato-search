@@ -21,6 +21,9 @@
 ![搜索结果2](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail2.png)
 
 ### 版本更新
+v0.3.4 (11/16/2019)<br>
+分页功能完善，API 功能完善，修复手机端页面排版问题。<br>
+
 v0.3.3 (9/23/2019)<br>
 增加对繁体中文的支持, 优化了切换语言的逻辑, 多语言界面的切换将更顺畅.<br>
 主页左上角新增 APPS 功能, 集成多种便捷网页版工具.<br>
