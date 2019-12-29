@@ -111,7 +111,3 @@ def obelisk_beta(request):
         }
 
         return render(request, 'obelisk_beta.html', content)
-
-
-def site_index(request):
-    return render(request, 'site_index.html')
