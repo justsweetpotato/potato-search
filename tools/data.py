@@ -38,8 +38,6 @@ def print_in_line_reverse(row, msg, style, lang):
     '''
     if not msg:
         return None
-    if not msg:
-        return None
     if lang == 'S':
         msg = HanziConv.toSimplified(msg)
     elif lang == 'T':
