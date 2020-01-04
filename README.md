@@ -21,7 +21,7 @@
 ![搜索结果2](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail2.png)
 
 ### 版本更新
-v0.3.4 (11/16/2019)<br>
+<b>v0.3.4</b> (11/16/2019)<br>
 分页功能完善，API 功能完善，修复多处手机端页面排版问题。<br>
 
 <details>
