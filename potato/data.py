@@ -19,11 +19,11 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    ('WebProxy', 'https://proxy.littlepotato.cf/', ''),
     ('WebProxy', 'https://proxy.littlepotato.ml/', ''),
+    ('WebProxy', 'https://proxy.littlepotato.cf/', ''),
     ('WebProxy', 'https://proxy.littlepotato.tk/', ''),
     ('WebProxy', 'https://bot-go-3.herokuapp.com/', ''),
-    ('You2Php', 'https://bot-yt-2.herokuapp.com/', ''),
+    ('You2Php', 'https://bot-yt-3.herokuapp.com/', ''),
 )
 
 APP = {
