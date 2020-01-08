@@ -6,7 +6,7 @@
 
 a:link {
     text-decoration: none;
-    color: blue;
+    color: #1a0dab;
     text-align: center;
 }
 
@@ -16,12 +16,12 @@ a:hover {
 
 .a_info:link {
     text-decoration: none;
-    color: green;
+    color: #006621;
     text-align: center;
 }
 
 .a_info:visited {
-    color: green;
+    color: #006621;
 }
 
 .a_img {
@@ -33,7 +33,6 @@ a:hover {
 }
 
 .a3 {
-    color: #1a0dab;
     font-size: 18px;
 
 }
@@ -141,7 +140,7 @@ a:hover {
 }
 
 .span1 {
-    color: #545454;
+    color: #3C4043;
 
 }
 
