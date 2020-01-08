@@ -18,10 +18,12 @@ a:hover {
     text-decoration: none;
     color: #006621;
     text-align: center;
+    font-size: 16px;
 }
 
 .a_info:visited {
     color: #006621;
+    font-size: 16px;
 }
 
 .a_img {
@@ -33,16 +35,16 @@ a:hover {
 }
 
 .a3 {
-    font-size: 18px;
-
+    font-size: 20px;
 }
 
 .a3:visited {
     color: #609;
+    font-size: 20px;
 }
 
 .select_page {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .a_page {
@@ -87,6 +89,7 @@ a:hover {
 
 .li1 {
     list-style-type: none;
+    margin-bottom: 30px;
 }
 
 .li2 {
@@ -141,6 +144,7 @@ a:hover {
 
 .span1 {
     color: #3C4043;
+    font-size: 14px;
 
 }
 
@@ -150,6 +154,11 @@ a:hover {
 
 .span3, .span4 {
     color: #5f6368;
+    font-size: 14px;
+}
+
+.br_vip {
+    display: none;
 }
 
 body {
@@ -159,6 +168,10 @@ body {
 h4 {
     margin-top: 0;
     font-weight: normal;
+}
+
+.h4_wikipedia {
+    font-size: 20px;
 }
 
 .div_info {
@@ -182,10 +195,20 @@ h4 {
     text-overflow: ellipsis;
     white-space: nowrap;
     float: right;
+    font-size: 14px;
+}
+
+.small_wikipeida {
+    font-size: 14px;
+}
+
+.small_anon {
+    font-size: 14px;
 }
 
 .small_info {
     color: dimgrey;
+    font-size: 14px;
 }
 
 .small_url {

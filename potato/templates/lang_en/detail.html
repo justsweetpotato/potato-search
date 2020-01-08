@@ -63,8 +63,8 @@
     <br>
     {% if title and page == 1 %}
         <div class="div_info">
-            <h4>{{ title }}</h4>
-            <small>{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">Wikipedia</a></small>
+            <h4 class="h4_wikipedia">{{ title }}</h4>
+            <small class="small_wikipeida">{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">Wikipedia</a></small>
         </div>
         <br>
     {% endif %}
@@ -89,7 +89,7 @@
                 </span>
             </small>
         </li>
-        <br>
+        <br class="br_vip">
     {% empty %}
         <li class="li2">Your search - <span class="span2">{{ q }}</span> - did not match any documents.</li>
         <br>
@@ -103,7 +103,7 @@
         <div style="position: fixed; bottom: 20px; width: 50%;">
             <hr>
             🌎&nbsp;
-            <small>
+            <small class="small_anon">
                 {% if ip %}
                     {{ address }}
                     <span class="span3"> - From your Internet address - <a class="a_lon"
@@ -139,16 +139,12 @@ Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;
             {% endif %}
             <br>
             <br>
-            <small class="small_know">
-                Q: What is a programmer's favourite hangout place?<br>
-                A: Foo Bar
-            </small>
         </div>
         <br>
         <div>
             <hr>
             🌎&nbsp;
-            <small>
+            <small class="small_anon">
                 {% if ip %}
                     {{ address }}
                     <span class="span3"> - From your Internet address - <a class="a_lon"

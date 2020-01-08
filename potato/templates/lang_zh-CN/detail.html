@@ -63,8 +63,8 @@
     <br>
     {% if title and page == 1 %}
         <div class="div_info">
-            <h4>{{ title }}</h4>
-            <small>{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">维基百科</a></small>
+            <h4 class="h4_wikipedia">{{ title }}</h4>
+            <small class="small_wikipeida">{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">维基百科</a></small>
         </div>
         <br>
     {% endif %}
@@ -88,7 +88,7 @@
                 </span>
             </small>
         </li>
-        <br>
+        <br class="br_vip">
     {% empty %}
         <li class="li2">找不到和您查询的 "<span class="span2">{{ q }}</span>" 相符的内容或信息。</li>
         <br>
@@ -102,7 +102,7 @@
         <div style="position: fixed; bottom: 20px; width: 50%;">
             <hr>
             🌎&nbsp;
-            <small>
+            <small class="small_anon">
                 {% if ip %}
                     {{ address }}
                     <span class="span3"> - 基于您的 IP 地址 - <a class="a_lon"
@@ -137,15 +137,12 @@
             {% endif %}
             <br>
             <br>
-            <small class="small_know">&nbsp;你知道吗?&nbsp;&nbsp;研究表明 99.9% 的人不会点开 3
-                页以后的搜索结果&nbsp;&nbsp;&nbsp;
-            </small>
         </div>
         <br>
         <div>
             <hr>
             🌎&nbsp;
-            <small>
+            <small class="small_anon">
                 {% if ip %}
                     {{ address }}
                     <span class="span3"> - 基于您的 IP 地址 - <a class="a_lon"
