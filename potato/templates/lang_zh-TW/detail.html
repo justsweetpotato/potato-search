@@ -7,12 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="/static/favicon.ico">
     <title>搜尋結果</title>
-    <!-- 屏幕宽度大于 500 加载 PC 版 CSS -->
-    <link rel="stylesheet" type="text/css" media="screen and (min-device-width: 500px)"
-          href="/static/css/detail_pc.css">
-    <!-- 屏幕宽度小于 500 加载 手机版 CSS -->
-    <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 500px)"
-          href="/static/css/detail_mobile.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/detail.css">
     <script type="text/javascript" src="/static/js/action.js"></script>
 </head>
 <body>
@@ -64,7 +59,8 @@
     {% if title and page == 1 %}
         <div class="div_info">
             <h4 class="h4_wikipedia">{{ title }}</h4>
-            <small class="small_wikipeida">{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">維基百科</a></small>
+            <small class="small_wikipeida">{{ text }}<a href="https://zh.wikipedia.org/zh-cn/{{ title }}">維基百科</a>
+            </small>
         </div>
         <br>
     {% endif %}
@@ -82,11 +78,11 @@
                     </option>
                 </select>
                 <span class="span6"><a href="{{ proxy }}{{ y }}">Anonymous View</a></span>
-                <br>
-                <span class="span1">
-                    {{ z | safe }}
-                </span>
             </small>
+            <br>
+            <span class="span1">
+                    {{ z | safe }}
+            </span>
         </li>
         <br class="br_vip">
     {% empty %}
@@ -121,10 +117,12 @@
     {% if not empty %}
         <div class="div_page">
             {% if page != 1 %}
-                <a class="a_up" href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:-1 }}&action={{ action }}">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="a_up"
+                   href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:-1 }}&action={{ action }}">上一頁</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
             {% endif %}
             {% for page_number in  pages %}
-                {%  if page_number == page %}
+                {% if page_number == page %}
                     <span class="select_page">{{ page_number }}</span>
                     &nbsp;
                 {% else %}
@@ -134,7 +132,8 @@
                 {% endif %}
             {% endfor %}
             {% if page != pages|last %}
-                &nbsp;&nbsp;&nbsp;<a class="a_down" href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:1 }}&action={{ action }}">下一頁</a>
+                &nbsp;&nbsp;&nbsp;<a class="a_down"
+                                     href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:1 }}&action={{ action }}">下一頁</a>
             {% endif %}
             <br>
             <br>

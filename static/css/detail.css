@@ -1,13 +1,12 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 
 .div0 {
     float: right;
-    display: none; /* 手机下屏蔽此功能 */
 }
 
 a:link {
     text-decoration: none;
-    color: blue;
+    color: #1a0dab;
     text-align: center;
 }
 
@@ -17,12 +16,14 @@ a:hover {
 
 .a_info:link {
     text-decoration: none;
-    color: green;
+    color: #006621;
     text-align: center;
+    font-size: 16px;
 }
 
 .a_info:visited {
-    color: green;
+    color: #006621;
+    font-size: 16px;
 }
 
 .a_img {
@@ -34,16 +35,16 @@ a:hover {
 }
 
 .a3 {
-    color: #1a0dab;
-    font-size: 17px;
+    font-size: 20px;
 }
 
 .a3:visited {
     color: #609;
+    font-size: 20px;
 }
 
 .select_page {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .a_page {
@@ -59,21 +60,36 @@ a:hover {
 }
 
 .a_up {
-    display: none;
+    font-size: 14px;
+}
+
+.a_up:link {
+    color: #4285f4;
+}
+
+.a_up:visited {
+    color: #4285f4;
 }
 
 .a_down {
-    display: none;
+    font-size: 14px;
+}
+
+.a_down:link {
+    color: #4285f4;
+}
+
+.a_down:visited {
+    color: #4285f4;
 }
 
 .img_potato {
     vertical-align: middle;
-    width: 15%;
-    height: 15%;
 }
 
 .li1 {
     list-style-type: none;
+    margin-bottom: 30px;
 }
 
 .li2 {
@@ -122,17 +138,14 @@ a:hover {
 .ul1 {
     margin-top: -10px;
     padding-top: 0px;
-    width: 78%;
-    margin-left: 0%;
+    width: 50%;
+    margin-left: 8%;
 }
 
 .span1 {
-    color: #545454;
-    font-size: 15px;
-}
-
-.span1 br {
-    display: none;  /* 手机下屏蔽后端发送过来的内容中的 <br> 以自动适配屏幕 */
+    color: #3C4043;
+    font-size: 14px;
+    display: block;
 }
 
 .span2 {
@@ -141,6 +154,11 @@ a:hover {
 
 .span3, .span4 {
     color: #5f6368;
+    font-size: 14px;
+}
+
+.br_vip {
+    display: none;
 }
 
 body {
@@ -150,6 +168,10 @@ body {
 h4 {
     margin-top: 0;
     font-weight: normal;
+}
+
+.h4_wikipedia {
+    font-size: 20px;
 }
 
 .div_info {
@@ -165,7 +187,6 @@ h4 {
     text-overflow: ellipsis;
     white-space: nowrap;
     float: left;
-    font-size: 12px;
 }
 
 .span6 {
@@ -174,12 +195,20 @@ h4 {
     text-overflow: ellipsis;
     white-space: nowrap;
     float: right;
-    font-size: 12px;
+    font-size: 14px;
+}
+
+.small_wikipeida {
+    font-size: 14px;
+}
+
+.small_anon {
+    font-size: 14px;
 }
 
 .small_info {
     color: dimgrey;
-    display: none; /* 手机下屏蔽此功能 */
+    font-size: 14px;
 }
 
 .small_url {
@@ -192,7 +221,7 @@ h4 {
     float: left;
     border: 0;
     background: transparent;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .select1 select {
@@ -208,8 +237,104 @@ h4 {
     text-align: center;
 }
 
+@media screen and (max-device-width: 767px) {
+    .span1 {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-device-width: 500px) {
+    .div0 {
+        display: none; /* 手机下屏蔽此功能 */
+    }
+
+    a:link {
+        color: blue;
+    }
+
+    .a_info:link {
+        color: green;
+        font-size: 12px;
+    }
+
+    .a_info:visited {
+        color: green;
+        font-size: 12px;
+    }
+
+    .a3 {
+        font-size: 16px;
+    }
+
+    .a3:visited {
+        font-size: 16px;
+    }
+
+    .select_page {
+        font-size: 16px;
+    }
+
+    .a_up {
+        display: none;
+    }
+
+    .a_down {
+        display: none;
+    }
+
+    .img_potato {
+        width: 15%;
+        height: 15%;
+    }
+
+    .li1 {
+        margin-bottom: 0;
+    }
+
+    .ul1 {
+        width: 78%;
+        margin-left: 0;
+    }
+
+    .span1 {
+        margin-top: 0;
+    }
+
+    .span1 br {
+        display: none; /* 手机下屏蔽后端发送过来的内容中的 <br> 以自动适配屏幕 */
+    }
+
+    .br_vip {
+        display: block;
+    }
+
+    .h4_wikipedia {
+        font-size: 16px;
+    }
+
+    .span5 {
+        font-size: 12px;
+    }
+
+    .span6 {
+        font-size: 12px;
+    }
+
+    .small_info {
+        display: none; /* 手机下屏蔽此功能 */
+    }
+
+    .select1 {
+        font-size: 12px;
+    }
+}
+
 @media screen and (max-device-width: 413px) {
     .a3 {
+        font-size: 16px;
+    }
+
+    .h4_wikipedia {
         font-size: 16px;
     }
 
@@ -228,7 +353,7 @@ h4 {
     }
 
     .span5, .span6, .select1 {
-        font-size:  11px;
+        font-size: 11px;
     }
 }
 
@@ -242,6 +367,6 @@ h4 {
     }
 
     .span5, .span6, .select1 {
-        font-size:  10px;
+        font-size: 10px;
     }
 }
