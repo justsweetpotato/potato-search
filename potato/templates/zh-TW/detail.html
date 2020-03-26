@@ -15,71 +15,71 @@
     <select class="select0" onchange=mbar(this)>
         {% if lr == '' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&q={{ q }}&page=1&action={{ action }}">
                 不限語言
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&q={{ q }}&page=1&action={{ action }}">
                 不限語言
             </option>
         {% endif %}
         {% if lr == 'lang_en' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_en&q={{ q }}&page=1&action={{ action }}">
                 英文
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_en&q={{ q }}&page=1&action={{ action }}">
                 英文
             </option>
         {% endif %}
         {% if lr == 'lang_ja' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ja&q={{ q }}&page={{ page }}&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ja&q={{ q }}&page=1&action={{ action }}">
                 日文
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ja&q={{ q }}&page={{ page }}&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ja&q={{ q }}&page=1&action={{ action }}">
                 日文
             </option>
         {% endif %}
         {% if lr == 'lang_ru' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ru&q={{ q }}&page={{ page }}&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ru&q={{ q }}&page=1&action={{ action }}">
                 俄文
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ru&q={{ q }}&page={{ page }}&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_ru&q={{ q }}&page=1&action={{ action }}">
                 俄文
             </option>
         {% endif %}
         {% if lr == 'lang_es' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_es&q={{ q }}&page={{ page }}&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_es&q={{ q }}&page=1&action={{ action }}">
                 西班牙文
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_es&q={{ q }}&page={{ page }}&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_es&q={{ q }}&page=1&action={{ action }}">
                 西班牙文
             </option>
         {% endif %}
         {% if lr == 'lang_zh-CN' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-CN&q={{ q }}&page=1&action={{ action }}">
                 中文(簡體)
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-CN&q={{ q }}&page=1&action={{ action }}">
                 中文(簡體)
             </option>
         {% endif %}
         {% if lr == 'lang_zh-TW' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-TW&q={{ q }}&page=1&action={{ action }}">
                 中文(繁體)
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr=lang_zh-TW&q={{ q }}&page=1&action={{ action }}">
                 中文(繁體)
             </option>
         {% endif %}
