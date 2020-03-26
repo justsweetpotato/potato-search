@@ -13,16 +13,75 @@
 <body>
 <div class="div0">
     <select class="select0" onchange=mbar(this)>
-        <option selected
-                value="{% url 'potato:search' %}?location={{ location }}&lang=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
-            English
-        </option>
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
-            中文(简体)
-        </option>
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
-            中文(繁體)
-        </option>
+        {% if lr == '' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=en&q={{ q }}&page={{ page }}&action={{ action }}">
+                Any Language
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&q={{ q }}&page={{ page }}&action={{ action }}">
+                Any Language
+            </option>
+        {% endif %}
+        {% if lr == 'lang_en' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
+                English
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
+                English
+            </option>
+        {% endif %}
+        {% if lr == 'lang_ja' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_ja&q={{ q }}&page={{ page }}&action={{ action }}">
+                Japanese
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_ja&q={{ q }}&page={{ page }}&action={{ action }}">
+                Japanese
+            </option>
+        {% endif %}
+        {% if lr == 'lang_ru' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_ru&q={{ q }}&page={{ page }}&action={{ action }}">
+                Russian
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_ru&q={{ q }}&page={{ page }}&action={{ action }}">
+                Russian
+            </option>
+        {% endif %}
+        {% if lr == 'lang_es' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_es&q={{ q }}&page={{ page }}&action={{ action }}">
+                Spanish
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_es&q={{ q }}&page={{ page }}&action={{ action }}">
+                Spanish
+            </option>
+        {% endif %}
+        {% if lr == 'lang_zh-CN' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+                Chinese(Simplified)
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+                Chinese(Simplified)
+            </option>
+        {% endif %}
+        {% if lr == 'lang_zh-TW' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+                Chinese(Traditional)
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=en&lr=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+                Chinese(Traditional)
+            </option>
+        {% endif %}
     </select>
 </div>
 <div class="div1">
@@ -104,11 +163,11 @@
                     {{ address }}
                     <span class="span3"> - From your Internet address - <a class="a_lon"
                                                                            href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
-                            href="?location=off&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service off</a></span>
+                            class="a_lon" href="?location=off&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service off</a></span>
                 {% else %}
                     Unable to get Location
                     <span class="span4"> - Location Service is disabled - <a class="a_loff"
-                                                                             href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service on</a></span>
+                                                                             href="?location=on&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service on</a></span>
                 {% endif %}
             </small>
         </div>
@@ -118,7 +177,7 @@
         <div class="div_page">
             {% if page != 1 %}
                 <a class="a_up"
-                   href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:-1 }}&action={{ action }}">
+                   href="?location={{ location }}&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page|add:-1 }}&action={{ action }}">
                     Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;
             {% endif %}
             {% for page_number in  pages %}
@@ -127,13 +186,13 @@
                     &nbsp;
                 {% else %}
                     <a class="a_page"
-                       href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page_number }}&action={{ action }}">{{ page_number }}</a>
+                       href="?location={{ location }}&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page_number }}&action={{ action }}">{{ page_number }}</a>
                     &nbsp;
                 {% endif %}
             {% endfor %}
             {% if page != pages|last %}
                 &nbsp;&nbsp;&nbsp;<a class="a_down"
-                                     href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:1 }}&action={{ action }}">Next</a>
+                                     href="?location={{ location }}&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page|add:1 }}&action={{ action }}">Next</a>
             {% endif %}
             <br>
             <br>
@@ -147,11 +206,11 @@
                     {{ address }}
                     <span class="span3"> - From your Internet address - <a class="a_lon"
                                                                            href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
-                            href="?location=off&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service off</a></span>
+                            class="a_lon" href="?location=off&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service off</a></span>
                 {% else %}
                     Unable to get Location
                     <span class="span4"> - Location Service is disabled - <a class="a_loff"
-                                                                             href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service on</a></span>
+                                                                             href="?location=on&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page }}&action={{ action }}">Location Service on</a></span>
                 {% endif %}
             </small>
         </div>

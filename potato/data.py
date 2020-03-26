@@ -30,7 +30,7 @@ APP = {
     "book": "007606540339251262492:fq_p2g_s5pa"
 }
 
-LANGUAGE_LIST = ['lang_en', 'lang_zh-CN', 'lang_zh-TW']
+LANGUAGE_LIST = ['en', 'zh-CN', 'zh-TW']
 
 
 class MyThread(Thread):
@@ -53,7 +53,8 @@ def requests_to_google(request):
     # https://www.googleapis.com/customsearch/v1?q=python&cx=007606540339251262492:smmy8xt1wrw&num=10&start=1&key=AIzaSyCDw49epd-yMaZ1yfIwi7koM1AyZu8XzZ0
 
     pages = 10  # 总页数
-    language = request.GET.get('lang', 'lang_zh-CN')  # 获取语言
+    language = request.GET.get('lang', 'zh-CN')  # 获取界面语言
+    lr = request.GET.get('lr', '')  # 获取搜索结果限定的语言
     action = request.GET.get('action', "search")
     page = int(request.GET.get('page', 1))  # 获取页码
     language, action, page, app_id = check_value(language, action, page)  # 检查参数合法性不正确重置为默认值
@@ -85,7 +86,7 @@ def requests_to_google(request):
 
         url = "https://www.googleapis.com/customsearch/v1?" \
               "q={0}&cx={1}&num=10&start={2}&" \
-              "key={3}&lr={4}".format(client_msg, app_id, page * 10 - 9, key, language)
+              "key={3}&lr={4}".format(client_msg, app_id, page * 10 - 9, key, lr)
 
         # 使用 with 语句可以确保连接被关闭
         with requests.get(url) as r:
@@ -119,6 +120,7 @@ def requests_to_google(request):
                 content['text'] = q_text
                 content['proxy'] = WEB[0][1] + "-----"  # 网页代理的 URL 格式
                 content['lang'] = language
+                content['lr'] = lr
                 content['action'] = action
 
                 return content
@@ -127,13 +129,13 @@ def requests_to_google(request):
     return 403
 
 
-def requests_to_wikipedia(client_msg, language='lang_zh-CN'):
+def requests_to_wikipedia(client_msg, language='zh-CN'):
     '''向维基百科查询词条信息'''
     # TODO: 逻辑可以改进
-    if language == 'lang_en':
+    if language == 'en':
         # url = "https://en.wikipedia.org/wiki/{}".format(client_msg)
         return None, None  # TODO: 英语匹配的正则待改进
-    elif language == 'lang_zh-TW':
+    elif language == 'zh-TW':
         url = "https://zh.wikipedia.org/zh-tw/{}".format(client_msg)
     else:
         url = "https://zh.wikipedia.org/zh-cn/{}".format(client_msg)
@@ -307,11 +309,11 @@ def error_403():
     return content
 
 
-def check_value(language='lang_zh-CN', action='search', page=1):
+def check_value(language='zh-CN', action='search', page=1):
     '''参数错误则重置为默认值并额外返回 app_id'''
 
     if language not in LANGUAGE_LIST:
-        language = 'lang_zh-CN'
+        language = 'zh-CN'
 
     if action in ['Library', '搜书', '找書', 'book']:
         action = 'book'

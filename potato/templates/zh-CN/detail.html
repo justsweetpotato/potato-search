@@ -13,16 +13,76 @@
 <body>
 <div class="div0">
     <select class="select0" onchange=mbar(this)>
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
-            English
-        </option>
-        <option selected
-                value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
-            中文(简体)
-        </option>
-        <option value="{% url 'potato:search' %}?location={{ location }}&lang=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
-            中文(繁體)
-        </option>
+        {% if lr == '' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+                不限语言
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+                不限语言
+            </option>
+        {% endif %}
+        {% if lr == 'lang_en' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
+                英语
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_en&q={{ q }}&page={{ page }}&action={{ action }}">
+                英语
+            </option>
+        {% endif %}
+        {% if lr == 'lang_ja' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_ja&q={{ q }}&page={{ page }}&action={{ action }}">
+                日语
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_ja&q={{ q }}&page={{ page }}&action={{ action }}">
+                日语
+            </option>
+        {% endif %}
+        {% if lr == 'lang_ru' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_ru&q={{ q }}&page={{ page }}&action={{ action }}">
+                俄语
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_ru&q={{ q }}&page={{ page }}&action={{ action }}">
+                俄语
+            </option>
+        {% endif %}
+        {% if lr == 'lang_es' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_es&q={{ q }}&page={{ page }}&action={{ action }}">
+                西班牙语
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_es&q={{ q }}&page={{ page }}&action={{ action }}">
+                西班牙语
+            </option>
+        {% endif %}
+        {% if lr == 'lang_zh-CN' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+                中文(简体)
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_zh-CN&q={{ q }}&page={{ page }}&action={{ action }}">
+                中文(简体)
+            </option>
+        {% endif %}
+        {% if lr == 'lang_zh-TW' %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+                中文(繁体)
+            </option>
+        {% else %}
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=lang_zh-TW&q={{ q }}&page={{ page }}&action={{ action }}">
+                中文(繁体)
+            </option>
+        {% endif %}
     </select>
 </div>
 <div class="div1">
@@ -103,11 +163,11 @@
                     {{ address }}
                     <span class="span3"> - 基于您的 IP 地址 - <a class="a_lon"
                                                            href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
-                            href="?location=off&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">关闭定位</a></span>
+                            class="a_lon" href="?location=off&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page }}&action={{ action }}">关闭定位</a></span>
                 {% else %}
                     无法获取位置信息
                     <span class="span4"> - 地理位置被禁用 - <a class="a_loff"
-                                                        href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">开启定位</a></span>
+                                                        href="?location=on&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page }}&action={{ action }}">开启定位</a></span>
                 {% endif %}
             </small>
         </div>
@@ -117,7 +177,7 @@
         <div class="div_page">
             {% if page != 1 %}
                 <a class="a_up"
-                   href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:-1 }}&action={{ action }}">上一页</a>
+                   href="?location={{ location }}&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page|add:-1 }}&action={{ action }}">上一页</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
             {% endif %}
             {% for page_number in  pages %}
@@ -126,13 +186,13 @@
                     &nbsp;
                 {% else %}
                     <a class="a_page"
-                       href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page_number }}&action={{ action }}">{{ page_number }}</a>
+                       href="?location={{ location }}&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page_number }}&action={{ action }}">{{ page_number }}</a>
                     &nbsp;
                 {% endif %}
             {% endfor %}
             {% if page != pages|last %}
                 &nbsp;&nbsp;&nbsp;<a class="a_down"
-                                     href="?location={{ location }}&lang={{ lang }}&q={{ q }}&page={{ page|add:1 }}&action={{ action }}">下一页</a>
+                                     href="?location={{ location }}&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page|add:1 }}&action={{ action }}">下一页</a>
             {% endif %}
             <br>
             <br>
@@ -146,11 +206,11 @@
                     {{ address }}
                     <span class="span3"> - 基于您的 IP 地址 - <a class="a_lon"
                                                            href="https://www.ipip.net/ip.html">{{ ip }}</a> - <a
-                            href="?location=off&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">关闭定位</a></span>
+                            class="a_lon" href="?location=off&lang={{ lang }}&q={{ q }}&lr={{ lr }}&page={{ page }}&action={{ action }}">关闭定位</a></span>
                 {% else %}
                     无法获取位置信息
                     <span class="span4"> - 地理位置被禁用 - <a class="a_loff"
-                                                        href="?location=on&lang={{ lang }}&q={{ q }}&page={{ page }}&action={{ action }}">开启定位</a></span>
+                                                        href="?location=on&lang={{ lang }}&lr={{ lr }}&q={{ q }}&page={{ page }}&action={{ action }}">开启定位</a></span>
                 {% endif %}
             </small>
         </div>

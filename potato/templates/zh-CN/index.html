@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="/static/favicon.ico">
-    <title>小土豆搜尋引擎(測試版)</title>
+    <title>土豆搜索</title>
     <link rel="stylesheet" type="text/css" href="/static/css/index.css">
     <script type="text/javascript" src="/static/js/action.js"></script>
 </head>
@@ -16,16 +16,16 @@
         Apps
     </span>
     <div class="div_app_link">
-        <a class="div_app_a1" href="{{ proxy }}"><img class="img_app1" src="/static/hacker.png"><br>網頁代理</a>
+        <a class="div_app_a1" href="{{ proxy }}"><img class="img_app1" src="/static/hacker.png"><br>网页代理</a>
         <hr>
-        <a class="div_app_a1" href="{% url 'tools:obelisk_beta' %}?location={{ location }}&lang={{ lang }}"><img class="img_app1" src="/static/weini.jpg"><br>縱排轉換(測試版)</a>
+        <a class="div_app_a1" href="{% url 'tools:obelisk' %}?location={{ location }}&lang={{ lang }}"><img class="img_app1" src="/static/weini.jpg"><br>文本纵排</a>
     </div>
 </div>
 <div class="div0">
     <select class="select0" onchange=mbar(this)>
-        <option value="{% url 'potato:index' %}?location={{ location }}&lang=lang_en">English</option>
-        <option value="{% url 'potato:index' %}?location={{ location }}&lang=lang_zh-CN">中文(简体)</option>
-        <option selected value="{% url 'potato:index' %}?location={{ location }}&lang=lang_zh-TW">中文(繁體)</option>
+        <option value="{% url 'potato:index' %}?location={{ location }}&lang=en">English</option>
+        <option selected value="{% url 'potato:index' %}?location={{ location }}&lang=zh-CN">中文(简体)</option>
+        <option value="{% url 'potato:index' %}?location={{ location }}&lang=zh-TW">中文(繁體)</option>
     </select>
 </div>
 <div class="bg-search-img">
@@ -44,17 +44,17 @@
                     <input type="hidden" name="lang" value="{{ lang }}">
                     <input type="text" name="q" autofocus="autofocus" class="search-text"/><br><br>
 
-                    <input type="submit" name="action" id="my_submit2" class="search-sub2" value="搜尋"
+                    <input type="submit" name="action" id="my_submit2" class="search-sub2" value="搜索"
                            onclick="return empty()"/>&nbsp;&nbsp;&nbsp;
-                    <input type="submit" name="action" id="my_submit1" class="search-sub1" value="找書"
+                    <input type="submit" name="action" id="my_submit1" class="search-sub1" value="搜书"
                            onclick="return empty()"/>
                 </form>
             </div>
         </div>
         <br>
         <br>
-        <div class="msg" style="color: darkgreen">
-            <b>{{ msg }}</b>
+        <div class="msg">
+            {{ msg | safe }}
         </div>
     </div>
     <br>
@@ -64,7 +64,7 @@
                              href="{% url 'potato:doc' %}?location={{ location }}&lang={{ lang }}">Django</a></small>
         <br>
         <small>
-            開發者: 青空锁云, sweetpotato
+            开发者: 青空锁云, sweetpotato
         </small>
         <br>
         <a href="https://google.littlepotato.life">

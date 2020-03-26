@@ -44,7 +44,7 @@ a:hover {
 }
 
 .select_page {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .a_page {
@@ -81,6 +81,22 @@ a:hover {
 
 .a_down:visited {
     color: #4285f4;
+}
+
+.a_loff:link {
+    color: #5f6368;
+}
+
+.a_loff:visited {
+    color: #5f6368;
+}
+
+.a_lon:link {
+    color: #5f6368;
+}
+
+.a_lon {
+    color: #5f6368;
 }
 
 .img_potato {
@@ -267,10 +283,6 @@ h4 {
     }
 
     .a3:visited {
-        font-size: 16px;
-    }
-
-    .select_page {
         font-size: 16px;
     }
 

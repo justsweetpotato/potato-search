@@ -17,8 +17,7 @@ from .data import check_web
 from .data import error_403
 from .data import choice_template
 from .data import WEB
-
-LANGUAGE_LIST = ['lang_en', 'lang_zh-CN', 'lang_zh-TW']
+from .data import LANGUAGE_LIST
 
 
 def search(request):
@@ -45,9 +44,9 @@ def index(request):
     '''主页'''
 
     location = request.GET.get('location', 'off')
-    language = request.GET.get('lang', 'lang_zh-CN')
+    language = request.GET.get('lang', 'zh-CN')
     if language not in LANGUAGE_LIST:
-        language = 'lang_zh-CN'
+        language = 'zh-CN'
 
     s_msg = word(language)
     content = {"msg": s_msg}
@@ -62,7 +61,7 @@ def index(request):
 def test(request):
     '''测试页面, 使用 Google 提供的 JavaScript 代码生成搜索框'''
 
-    language = request.GET.get('lang', 'lang_zh-CN')
+    language = request.GET.get('lang', 'zh-CN')
     s_msg = word(language)
     content = {"msg": s_msg}
     return render(request, 'test.html', content)
@@ -73,7 +72,7 @@ def doc(request):
 
     status = request.GET.get('status', '0')
     location = request.GET.get('location', 'off')
-    language = request.GET.get('lang', 'lang_zh-CN')
+    language = request.GET.get('lang', 'zh-CN')
     content = check_web(status)
     content['location'] = location
     content['lang'] = language

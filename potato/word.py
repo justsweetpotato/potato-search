@@ -32,11 +32,10 @@ def word(language):
         "在这个世界上别太依赖任何人，因为当你在黑暗中挣扎时，连你的影子都会离开你。",
         "不要对外表过分在意，心灵才是最重要的。",
         # 名言佳句
-        "It's better to light a candle than curse the darkness.",
         # 歌曲
-        "你是你本身的傳奇，憑著你志氣會成大器；天公不造美，幾經風浪也是你。",
-        "撞進了冰山，捲上了急灣，一秒從未想折返；就望到了，就能望到了，終會踏足這峽灣。",
-        "風雨不會沒了期，終於會等到夢寐；全城在變遷，不減你是你。"
+        "你是你本身的传奇，凭着你志气会成大器；天公不造美，几经风浪也是你。",
+        "撞进了冰山，卷上了急湾，一秒从未想折返；就望到了，就能望到了，终会踏足这峡湾。",
+        "风雨不会没了期，终于会等到梦寐；全城在变迁，不减你是你。"
     ]
 
     word_list_en = [
@@ -47,9 +46,9 @@ def word(language):
         "站在巨人的肩膀上",
     ]
 
-    if language == 'lang_en':
+    if language == 'en':
         msg = choice(word_list_en)
-    elif language == 'lang_zh-TW':
+    elif language == 'zh-TW':
         msg = choice(word_list_zh_tw)
     else:
         msg = choice(word_list_zh_cn)

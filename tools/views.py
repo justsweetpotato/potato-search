@@ -6,7 +6,7 @@ def obelisk(request):
     if request.method != 'POST':
         row = request.GET.get('row', 5)
         location = request.GET.get('location', 'off')
-        language = request.GET.get('lang', 'lang_zh-CN')
+        language = request.GET.get('lang', 'zh-CN')
 
         content = {
             'row': row,
@@ -33,7 +33,7 @@ def obelisk(request):
         msg_pc = request.POST.get('msg_pc', '')
         msg_mobile = request.POST.get('msg_mobile', '')
         location = request.GET.get('location', 'off')
-        language = request.GET.get('lang', 'lang_zh-CN')
+        language = request.GET.get('lang', 'zh-CN')
 
         if msg_pc:
             msg = msg_pc
@@ -74,7 +74,7 @@ def obelisk_beta(request):
 
     if request.method != 'POST':
         location = request.GET.get('location', 'off')
-        language = request.GET.get('lang', 'lang_zh-CN')
+        language = request.GET.get('lang', 'zh-CN')
 
         content = {
             'location': location,
@@ -87,7 +87,7 @@ def obelisk_beta(request):
         msg_pc = request.POST.get('msg_pc', '')
         msg_mobile = request.POST.get('msg_mobile', '')
         location = request.GET.get('location', 'off')
-        language = request.GET.get('lang', 'lang_zh-CN')
+        language = request.GET.get('lang', 'zh-CN')
 
         if msg_pc:
             msg = msg_pc
