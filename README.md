@@ -21,6 +21,10 @@
 ![搜索结果2](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail2.png)
 
 ### 版本更新
+<b>v1.0.0</b> (03/26/2020)<br>
+修改了结果展示的逻辑，现在默认以原始权重排列结果，不在强制以语言排列结果。<br>
+修复了一些问题。<br>
+
 <b>v0.3.4</b> (11/16/2019)<br>
 分页功能完善，API 功能完善，修复多处手机端页面排版问题。<br>
 
