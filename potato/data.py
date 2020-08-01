@@ -91,8 +91,8 @@ def requests_to_google(request):
 
         # 使用 with 语句可以确保连接被关闭
         with requests.get(url) as r:
-            # Google API 配额用尽时会返回 403 错误
-            if r.status_code != 403:
+            # Google API 配额用尽时会返回 429 错误
+            if r.status_code != 429:
                 server_msg = r.json()  # 直接处理 json 返回 字典
                 content = handle_data(server_msg)
 
