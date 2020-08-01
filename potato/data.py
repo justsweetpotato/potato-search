@@ -19,7 +19,8 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    ('WebProxy', 'https://proxy.littlepotato.ml/', ''),
+    ('WebProxy', 'https://proxy1.littlepotato.cf/', ''),  # 此为网站所使用的默认网页代理
+    ('WebProxy', 'https://proxy1.littlepotato.ml/', ''),  
     ('WebProxy', 'https://proxy.littlepotato.tk/', ''),
     ('WebProxy', 'https://bot-go-3.herokuapp.com/', ''),
     ('You2Php', 'https://bot-yt-3.herokuapp.com/', ''),
@@ -194,6 +195,8 @@ def handle_data(server_msg):
         for data_dict in server_msg["items"]:
             title_list.append(data_dict["title"])
             link_list.append(unquote(data_dict["link"], 'utf-8'))  # 进行 URL 解码符合人类阅读
+            if not data_dict.get("htmlSnippet"):
+                data_dict["htmlSnippet"] = "No information is available for this page.<br>It means that the website prevented Google from creating a page description, but didn't actually hide the page from Google."
             snippet_list.append(data_dict["htmlSnippet"])
 
         data_zip = zip(title_list, link_list, snippet_list)
@@ -337,29 +340,29 @@ def choice_template(language, name):
 
 
 if __name__ == '__main__':
-    import socket
-    import socks
+    # import socket
+    # import socks
 
-    addr = "127.0.0.1"
-    port = 1984
+    # addr = "127.0.0.1"
+    # port = 2801
 
-    socks.set_default_proxy(socks.SOCKS5, addr, port)
-    socket.socket = socks.socksocket
+    # socks.set_default_proxy(socks.SOCKS5, addr, port)
+    # socket.socket = socks.socksocket
 
-    print(requests_to_wikipedia('南京'))
-    print(requests_to_wikipedia('广州'))
-    print(requests_to_wikipedia('Python'))
-    print(requests_to_wikipedia('法国大革命'))
-    print(requests_to_wikipedia('六四事件'))
-    print(requests_to_wikipedia('ooo'))
-    print(requests_to_wikipedia('aeklwhlek239210'))
-    print(requests_to_wikipedia('土豆'))
-    print(requests_to_wikipedia('西京'))
-    print(requests_to_wikipedia('hi'))
-    print(requests_to_wikipedia('ewae'))
-    print(requests_to_wikipedia('百度'))
-    print(requests_to_wikipedia('分号'))
-    print(requests_to_wikipedia('华盛顿'))
-    print(requests_to_wikipedia('亚马逊雨林'))
+    # print(requests_to_wikipedia('南京'))
+    # print(requests_to_wikipedia('广州'))
+    # print(requests_to_wikipedia('Python'))
+    # print(requests_to_wikipedia('法国大革命'))
+    # print(requests_to_wikipedia('六四事件'))
+    # print(requests_to_wikipedia('ooo'))
+    # print(requests_to_wikipedia('aeklwhlek239210'))
+    # print(requests_to_wikipedia('土豆'))
+    # print(requests_to_wikipedia('西京'))
+    # print(requests_to_wikipedia('hi'))
+    # print(requests_to_wikipedia('ewae'))
+    # print(requests_to_wikipedia('百度'))
+    # print(requests_to_wikipedia('分号'))
+    # print(requests_to_wikipedia('华盛顿'))
+    # print(requests_to_wikipedia('亚马逊雨林'))
 
-    # print(error_403())
+    print(error_403())

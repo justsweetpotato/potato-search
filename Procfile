@@ -1,1 +1,0 @@
-web: gunicorn search_book.wsgi --log-file -

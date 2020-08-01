@@ -33,7 +33,7 @@
             <b>谷歌搜索 API:</b><br>
             调用方式: /api/search/?q={0}&page={1}&key={2}<br>
             {0} 替换为查询字符, 类型为 str<br>
-            {1} 替换为第一條結果的索引, 第一頁第一個為 1, 每頁 10 個, 所以第二頁第一個為 11, 类型为 int<br>
+            {1} 替换为第一条结果的索引, 第一页第一个为 1, 每次固定返回 10 个, 所以第二页第一个为 11, 类型为 int<br>
             {2} [可选参数] 替换为自己的 API KEY, 类型为 str<br>
             例: <a href="/api/search/?q=python&page=1">/api/search/?q=python&page=1</a><br>
             403 表示今日请求次数已用尽, 请换用其他 API KEY<br>
@@ -44,7 +44,7 @@
             <b>书籍搜索 API:</b><br>
             调用方式: /api/book/?q={0}&page={1}&key={2}<br>
             {0} 替换为查询字符, 类型为 str<br>
-            {1} 替换为第一條結果的索引, 第一頁第一個為 1, 每頁 10 個, 所以第二頁第一個為 11, 类型为 int<br>
+            {1} 替换为第一条结果的索引, 第一页第一个为 1, 每次固定返回 10 个, 所以第二页第一个为 11, 类型为 int<br>
             {2} [可选参数] 替换为自己的 API KEY, 类型为 str<br>
             例: <a href="/api/book/?q=python&page=1">/api/book/?q=python&page=1</a><br>
             403 表示今日请求次数已用尽, 请换用其他 API KEY<br>
@@ -83,8 +83,8 @@
                 {% endif %}
                 <br>
             {% endfor %}
-            v2rayN: <a href="/static/v2rayN.7z">本地下载</a><br>
-            Netch: <a href="/static/Netch.7z">本地下载</a>
+            V2RayN (Windows): <a href="https://onedrive.superpotato.dev/share/Apps/Windows/v2rayN.zip">网盘下载</a><br>
+            Netch (Windows): <a href="https://onedrive.superpotato.dev/share/Apps/Windows/Netch.zip">网盘下载</a>
         </p>
     </div>
 {% endif %}

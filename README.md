@@ -1,6 +1,6 @@
 
-## 土豆搜索引擎<br>
-<a href="https://search.littlepotato.life/">https://search.littlepotato.life/</a><br>
+## 薯仔搜索引擎<br>
+<a href="https://search.littlepotato.life/">https://search.superpotato.dev/</a><br>
 
 #### 使用谷歌自定义搜索，返回搜索结果。<br>
 使用了 Django 框架，<b>表单</b>获取用户输入，<b>视图</b>将用户输入的内容构造成<b>请求URL</b>，向<b>谷歌API</b>进行请求，拿到结果后进行提取，再把提取后的内容交由<b>视图</b>处理后写入<b>模板</b>并返回前端页面。<br>
@@ -9,7 +9,7 @@
 <b>搜索</b>：搜索结果与谷歌相同，在中国大陆地区可用，不会搜集用户信息。<br>
 <b>搜书</b>：去特定的电子书下载网站搜索你要的书籍，帮你找到想要的电子书。<br>
 <b>匿名访问</b>：通过代理服务器打开目标网页，能在不使用任何软件的情况下访问中国大陆地区无法访问的网站（使用 <a href="https://github.com/EtherDream/jsproxy">jsproxy</a> 部署在 Cloudflare Workers）。<br>
-<b>语言选择</b>：能在“搜索结果”页面方便的切换语言，使搜索结果更趋向于你所选择的语言（目前支持 英文、简体中文、 繁体中文）。<br>
+<b>语言选择</b>：能在“搜索结果”页面方便的切换语言，使搜索结果更趋向于你所选择的语言（目前支持 英文、简体中文、 繁体中文 等多种语言）。<br>
 <b>APPS</b>：提供多种便捷的网页版工具，节省您的时间（还在逐步开发中）。<br>
 
 ![搜索引擎](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/index.png)
@@ -21,19 +21,25 @@
 ![搜索结果2](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail2.png)
 
 ### 版本更新
-<b>v1.0.0</b> (03/26/2020)<br>
-修改了结果展示的逻辑，现在默认以原始权重排列结果，不在强制以语言排列结果。<br>
-修复了一些问题。<br>
+<b>v1.0.1</b>(08/01/2020)<br>
+修复搜索某些字词时，因对方网站禁止爬虫造成的会导致服务器错误的「空字典」BUG。（抱歉，这个 BUG 鸽了好久 T-T）<br>
+修复在 IE，Firefox 浏览器下的排版错误。<br>
+修复了一些文本错误。<br>
 
-<b>v0.3.4</b> (11/16/2019)<br>
-分页功能完善，API 功能完善，修复多处手机端页面排版问题。<br>
+<b>v1.0.0</b> (03/26/2020)<br>
+修改了结果展示的逻辑，现在默认以原始权重排列结果，不再强制以语言排列结果。<br>
+修复了一些问题。<br>
 
 <details>
   <summary>显示更多</summary>
+
+<b>v0.3.4</b> (11/16/2019)<br>
+分页功能完善，API 功能完善，修复多处手机端页面排版问题。<br>
+<br>
+
 <b>v0.3.3</b> (9/23/2019)<br>
 新增繁体中文界面，优化了切换语言的逻辑，多语言界面的切换将更顺畅。<br>
 主页左上角新增 APPS 功能，集成多种便捷网页版工具。<br>
-<br>
   
 <b>v0.3.2</b> (8/23/2019)<br>
 性能优化，使用多线程完成请求，减少页面等待时间。<br>
