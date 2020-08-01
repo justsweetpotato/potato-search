@@ -70,7 +70,10 @@ def sub(msg):
     msg = re.sub('7', '７', msg)
     msg = re.sub('8', '８', msg)
     msg = re.sub('9', '９', msg)
-    msg = re.sub(' ', '㍐', msg)  # TODO
+    msg = re.sub('\*', '＊', msg)
+    msg = re.sub(' ', '㍐', msg)  # TODO 
+    msg = re.sub('=', '＝', msg)
+    msg = re.sub('&', '＆', msg)
     msg = re.sub('\\n', '。', msg)
     msg = re.sub('\\r', '', msg)
     msg = re.sub(',', '，', msg)
