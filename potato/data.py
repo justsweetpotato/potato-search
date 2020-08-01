@@ -94,7 +94,7 @@ def requests_to_google(request):
             # Google API 配额用尽时会返回 429 错误
             if r.status_code != 429:
                 server_msg = r.json()  # 直接处理 json 返回 字典
-                content = handle_data(server_msg)
+                content = handle_data(server_msg, client_msg)
 
                 if action == 'book':
                     content["book"] = True
@@ -182,7 +182,7 @@ def requests_to_wikipedia(client_msg, language='zh-CN'):
     return None, None
 
 
-def handle_data(server_msg):
+def handle_data(server_msg, client_msg):
     '''提取 Google API 返回的数据(只需要 标题 and 连接 and 简介)'''
 
     title_list = []
@@ -193,6 +193,8 @@ def handle_data(server_msg):
     # 如果不存在 items 表示没有搜索结果
     if server_msg.get("items"):
         for data_dict in server_msg["items"]:
+            if not data_dict.get("title"):
+                data_dict["title"] = client_msg
             title_list.append(data_dict["title"])
             link_list.append(unquote(data_dict["link"], 'utf-8'))  # 进行 URL 解码符合人类阅读
             if not data_dict.get("htmlSnippet"):
