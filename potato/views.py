@@ -17,6 +17,7 @@ from .data import check_web
 from .data import error_403
 from .data import choice_template
 from .data import WEB
+from .data import AUTH
 from .data import LANGUAGE_LIST
 
 
@@ -49,10 +50,12 @@ def index(request):
         language = 'zh-CN'
 
     s_msg = word(language)
-    content = {"msg": s_msg}
+    content = {'msg': s_msg}
     content['location'] = location
     content['lang'] = language
     content['proxy'] = WEB[0][1]
+    content['username'] = AUTH['username']
+    content['password'] = AUTH['password']
     template = choice_template(language, 'index')
 
     return render(request, template, content)

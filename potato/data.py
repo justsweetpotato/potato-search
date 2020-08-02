@@ -19,12 +19,18 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    ('WebProxy', 'https://proxy1.littlepotato.cf/', ''),  # 此为网站所使用的默认网页代理
+    ('WebProxy', 'https://hot.littlepotato.ml/', ''),  # 此为网站所使用的默认网页代理
+    ('WebProxy', 'https://proxy1.littlepotato.cf/', ''), 
     ('WebProxy', 'https://proxy1.littlepotato.ml/', ''),  
     ('WebProxy', 'https://proxy.littlepotato.tk/', ''),
     ('WebProxy', 'https://bot-go-3.herokuapp.com/', ''),
     ('You2Php', 'https://bot-yt-3.herokuapp.com/', ''),
 )
+
+AUTH = {
+    "username": "potato",
+    "password": "123"
+}
 
 APP = {
     "search": "007606540339251262492:smmy8xt1wrw",
@@ -120,6 +126,8 @@ def requests_to_google(request):
                 content['title'] = title
                 content['text'] = q_text
                 content['proxy'] = WEB[0][1] + "-----"  # 网页代理的 URL 格式
+                content['username'] = AUTH['username']
+                content['password'] = AUTH['password']
                 content['lang'] = language
                 content['lr'] = lr
                 content['action'] = action
