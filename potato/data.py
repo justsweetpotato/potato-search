@@ -19,7 +19,7 @@ KEY_LIST = [
 
 # (名称, 网址, 状态)
 WEB = (
-    # ('WebProxy', 'https://proxy1.littlepotato.cf/', ''),  # 此为网站所使用的默认网页代理
+    ('WebProxy', 'https://proxy1.littlepotato.cf/', ''),  # 此为网站所使用的默认网页代理
     ('WebProxy', 'https://proxy1.littlepotato.ml/', ''),  
     ('WebProxy', 'https://proxy.littlepotato.tk/', ''),
     ('WebProxy', 'https://bot-go-3.herokuapp.com/', ''),
