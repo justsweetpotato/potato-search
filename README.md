@@ -88,3 +88,29 @@
 基础引擎框架。<br>
 已知问题：中国大陆无法使用（谷歌提供的 JavaScript 代码无法正常加载，并且反向代理无法解决这个问题）。<br>
 </details>
+
+### 部署
+运行
+```
+$ git clone https://github.com/justsweetpotato/potato-search.git
+
+$ cd potato-search/
+
+$ nohup gunicorn search_book.wsgi:application -c gunicorn.conf.py &
+```
+
+Nginx
+```
+# ...
+
+location / {
+        proxy_pass http://127.0.0.1:7000;
+    }
+
+    location /static {
+        alias /root/myWebSite/potato-search/static;
+    }
+
+# ...
+```
+可自行指定端口号，同时需要修改 `gunicorn.conf.py` 文件中的配置。
