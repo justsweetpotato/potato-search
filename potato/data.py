@@ -17,14 +17,17 @@ KEY_LIST = [
     'AIzaSyAdolxu5TWJhArM00hTqTUwOTDHK00806s'
 ]
 
-# (名称, 网址, 状态)
+# (名称, 网址, 状态 1表示可用，0表示不可用，元组第一个为网站默认代理)
 WEB = (
-    ('WebProxy', 'https://hot.littlepotato.ml/', ''),  # 此为网站所使用的默认网页代理
-    ('WebProxy', 'https://proxy1.littlepotato.cf/', ''), 
-    ('WebProxy', 'https://proxy1.littlepotato.ml/', ''),  
-    ('WebProxy', 'https://proxy.littlepotato.tk/', ''),
-    ('WebProxy', 'https://bot-go-3.herokuapp.com/', ''),
-    ('You2Php', 'https://bot-yt-3.herokuapp.com/', ''),
+    ('WebProxy', 'https://outlook.superpotato.cf/', ''), 
+    ('WebProxy', 'https://huawei.superpotato.cf/', ''),
+    ('WebProxy', 'https://taobao.superpotato.cf/', ''),
+    ('WebProxy', 'https://baidu.superpotato.cf/', ''),
+    ('WebProxy', 'https://10086.superpotato.cf/', ''), 
+    ('WebProxy', 'https://qq.superpotato.cf/', ''),
+    ('WebProxy', 'https://proxy1.littlepotato.cf/', ''),   
+    ('WebProxy', 'https://bot-go-3.herokuapp.com/', '0'),
+    ('You2Php', 'https://bot-yt-3.herokuapp.com/', '0'),
 )
 
 AUTH = {
