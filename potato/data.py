@@ -120,6 +120,10 @@ def requests_to_google(request):
                 if last_page:
                     pages = page
 
+                # 如果 IP 查询网站故障未返回结果，则关闭定位功能，以免持续请求造成额外的等待
+                if not address:
+                    location = 'off'
+
                 content['q'] = client_msg
                 content['page'] = page
                 content['pages'] = list(range(1, pages + 1))
