@@ -39,8 +39,8 @@ https://search.superpotato.dev <br>
   <summary>显示更多</summary>
 
 **v0.3.4** (11/16/2019)<br>
-分页功能完善。
-API 功能完善。
+分页功能完善。<br>
+API 功能完善。<br>
 修复多处手机端页面排版问题。<br>
 
 **v0.3.3** (9/23/2019)<br>
