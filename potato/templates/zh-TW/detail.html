@@ -13,13 +13,19 @@
 <body>
 <div class="div0">
     <select class="select0" onchange=mbar(this)>
+        {% if lr not in lr_list %}
+            <option selected
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr={{ lr }}&q={{ q }}&page=1&action={{ action }}">
+                {{ lr }}
+            </option>
+        {% endif %}
         {% if lr == '' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&q={{ q }}&page=1&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr={{ lr }}&q={{ q }}&page=1&action={{ action }}">
                 不限語言
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&q={{ q }}&page=1&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-TW&lr={{ lr }}&q={{ q }}&page=1&action={{ action }}">
                 不限語言
             </option>
         {% endif %}
