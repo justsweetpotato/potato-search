@@ -21,11 +21,11 @@
         {% endif %}
         {% if lr == '' %}
             <option selected
-                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr={{ lr }}&q={{ q }}&page=1&action={{ action }}">
+                    value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=&q={{ q }}&page=1&action={{ action }}">
                 不限语言
             </option>
         {% else %}
-            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr={{ lr }}&q={{ q }}&page=1&action={{ action }}">
+            <option value="{% url 'potato:search' %}?location={{ location }}&lang=zh-CN&lr=&q={{ q }}&page=1&action={{ action }}">
                 不限语言
             </option>
         {% endif %}
