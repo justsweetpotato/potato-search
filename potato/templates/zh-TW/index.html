@@ -18,14 +18,14 @@
     <div class="div_app_link">
         <a class="div_app_a1" href="{{ proxy }}"><img class="img_app1" src="/static/hacker.png"><br>網頁代理</a>
         <hr>
-        <a class="div_app_a1" href="{% url 'tools:obelisk_beta' %}?location={{ location }}&lang={{ lang }}"><img class="img_app1" src="/static/weini.jpg"><br>縱排轉換(測試版)</a>
+        <a class="div_app_a1" href="{% url 'tools:obelisk_beta' %}?location={{ location }}&lang={{ lang }}&lr={{ lr }}"><img class="img_app1" src="/static/weini.jpg"><br>縱排轉換(測試版)</a>
     </div>
 </div>
 <div class="div0">
     <select class="select0" onchange=mbar(this)>
-        <option value="{% url 'potato:index' %}?location={{ location }}&lang=en">English</option>
-        <option value="{% url 'potato:index' %}?location={{ location }}&lang=zh-CN">中文(简体)</option>
-        <option selected value="{% url 'potato:index' %}?location={{ location }}&lang=zh-TW">中文(繁體)</option>
+        <option value="{% url 'potato:index' %}?location={{ location }}&lang=en&lr={{ lr }}">English</option>
+        <option value="{% url 'potato:index' %}?location={{ location }}&lang=zh-CN&lr={{ lr }}">中文(简体)</option>
+        <option selected value="{% url 'potato:index' %}?location={{ location }}&lang=zh-TW&lr={{ lr }}">中文(繁體)</option>
     </select>
 </div>
 <div class="bg-search-img">
@@ -42,6 +42,7 @@
                 <form name="form1" action="/search/" method="get" onsubmit="return required()">
                     <input type="hidden" name="location" value="{{ location }}">
                     <input type="hidden" name="lang" value="{{ lang }}">
+                    <input type="hidden" name="lr" value="{{ lr }}">
                     <input type="text" name="q" autofocus="autofocus" class="search-text"/><br><br>
 
                     <input type="submit" name="action" id="my_submit2" class="search-sub2" value="搜尋"
@@ -61,7 +62,7 @@
     <br>
     <div class="info">
         <small>Powered by <a class="a_doc"
-                             href="{% url 'potato:doc' %}?location={{ location }}&lang={{ lang }}">Django</a></small>
+                             href="{% url 'potato:doc' %}?location={{ location }}&lang={{ lang }}&lr={{ lr }}">Django</a></small>
         <br>
         <small>
             Developed by 青空锁云 SuperPotato

@@ -86,12 +86,13 @@
     </select>
 </div>
 <div class="div1">
-    <a class="a_img" href="{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}">
+    <a class="a_img" href="{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}&lr={{ lr }}">
         <img src="/static/detail.jpg" alt="" class="img_potato">
     </a>
     <form name="form1" action="/search/" method="get" class="form1" onsubmit="return required()">
         <input type="hidden" name="location" value="{{ location }}">
         <input type="hidden" name="lang" value="{{ lang }}">
+        <input type="hidden" name="lr" value="{{ lr }}">
         <input type="text" name="q" value="{{ q }}" class="search-text" id="input1"/>
         &nbsp;
         {% if action == 'search' %}

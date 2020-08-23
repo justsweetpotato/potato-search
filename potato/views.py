@@ -7,18 +7,18 @@ from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import reverse
 import json
 
-from .forms import BookForm
-from .word import word
-from .data import requests_to_google
-from .data import get_api_data
-from .data import get_ip_and_address
-from .data import requests_to_wikipedia
-from .data import check_web
-from .data import error_403
-from .data import choice_template
-from .data import WEB
-from .data import AUTH
-from .data import LANGUAGE_LIST
+from potato.forms import BookForm
+from potato.word import word
+from potato.data import requests_to_google
+from potato.data import get_api_data
+from potato.data import get_ip_and_address
+from potato.data import requests_to_wikipedia
+from potato.data import check_web
+from potato.data import error_403
+from potato.data import choice_template
+from potato.data import WEB
+from potato.data import AUTH
+from potato.data import LANGUAGE_LIST
 
 
 def search(request):
@@ -46,18 +46,24 @@ def index(request):
 
     location = request.GET.get('location', 'off')
     language = request.GET.get('lang', 'zh-CN')
+    lr = request.GET.get('lr', '')
+
     if language not in LANGUAGE_LIST:
         language = 'zh-CN'
 
     s_msg = word(language)
-    content = {'msg': s_msg}
-    content['location'] = location
-    content['lang'] = language
-    content['proxy'] = WEB[0][1]
-    content['username'] = AUTH['username']
-    content['password'] = AUTH['password']
     template = choice_template(language, 'index')
 
+    content = {
+        'msg': s_msg,
+        'location': location,
+        'lang': language,
+        'lr': lr,
+        'proxy': WEB[0][1],
+        'username': AUTH['username'],
+        'password': AUTH['password']
+    }
+    
     return render(request, template, content)
 
 
@@ -76,9 +82,11 @@ def doc(request):
     status = request.GET.get('status', '0')
     location = request.GET.get('location', 'off')
     language = request.GET.get('lang', 'zh-CN')
+    lr = request.GET.get('lr', '')
     content = check_web(status)
     content['location'] = location
     content['lang'] = language
+    content['lr'] = lr
 
     return render(request, 'doc.html', content)
 

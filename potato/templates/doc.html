@@ -12,11 +12,11 @@
 <body>
 {% if lang == 'en' %}
     <button class="btn1" id="btn1"
-            onclick="window.location.href='{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}'">Homepage
+            onclick="window.location.href='{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}&lr={{ lr }}'">Homepage
     </button>
 {% else %}
     <button class="btn1" id="btn1"
-            onclick="window.location.href='{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}'">返回主页
+            onclick="window.location.href='{% url 'potato:index' %}?location={{ location }}&lang={{ lang }}&lr={{ lr }}'">返回主页
     </button>
 {% endif %}
 <br>
@@ -24,6 +24,9 @@
     <div class="div_code">
         <br><br><br><br><br><br><br><br>
         Talk is cheap. Show me the code.
+        <br>
+        <br>
+        <small>Linus Torvalds</small>
         <br><br><br><br><br><br><br><br><br><br>
     </div>
 {% else %}
@@ -68,15 +71,15 @@
 
         <p>
             <b>工具:</b><br>
-            <button class="btn2" onclick="window.location.href='?location={{ location }}&lang={{ lang }}&status=1'">
+            <button class="btn2" onclick="window.location.href='{% url 'potato:doc' %}?location={{ location }}&lang={{ lang }}&lr={{ lr }}&status=1'">
                 检测网站可用性
-            </button>
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;<small>*仅检测网站状态是否正常不保证国内一定可以访问</small>
             <br>
-            {% for title, url, check in content %}
+            {% for title, url, status in content %}
                 {{ title }}: <a href="{{ url }}">{{ url }}</a>
-                {% if check == 1 %}
+                {% if status == '1' %}
                     <span class="span_ok">可用</span>
-                {% elif check == 0 %}
+                {% elif status == '0' %}
                     <span class="span_not_ok">不可用</span>
                 {% else %}
                     <span class="span_uncheck">未检测</span>

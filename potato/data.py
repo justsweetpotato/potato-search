@@ -42,6 +42,8 @@ APP = {
 
 LANGUAGE_LIST = ['en', 'zh-CN', 'zh-TW']
 
+LR_LIST = ['', 'lang_en', 'lang_ja', 'lang_ru', 'lang_es', 'lang_zh-CN', 'lang_zh-TW']
+
 
 class MyThread(Thread):
     '''一个能保存子线程结果的自定义线程类'''
@@ -132,11 +134,12 @@ def requests_to_google(request):
                 content['location'] = location
                 content['title'] = title
                 content['text'] = q_text
-                content['proxy'] = WEB[0][1] + "-----"  # 网页代理的 URL 格式
+                content['proxy'] = WEB[0][1] + "-----",  # 网页代理的 URL 格式
                 content['username'] = AUTH['username']
                 content['password'] = AUTH['password']
                 content['lang'] = language
                 content['lr'] = lr
+                content['lr_list'] = LR_LIST
                 content['action'] = action
 
                 return content
@@ -217,10 +220,13 @@ def handle_data(server_msg, client_msg):
             snippet_list.append(data_dict["htmlSnippet"])
 
         data_zip = zip(title_list, link_list, snippet_list)
-        content = {"content": data_zip}
-        content['results'] = server_msg.get("searchInformation")["formattedTotalResults"]
-        content['time'] = server_msg.get("searchInformation")["formattedSearchTime"]
-        content["empty"] = False
+
+        content = {
+            'content': data_zip,
+            'results': server_msg.get("searchInformation")["formattedTotalResults"],
+            'time': server_msg.get("searchInformation")["formattedSearchTime"],
+            'empty': False
+        }
 
         if len(title_list) < 10:
             content['last_page'] = True
@@ -269,11 +275,13 @@ def get_api_data(q, page, key, type=0):
 
 def check_web(status):
     '''检查网站可用性 & 激活 herokuapp'''
+    # 与 requests_status() 函数联动使用
+
     # TODO: 可用异步请求新特性
     if status == '1':
         title_list = []
         url_list = []
-        checked = []
+        status_list = []
         thread_list = []
 
         for title, url, _ in WEB:
@@ -287,10 +295,12 @@ def check_web(status):
 
         for t in thread_list:
             t.join()
-            checked.append(t.get_result())
+            status_list.append(t.get_result())
 
-        content = {'content': zip(title_list, url_list, checked)}
-        content['status'] = '1'
+        content = {
+            'content': zip(title_list, url_list, status_list),
+            'status': '1'
+        }    
     else:
         content = {'content': WEB}
 
@@ -299,15 +309,21 @@ def check_web(status):
 
 def requests_status(url):
     '''请求网站, 返回状态码'''
+    from func_timeout import func_set_timeout
+
+    @func_set_timeout(3)  # 使用 fuc_set_timeout 装饰器让装饰函数 3 秒后退出，不会因对方网站无响应而浪费等待时间
+    def go_check_web(url):
+        with requests.get(url) as r :
+            if (r.status_code == 200) or (r.status_code == 401):  # TODO: 401 是一种特殊情况，可以给 requests.get 加上 header 需测试
+                return '1'
+            return '0'
 
     try:
-        r = requests.get(url)
+        res = go_check_web(url)
     except:
-        return 0
-    else:
-        if r.status_code == 200:
-            return 1
-        return 0
+        return '0'
+    
+    return res
 
 
 def error_403():
@@ -325,7 +341,11 @@ def error_403():
         reset_time_minute += 60
         reset_time_hour -= 1
 
-    content = {'count': api_request_count, 'hour': reset_time_hour, 'minute': reset_time_minute}
+    content = {
+        'count': api_request_count,
+        'hour': reset_time_hour, 
+        'minute': reset_time_minute
+        }
     return content
 
 

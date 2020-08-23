@@ -23,6 +23,12 @@ https://search.superpotato.dev <br>
 ![搜索结果2](https://raw.githubusercontent.com/justsweetpotato/markdown-img-store/master/search/detail2.png)
 
 ### 版本更新
+
+**v1.0.3** (08/23/2020)<br>
+修复一处丢失 lr (以语言过滤搜索结果) 参数的错误。<br>
+现在不对 lr 参数做限制，可以在 url 中修改此参数对搜索结果按语言过滤，即使此种语言不在候选项之中。例如将 lr= 修改为 lr=lang_de 即按德语过滤搜索结果；修改为 lr=lang_fr 即按法语过滤搜索结果。<br>
+改善 "检测网站可用性" 功能的逻辑，现在会超时自动退出，修复一处错误。<br>
+
 **v1.0.2 临时更新** (08/03/2020)<br>
 为防止滥用以及 GFW 的主动探测，会对 “匿名访问” 功能进行用户验证，鼠标悬停于 “匿名访问” 链接上即会显示用户名和密码。（用户名和密码可能会不定期更动）<br>
 
@@ -31,12 +37,12 @@ https://search.superpotato.dev <br>
 修复在 IE，Firefox 浏览器下的排版错误。<br>
 修复了一些问题。<br>
 
+<details>
+  <summary>显示更多</summary>
+
 **v1.0.0** (03/26/2020)<br>
 修改了结果展示的逻辑，现在默认以原始权重排列结果，不再强制以语言排列结果。<br>
 修复了一些问题。<br>
-
-<details>
-  <summary>显示更多</summary>
 
 **v0.3.4** (11/16/2019)<br>
 分页功能完善。<br>

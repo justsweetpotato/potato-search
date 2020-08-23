@@ -7,6 +7,7 @@ def obelisk(request):
         row = request.GET.get('row', 5)
         location = request.GET.get('location', 'off')
         language = request.GET.get('lang', 'zh-CN')
+        lr = request.GET.get('lr', '')
 
         content = {
             'row': row,
@@ -14,7 +15,8 @@ def obelisk(request):
             'reverse': '0',
             'cn_lang': '',
             'location': location,
-            'lang': language
+            'lang': language,
+            'lr' : lr
         }
 
         return render(request, 'obelisk.html', content)
@@ -34,6 +36,7 @@ def obelisk(request):
         msg_mobile = request.POST.get('msg_mobile', '')
         location = request.GET.get('location', 'off')
         language = request.GET.get('lang', 'zh-CN')
+        lr = request.GET.get('lr', '')
 
         if msg_pc:
             msg = msg_pc
@@ -63,7 +66,8 @@ def obelisk(request):
             'type': type,
             'cn_lang': cn_lang,
             'location': location,
-            'lang': language
+            'lang': language,
+            'lr': lr
         }
 
         return render(request, 'obelisk.html', content)
@@ -75,10 +79,12 @@ def obelisk_beta(request):
     if request.method != 'POST':
         location = request.GET.get('location', 'off')
         language = request.GET.get('lang', 'zh-CN')
+        lr = request.GET.get('lr', '')
 
         content = {
             'location': location,
-            'lang': language
+            'lang': language,
+            'lr': lr
         }
 
         return render(request, 'obelisk_beta.html', content)
@@ -88,6 +94,7 @@ def obelisk_beta(request):
         msg_mobile = request.POST.get('msg_mobile', '')
         location = request.GET.get('location', 'off')
         language = request.GET.get('lang', 'zh-CN')
+        lr = request.GET.get('lr', '')
 
         if msg_pc:
             msg = msg_pc
@@ -107,7 +114,8 @@ def obelisk_beta(request):
             'type': type,
             'obelisk_msg': obelisk_msg,
             'location': location,
-            'lang': language
+            'lang': language,
+            'lr': lr
         }
 
         return render(request, 'obelisk_beta.html', content)
