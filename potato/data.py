@@ -134,7 +134,7 @@ def requests_to_google(request):
                 content['location'] = location
                 content['title'] = title
                 content['text'] = q_text
-                content['proxy'] = WEB[0][1] + "-----",  # 网页代理的 URL 格式
+                content['proxy'] = WEB[0][1] + "-----"  # 网页代理的 URL 格式
                 content['username'] = AUTH['username']
                 content['password'] = AUTH['password']
                 content['lang'] = language
