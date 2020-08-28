@@ -85,6 +85,7 @@ def sub(msg):
     msg = re.sub('"', '〃', msg)  # TODO
     msg = re.sub('\'', '゛', msg)  # TODO
     msg = re.sub('[/|]', '／', msg)
+    msg = re.sub('_', '︴', msg)
     msg = re.sub('-', '︱', msg)
     msg = re.sub('~', '～', msg)
     msg = re.sub('[\(（]', '︵', msg)
