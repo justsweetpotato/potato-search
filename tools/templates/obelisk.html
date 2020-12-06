@@ -19,7 +19,7 @@
             class="s4">1</span><span class="s5">.</span><span class="s6">0</span>&nbsp;</small>
     </a>
     <small><a class="beta_plan_b" href="{% url 'tools:obelisk_beta' %}?location={{ location }}&lang={{ lang }}&lr={{ lr }}">微软方案</a></small>
-    <form action="" name="form" method="post">
+    <form action="" name="form1" method="post" onsubmit="return requiredObelisk()">
         {% csrf_token %}
         <span class="span_text">文本:</span><br>
         {% if type == 'pc' %}
@@ -107,7 +107,7 @@
             </div>
         </div>
         <br>
-        <input class="input_sub" type="submit" name="" id="" value="提交">&nbsp;&nbsp;&nbsp;
+        <input class="input_sub" type="submit" name="" id="" onclick="return requiredObelisk()" value="提交">&nbsp;&nbsp;&nbsp;
         <button class="btn_reset" onclick="ClearTextArea()">重置</button>
     </form>
     <br>

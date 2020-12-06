@@ -19,20 +19,16 @@ KEY_LIST = [
 
 # (名称, 网址, 状态 1表示可用，0表示不可用，元组第一个为网站默认代理)
 WEB = (
-    ('WebProxy', 'https://outlook.superpotato.cf/', ''), 
-    ('WebProxy', 'https://huawei.superpotato.cf/', ''),
-    ('WebProxy', 'https://taobao.superpotato.cf/', ''),
-    ('WebProxy', 'https://baidu.superpotato.cf/', ''),
-    ('WebProxy', 'https://10086.superpotato.cf/', ''), 
-    ('WebProxy', 'https://qq.superpotato.cf/', ''),
-    ('WebProxy', 'https://proxy1.littlepotato.cf/', ''),   
-    ('WebProxy', 'https://bot-go-3.herokuapp.com/', '0'),
-    ('You2Php', 'https://bot-yt-3.herokuapp.com/', '0'),
+    ('WebProxy', 'https://proxy1.superpotato.ml/', ''),
+    ('WebProxy', 'https://10086.littlepotato.ga/', ''),
+    ('Project', 'https://996icu.ml/', ''),
+    ('WebProxy(仅做展示)', 'https://bot-go-3.herokuapp.com/', '0'),
+    ('You2Php(仅做展示)', 'https://bot-yt-3.herokuapp.com/', '0'),
 )
 
 AUTH = {
     "username": "potato",
-    "password": "123"
+    "password": "未设置密码"
 }
 
 APP = {

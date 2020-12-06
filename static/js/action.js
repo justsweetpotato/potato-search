@@ -1,3 +1,11 @@
+function requiredObelisk() {
+    var emptyPC = document.forms["form1"]["msg_pc"].value;
+    var emptyMobile = document.forms["form1"]["msg_mobile"].value;
+    if (emptyPC == emptyMobile) {
+        return false;
+    }
+}
+
 function required() {
     var empty = document.forms["form1"]["q"].value;
     if (empty == "") {
