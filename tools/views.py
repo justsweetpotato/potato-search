@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .data import print_in_line, print_in_line_reverse
+from tools.data import print_in_line, print_in_line_reverse
 
 
 def obelisk(request):
