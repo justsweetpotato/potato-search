@@ -19,6 +19,7 @@ KEY_LIST = [
 
 # (名称, 网址, 状态 1表示可用，0表示不可用，元组第一个为网站默认代理)
 WEB = (
+    ('WebProxy', 'https://proxy.superpotato.dev/', ''),
     ('WebProxy', 'https://outlook.superpotato.cf/', ''),
     ('WebProxy', 'https://proxy1.superpotato.ml/', ''),
     ('WebProxy', 'https://10086.littlepotato.ga/', ''),
@@ -29,7 +30,7 @@ WEB = (
 
 AUTH = {
     "username": "potato",
-    "password": "123"
+    "password": "777"
 }
 
 APP = {
