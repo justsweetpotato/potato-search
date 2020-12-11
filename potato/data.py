@@ -246,7 +246,10 @@ def get_ip_and_address(request):
     except:
         return None, None
     else:
-        address = res[0] + ' ' + res[1] + ' ' + res[2] + ' ' + res[4]
+        if res[1] == "台湾":
+            address = res[1] + " " + res[2] + " " + res[4]
+        else:
+            address = res[0] + ' ' + res[1] + ' ' + res[2] + ' ' + res[4]
 
     return ip, address
 
