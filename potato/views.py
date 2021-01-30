@@ -63,7 +63,7 @@ def index(request):
         'username': AUTH['username'],
         'password': AUTH['password']
     }
-    
+
     return render(request, template, content)
 
 
@@ -91,6 +91,24 @@ def doc(request):
     return render(request, 'doc.html', content)
 
 
+def api_error(status, *args):
+    '''接口调用方式错误返回错误信息'''
+
+    if status == 400:
+        message = 'Missing parameters, please check the documentation.'
+    elif status == 404:
+        message = 'Can not find related content.'
+
+    content = {
+        'error': {
+            'code': status,
+            'message': message
+        }
+    }
+    content = json.dumps(content, indent=1, ensure_ascii=False)
+    return content
+
+
 def api_search(request):
     '''谷歌搜索接口'''
 
@@ -100,9 +118,10 @@ def api_search(request):
 
     if q and page:
         server_msg = get_api_data(q, page, key, 1)
-        return HttpResponse(server_msg, content_type="application/json")
+        return HttpResponse(server_msg, content_type="application/json", status=200)
 
-    return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
+    content = api_error(400)  # 返回缺少参数的错误信息
+    return HttpResponse(content, content_type="application/json", status=400)
 
 
 def api_book(request):
@@ -114,9 +133,10 @@ def api_book(request):
 
     if q and page:
         server_msg = get_api_data(q, page, key)
-        return HttpResponse(server_msg, content_type="application/json")
+        return HttpResponse(server_msg, content_type="application/json", status=200)
 
-    return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
+    content = api_error(400)
+    return HttpResponse(content, content_type="application/json", status=400)
 
 
 def api_wiki(request):
@@ -131,16 +151,14 @@ def api_wiki(request):
                 'title': title,
                 'text': q_text
             }
+            content = json.dumps(content, indent=1, ensure_ascii=False)
+            return HttpResponse(content, content_type="application/json", status=200)
         else:
-            content = {
-                'error': {
-                    'code': 404,
-                    'message': 'Can not find related content.'
-                }
-            }
-        content = json.dumps(content, indent=1, ensure_ascii=False)
-        return HttpResponse(content, content_type="application/json")
-    return HttpResponse("缺少参数<br><a href='/doc/'>查看文档</a>")
+            content = api_error(404)
+            return HttpResponse(content, content_type="application/json", status=404)
+
+    content = api_error(400)
+    return HttpResponse(content, content_type="application/json", status=400)
 
 
 def api_ip(request):
@@ -152,4 +170,4 @@ def api_ip(request):
         'address': address
     }
     content = json.dumps(content, indent=1, ensure_ascii=False)
-    return HttpResponse(content, content_type="application/json")
+    return HttpResponse(content, content_type="application/json", status=200)

@@ -192,7 +192,10 @@ def requests_to_wikipedia(client_msg, language='zh-CN'):
                 return None, None
 
         title = html.xpath('//*[@id="firstHeading"]/text()')[0]  # 获取标题
-        content = re.sub('\[.*?\](:\d+)?|（.*?）|((中国互联网|中國網際網路).*。)', '', content, flags=re.S)  # 将文本中的 [] 与 () 舍弃
+        # content = re.sub('\[.*?\](:\d+)?|（.*?）|((中国互联网|中國網際網路).*。)', '', content, flags=re.S)  # 将文本中的 [.*?] 与 (.*?) 舍弃
+        # 此正则最后一个选项是对维基百科词条"百度"的特殊匹配规则，此词条目前已更新，注释但保留此规则
+        content = re.sub('\[.*?\](:\d+)?|（.*?）|((和腾讯|和騰訊).*）)', '', content, flags=re.S)  # 将文本中的 [.*?] 与 (.*?) 舍弃
+        # 此正则最后一个选项是对维基百科词条"百度"的特殊匹配规则，暂时无法做到针对"(()"进行"()"匹配时，如果遇到"("就忽略一个")"，等待改进
         return title, content
 
     return None, None
@@ -214,7 +217,7 @@ def handle_data(server_msg, client_msg):
             title_list.append(data_dict["title"])
             link_list.append(unquote(data_dict["link"], 'utf-8'))  # 进行 URL 解码符合人类阅读
             if not data_dict.get("htmlSnippet"):
-                data_dict["htmlSnippet"] = "No information is available for this page.<br>It means that the website prevented Google from creating a page description, but didn't actually hide the page from Google."
+                data_dict["htmlSnippet"] = "No information is available for this page."
             snippet_list.append(data_dict["htmlSnippet"])
 
         data_zip = zip(title_list, link_list, snippet_list)
@@ -236,13 +239,20 @@ def handle_data(server_msg, client_msg):
 
 def get_ip_and_address(request):
     '''获取用户 IP 与 地址'''
+    from func_timeout import func_set_timeout
 
     ip = request.META.get("HTTP_X_FORWARDED_FOR", "")  # 在使用反向代理的服务器上获取 Client IP
     if not ip:
         ip = request.META.get('REMOTE_ADDR', "")  # 在本地测试环境获取 Client IP
     url = "https://freeapi.ipip.net/{0}".format(ip)  # 获取地理位置
-    try:
+
+    @func_set_timeout(5)
+    def go_get_address(url):
         res = requests.get(url).json()
+        return res
+
+    try:
+        res = go_get_address(url)
     except:
         return None, None
     else:
@@ -315,7 +325,7 @@ def requests_status(url):
     @func_set_timeout(3)  # 使用 fuc_set_timeout 装饰器让装饰函数 3 秒后退出，不会因对方网站无响应而浪费等待时间
     def go_check_web(url):
         with requests.get(url) as r :
-            if (r.status_code == 200) or (r.status_code == 401):  # TODO: 401 是一种特殊情况，可以给 requests.get 加上 header 需测试
+            if (r.status_code == 200) or (r.status_code == 401):  # TODO: 401 是需要认证，可以给 requests.get 加上 header 需测试
                 return '1'
             return '0'
 
@@ -398,7 +408,7 @@ if __name__ == '__main__':
     # print(requests_to_wikipedia('西京'))
     # print(requests_to_wikipedia('hi'))
     # print(requests_to_wikipedia('ewae'))
-    # print(requests_to_wikipedia('百度'))
+    print(requests_to_wikipedia('百度'))
     # print(requests_to_wikipedia('分号'))
     # print(requests_to_wikipedia('华盛顿'))
     # print(requests_to_wikipedia('亚马逊雨林'))
